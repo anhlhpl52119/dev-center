@@ -1,0 +1,27 @@
+{
+  "name": "dev-center-v2",
+  "type": "module",
+  "private": true,
+  "engines": {
+    "node": "22.19.0"
+  },
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "nuxt": "4.2.0"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "5.0.0",
+    "@iconify-json/lucide": "1.2.63",
+    "@nuxtjs/i18n": "10.0.6",
+    "@tailwindcss/vite": "4.1.12",
+    "eslint-plugin-format": "^1.0.2",
+    "vue": "3.5.22",
+    "vue-router": "4.6.3"
+  }
+}
