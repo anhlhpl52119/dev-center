@@ -7,10 +7,13 @@
   },
   "scripts": {
     "build": "nuxt build",
-    "dev": "nuxt dev",
+    "dev": "nuxt dev --dotenv .env",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "build:dev2": "cross-env RUN_TYPE=dev2 nuxt build",
+    "build:sandbox": "cross-env RUN_TYPE=sandbox nuxt build",
+    "build:live": "cross-env RUN_TYPE=live nuxt build"
   },
   "dependencies": {
     "nuxt": "4.2.0"
@@ -20,8 +23,12 @@
     "@iconify-json/lucide": "1.2.63",
     "@nuxtjs/i18n": "10.0.6",
     "@tailwindcss/vite": "4.1.12",
-    "eslint-plugin-format": "^1.0.2",
+    "@types/node": "24.10.0",
+    "cross-env": "10.1.0",
+    "eslint-plugin-format": "1.0.2",
+    "typescript": "^5.9.3",
     "vue": "3.5.22",
-    "vue-router": "4.6.3"
+    "vue-router": "4.6.3",
+    "vue-tsc": "^3.1.3"
   }
 }
