@@ -1,0 +1,4 @@
+include:
+  - project: 'sgsinfra/gitlab-ci'
+    ref: 'main'
+    file: 'gitlab-ci/partners-master-api.yml'
