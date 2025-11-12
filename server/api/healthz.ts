@@ -1,4 +1,3 @@
-import pkg from '../../package.json';
 
 const startTime = new Date();
 
@@ -10,9 +9,9 @@ export default defineEventHandler((_event: unknown) => {
     uptime: process.uptime(),
     localTime: new Date(),
     service: {
-      name: pkg.name,
+      name: "dev-center-v2",
       // description: pkg.description,
-      version: pkg.version
+      version: "0.0.1"
     },
     env: {
       nodeEnv: process.env.NODE_ENV,
