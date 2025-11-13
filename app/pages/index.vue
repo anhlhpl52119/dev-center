@@ -2,19 +2,18 @@
 definePageMeta({
   name: 'home',
 });
-
-const config = useRuntimeConfig();
 </script>
 
 <template>
-  <main class="asdss">
-    <h1>Ok bro</h1>
-    <div>
-      <h1 class="font-bold">
-        Runtime
-      </h1>
-      <pre class="mt-24">{{ config.public }}</pre>
-    </div>
-    <span class="block mt-12 text-red-300">hello</span>
+  <main class="relative mx-auto flex max-w-7xl">
+    <AppLNB
+      class="sticky top-0 hidden h-screen w-68 shrink-0 overflow-y-auto p-6 pt-8 md:block"
+    />
+
+    <AppArticle class="min-w-80 pt-10 pb-38.5" />
+
+    <AppAside
+      class="sticky top-0 hidden h-screen w-72 shrink-0 overflow-y-auto p-8 lg:block"
+    />
   </main>
 </template>

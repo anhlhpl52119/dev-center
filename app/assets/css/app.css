@@ -1,11 +1,7 @@
+@import './font-face.css';
+
 @layer theme, base, components, utilities;
-
-@import 'tailwindcss/theme.css' layer(theme);
-
-@import './font.css' layer(base);
-@import 'tailwindcss/preflight.css' layer(base);
-
-@import 'tailwindcss/utilities.css' layer(utilities);
-
-@theme {
-}
+@import './layers/01-theme.css' layer(theme);
+@import './layers/02-base.css' layer(base);
+@import './layers/03-components.css' layer(components);
+@import './layers/04-utilities.css' layer(utilities);

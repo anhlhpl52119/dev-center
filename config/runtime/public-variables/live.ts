@@ -3,7 +3,7 @@ import type { PublicRuntimeConfig } from 'nuxt/schema';
 export const live: PublicRuntimeConfig = {
   runType: 'live',
   defaultLocale: 'ko',
-  apiBaseUrl: 'https://admin-developers-vulcanus-api.onstove.com',
+  apiBaseUrl: 'https://admin-developers-api.onstove.com',
   callerId: '',
-  siteUrl: 'https://developers-vulcanus.onstove.com',
+  siteUrl: 'https://developers.onstove.com',
 };

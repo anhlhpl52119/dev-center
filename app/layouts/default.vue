@@ -1,5 +1,4 @@
 <template>
-  <h1>Header</h1>
+  <AppHeader />
   <slot />
-  <footer>Footer</footer>
 </template>

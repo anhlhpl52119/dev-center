@@ -5,7 +5,7 @@ declare module 'nuxt/schema' {
 
   /* Public runtime config */
   interface PublicRuntimeConfig {
-    runType: 'dev2' | 'sandbox' | 'live';
+    runType: 'dev' | 'qa' | 'qa2' | 'dev2' | 'sandbox' | 'live';
     apiBaseUrl: string;
     defaultLocale: 'en' | 'ko';
     callerId: string;
