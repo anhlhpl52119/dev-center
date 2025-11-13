@@ -1,4 +1,4 @@
 <template>
-  <AppHeader />
+  <AppHeader class="bg-abg-base" />
   <slot />
 </template>

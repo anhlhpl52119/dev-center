@@ -3,9 +3,9 @@ console.log('');
 </script>
 
 <template>
-  <header class="bg-abg-base">
+  <header>
     <nav
-      class="absolute mx-auto flex h-16 max-w-400 items-center justify-end-safe px-10"
+      class="mx-auto flex h-16 max-w-400 items-center justify-end-safe px-10"
     >
       <!-- Left -->
       <div class="mr-auto">
