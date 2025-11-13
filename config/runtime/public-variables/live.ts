@@ -5,5 +5,5 @@ export const live: PublicRuntimeConfig = {
   defaultLocale: 'ko',
   apiBaseUrl: 'https://developers-vulcanus-api.onstove.com',
   callerId: '',
-  siteUrl: 'https://developers.onstove.com',
+  siteUrl: 'https://developers-vulcanus.onstove.com',
 };

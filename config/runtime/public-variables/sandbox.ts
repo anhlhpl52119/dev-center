@@ -5,5 +5,5 @@ export const sandbox: PublicRuntimeConfig = {
   defaultLocale: 'ko',
   apiBaseUrl: 'https://developers-vulcanus-api.gate8.com',
   callerId: '',
-  siteUrl: 'https://developers-sandbox.onstove.com',
+  siteUrl: 'https://developers-vulcanus.gate8.com',
 };

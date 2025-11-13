@@ -5,5 +5,5 @@ export const qa2: PublicRuntimeConfig = {
   defaultLocale: 'ko',
   apiBaseUrl: 'https://developers-vulcanus-api-qa2.onstove.com',
   callerId: '',
-  siteUrl: 'https://developers-dev2.onstove.com',
+  siteUrl: 'https://developers-vulcanus-qa2.onstove.com',
 };

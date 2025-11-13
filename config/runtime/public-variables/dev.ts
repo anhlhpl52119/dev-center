@@ -5,5 +5,5 @@ export const dev: PublicRuntimeConfig = {
   defaultLocale: 'ko',
   apiBaseUrl: 'https://developers-vulcanus-api-dev.onstove.com',
   callerId: '',
-  siteUrl: 'https://developers-dev2.onstove.com',
+  siteUrl: 'https://developers-vulcanus-dev.onstove.com',
 };
