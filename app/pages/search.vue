@@ -54,7 +54,7 @@ const searchedContent = [
     <div class="mx-auto mt-10 grid max-w-330 gap-4">
       <template v-for="(item, index) in searchedContent" :key="index">
         <div
-          class="bg-abg-base outline-abd-base rounded-4xl p-7.5 transition hover:shadow-md hover:outline"
+          class="bg-abg-base outline-abd-base rounded-4xl p-7.5 transition hover:shadow-sm hover:outline"
         >
           <h2 class="text-2xl font-bold">
             {{ item.title }}

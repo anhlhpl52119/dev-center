@@ -10,9 +10,9 @@
     </header>
 
     <div
-      class="bg-abg-base mt-10 min-h-10 max-w-[716px] rounded-4xl p-7.5 shadow-sm"
+      class="bg-abg-base mt-10 min-h-10 max-w-179 rounded-4xl p-7.5 shadow-sm"
     >
-      <section class="leading-[24px]">
+      <section class="leading-6">
         <h2 class="mb-2 text-xl">
           <strong>불카누스 소개</strong>
         </h2>
@@ -24,7 +24,7 @@
         </p>
       </section>
 
-      <section class="mt-10 leading-[24px]">
+      <section class="mt-10 leading-6">
         <h2 class="mb-2 text-xl">
           <strong>게임 프레임워크와 게임 템플릿</strong>
         </h2>
@@ -48,7 +48,7 @@
         </p>
       </section>
 
-      <section class="mt-10 leading-[24px]">
+      <section class="mt-10 leading-6">
         <h2 class="mb-2 text-xl">
           <strong>불카누스 소개</strong>
         </h2>
@@ -82,7 +82,7 @@
         </ol>
       </section>
 
-      <section class="mt-10 leading-[24px]">
+      <section class="mt-10 leading-6">
         <h2 class="mt-10 mb-2 text-xl">
           <strong>게임프레임워크의 구조</strong>
         </h2>
@@ -106,7 +106,7 @@
         </p>
       </section>
 
-      <section class="mt-10 leading-[24px]">
+      <section class="mt-10 leading-6">
         <h2 class="mt-10 mb-2 text-xl">
           <strong>게임프레임워크의 구조</strong>
         </h2>
@@ -130,7 +130,7 @@
         </p>
       </section>
 
-      <section class="mt-10 leading-[24px]">
+      <section class="mt-10 leading-6">
         <h2 class="mt-10 mb-2 text-xl">
           <strong>게임프레임워크의 구조</strong>
         </h2>
@@ -154,7 +154,7 @@
         </p>
       </section>
 
-      <section class="mt-10 leading-[24px]">
+      <section class="mt-10 leading-6">
         <h2 class="mt-10 mb-2 text-xl">
           <strong>게임프레임워크의 구조</strong>
         </h2>
@@ -178,7 +178,7 @@
         </p>
       </section>
 
-      <section class="mt-10 leading-[24px]">
+      <section class="mt-10 leading-6">
         <h2 class="mt-10 mb-2 text-xl">
           <strong>게임프레임워크의 구조</strong>
         </h2>
