@@ -14,3 +14,20 @@
     color: var(--color-gray-950);
   }
 }
+
+.pagination {
+  @apply flex flex-wrap items-center;
+
+  & > .page-item {
+    @apply relative size-8 rounded-2xl px-[0.71875rem];
+    @apply hover:bg-abg-active;
+
+    &.active {
+      @apply text-invert bg-primary;
+    }
+
+    & > .page-link {
+      @apply absolute top-1/2 left-1/2 -translate-1/2;
+    }
+  }
+}
