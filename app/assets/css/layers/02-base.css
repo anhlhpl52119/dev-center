@@ -56,5 +56,6 @@ body {
   @apply text-tcl-base min-h-screen bg-fixed;
   font-size: var(--text-body);
   background-repeat: no-repeat;
-  background-image: var(--clr-background-underlay);
+  background-color: var(--color-abg-underlay);
+  background-image: var(--color-abg-gradient);
 }

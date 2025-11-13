@@ -9,9 +9,9 @@ QA2: <developers-vulcanus-qa2.onstove.com>
 
 ## Admin Site
 
-dev: <admin-vulcanus-dev.onstove.com>
-dev2: <admin-vulcanus-dev2.onstove.com>
-QA: <admin-vulcanus-qa.onstove.com>
-QA2: <admin-vulcanus-qa2.onstove.com>
+dev: <admin-developers-vulcanus-dev.onstove.com> | 123456
+dev2: <admin-developers-vulcanus-dev2.onstove.com>
+QA: <admin-developers-vulcanus-qa.onstove.com>
+QA2: <admin-developers-vulcanus-qa2.onstove.com>
 
 ## APi site

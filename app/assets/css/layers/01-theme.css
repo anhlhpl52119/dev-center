@@ -25,6 +25,8 @@
   --clr-black-l-10: hsl(0, 0%, 10%);
 
   --clr-tealish-blue-l-95: hsl(231, 28%, 95%);
+
+  --clr-sky-blue-l-99: hsl(214, 100%, 99%); /* top bg gradient */
   --clr-sky-blue-l-76: hsl(214, 100%, 76%); /* top bg gradient */
 
   --clr-charcoal-l-25: hsl(228, 23%, 25%); /* shadow*/
@@ -41,6 +43,12 @@
   --fs-20: 1.25rem;
   --fs-32: 2rem;
   --fs-42: 2.625rem;
+
+  --light-clr-bg-gradient-start: --alpha(var(--clr-sky-blue-l-76) / 20%);
+  --light-clr-bg-gradient-end: --alpha(var(--clr-white) / 0%);
+
+  --dark-clr-bg-gradient-start: --alpha(var(--clr-sky-blue-l-76) / 20%);
+  --dark-clr-bg-gradient-end: --alpha(var(--clr-white) / 0%);
 
   /* Light & default */
   &,
@@ -62,7 +70,12 @@
     --clr-border-active: --alpha(var(--clr-primary) / 10%);
     --clr-box-shadow: --alpha(var(--clr-charcoal-l-25) / 10%);
 
-    --clr-background-underlay: linear-gradient(180deg, rgba(134, 186, 255, 0.2) 0%, rgba(255, 255, 255, 0) 45.9%);
+    --clr-background-gradient: linear-gradient(
+      180deg,
+      var(--light-clr-bg-gradient-start) 0%,
+      var(--light-clr-bg-gradient-end) 45.9%
+    );
+    --clr-background-underlay: var(--clr-sky-blue-l-99);
     --clr-background-base: var(--clr-white);
     --clr-background-raised: var(--clr-sky-blue-l-76);
     --clr-background-active: --alpha(var(--clr-primary) / 6%) /* hsl(226, 100%, 59%, 0.06) */;
@@ -87,7 +100,12 @@
     --clr-border-active: --alpha(var(--clr-primary) / 10%);
     --clr-box-shadow: --alpha(var(--clr-charcoal-l-25) / 10%);
 
-    --clr-background-underlay: linear-gradient(180deg, rgba(134, 186, 255, 0.2) 0%, rgba(255, 255, 255, 0) 45.9%);
+    --clr-background-gradient: linear-gradient(
+      180deg,
+      var(--light-clr-bg-gradient-start) 0%,
+      var(--light-clr-bg-gradient-end) 45.9%
+    );
+    --clr-background-underlay: var(--clr-sky-blue-l-99);
     --clr-background-base: var(--clr-white);
     --clr-background-raised: var(--clr-sky-blue-l-76);
     --clr-background-active: --alpha(var(--clr-primary) / 6%) /* hsl(226, 100%, 59%, 0.06) */;
@@ -114,7 +132,12 @@
     --clr-border-active: --alpha(var(--clr-primary) / 10%);
     --clr-box-shadow: --alpha(var(--clr-charcoal-l-25) / 10%);
 
-    --clr-background-underlay: linear-gradient(180deg, rgba(134, 186, 255, 0.2) 0%, rgba(255, 255, 255, 0) 45.9%);
+    --clr-background-gradient: linear-gradient(
+      180deg,
+      var(--light-clr-bg-gradient-start) 0%,
+      var(--light-clr-bg-gradient-end) 45.9%
+    );
+    --clr-background-underlay: var(--clr-sky-blue-l-99);
     --clr-background-base: var(--clr-white);
     --clr-background-raised: var(--clr-sky-blue-l-76);
     --clr-background-active: --alpha(var(--clr-primary) / 6%) /* hsl(226, 100%, 59%, 0.06) */;
@@ -144,6 +167,8 @@
   --color-abd-active: var(--clr-border-active);
 
   /* background */
+  --color-abg-gradient: var(--clr-background-gradient);
+  --color-abg-underlay: var(--clr-background-underlay);
   --color-abg-base: var(--clr-background-base);
   --color-abg-raised: var(--clr-background-raised);
   --color-abg-active: var(--clr-background-active);
