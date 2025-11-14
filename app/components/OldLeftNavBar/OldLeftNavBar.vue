@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { BreadcrumbModel, LNBModel } from './types';
+import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
 import TheLeftNavItem from './LNBItem.vue';
 
 interface CatalogProps {
@@ -31,7 +32,7 @@ function closeSidebar() {
 }
 
 function handleResize() {
-  isShowBtnToggleLNB.value = mediaBreakpointDown('md');
+  isShowBtnToggleLNB.value = useBreakpoints(breakpointsTailwind).isGreaterOrEqual('md');
 }
 
 onMounted(() => {
@@ -83,7 +84,7 @@ function toggleLNBDesktop() {
       class="d-md-none btn btn-toggle-toc-mobile btn-toggle-toc btn-icon"
       @click="emit('toggleTOCMobile')"
     >
-      <i class="ic-v2-community-board-all-line ic-toggle-toc close" />
+      <Icon name="svg:menu" class="size-10" />
     </button>
 
     <div
@@ -126,7 +127,3 @@ function toggleLNBDesktop() {
     />
   </nav>
 </template>
-
-<style scoped lang="scss">
-@import 'assets/scss/pages/detail/leftNavBar';
-</style>

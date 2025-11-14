@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { LNBModel } from './types';
-import { isCurrentNavItemOrDirectChild } from '@/utils/lnb';
+import { isCurrentNavItemOrDirectChild } from './utils';
 
 interface NavLinkProps {
   navItem: LNBModel;
@@ -12,6 +12,7 @@ const localePath = useLocalePath();
 const currentUrl = ref<string>(route.path.toString());
 
 const isFolderDiv = computed(() => {
+  // return true;
   return props.navItem.isFolder === true && props.navItem.pageId === null;
 });
 
@@ -34,17 +35,6 @@ function navClick(linkClicked: string) {
 function isParentLink(potentialParent: string, potentialChild: string) {
   return potentialChild.startsWith(potentialParent);
 }
-// const isCurrentNavItemOrDirectChild = (pageTreeModel: LNBModel) => {
-//   const href = pageTreeModel.href;
-//   const decodedCurrentUrl = removeLocalePrefix(decodeURIComponent(currentUrl.value));
-
-//   return pageTreeModel.children?.length && (decodedCurrentUrl === href || (decodedCurrentUrl !== href && decodedCurrentUrl.startsWith(href)));
-// };
-
-// onMounted(() => {
-//   const activePath = removeLocalePrefix(currentUrl.value);
-//   navClick(activePath);
-// });
 </script>
 
 <template>
@@ -64,7 +54,7 @@ function isParentLink(potentialParent: string, potentialChild: string) {
         class="sdc-nav-text"
         :class="[
           `sdc-nav-text-depth-${navItem.depth}`,
-          navItem.depth == 2 ? 'text-truncate-1' : 'text-truncate-3',
+          navItem.depth === 2 ? 'text-truncate-1' : 'text-truncate-3',
         ]"
       >{{ navItem?.title }}</span>
       <i
@@ -87,7 +77,7 @@ function isParentLink(potentialParent: string, potentialChild: string) {
       <span
         class="sdc-nav-text"
         :class="[
-          navItem.depth == 2 ? 'text-truncate-1' : 'text-truncate-3',
+          navItem.depth === 2 ? 'text-truncate-1' : 'text-truncate-3',
         ]"
       >{{ navItem?.title }}</span>
       <i
@@ -97,7 +87,7 @@ function isParentLink(potentialParent: string, potentialChild: string) {
     </NuxtLink>
 
     <ul v-if="navItem.children && navItem.children.length" class="sdc-nav-sublist">
-      <TheLeftNavItem
+      <LNBItem
         v-for="item in navItem.children"
         :key="`${navItem.id}-link-${item.depth}-${item.id}`"
         :navItem="item"
