@@ -9,20 +9,39 @@ export default defineNuxtConfig({
   runtimeConfig,
 
   css: ['~/assets/css/app.css'],
-  modules: ['@nuxt/icon'],
-  vite: {
-    plugins: [tailwindcss()],
-  },
+  modules: ['@nuxt/icon', '@nuxtjs/i18n'],
+  vite: { plugins: [tailwindcss()] },
   imports: {
     dirs: ['constants'],
   },
-  // app: {
-  //   head: {
-  //     htmlAttrs: {
-  //       lang: 'ko', // Sets the lang attribute for the <html> tag
-  //     },
-  //   },
-  // },
+  components: [
+    {
+      path: '~/components',
+      pathPrefix: false,
+    },
+  ],
+  i18n: {
+    locales: [
+      {
+        code: 'en',
+        name: 'English',
+        language: 'en',
+        files: ['en/common.json'],
+      },
+      {
+        code: 'ko',
+        language: 'ko',
+        name: 'Korean',
+        files: ['ko/common.json'],
+      },
+    ],
+    strategy: 'prefix',
+    defaultLocale: 'ko',
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: 'LOCALE',
+    },
+  },
   icon: {
     mode: 'css',
     cssLayer: 'base',

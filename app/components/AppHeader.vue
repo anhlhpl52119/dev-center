@@ -1,5 +1,5 @@
 <script setup lang="ts">
-console.log('');
+// console.log('');
 </script>
 
 <template>
@@ -14,7 +14,7 @@ console.log('');
         </NuxtLink>
 
         <span class="inline-block align-middle text-xl font-bold">
-          창작자 센터 바로가기
+          {{ $t('common.bubbliz_guide') }}
         </span>
       </div>
 
@@ -26,7 +26,7 @@ console.log('');
             class="group cursor-pointer font-medium"
             target="_blank"
           >
-            <span>창작자 센터 바로가기</span>
+            <span>{{ $t('common.go_to_creator_center') }}</span>
             <Icon
               name="svg:navigate-out"
               class="group-hover:text-primary ml-1.5 size-3 transition-colors duration-200"

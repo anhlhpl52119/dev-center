@@ -2,6 +2,7 @@
 definePageMeta({
   name: 'home',
 });
+const config = useRuntimeConfig().public;
 </script>
 
 <template>

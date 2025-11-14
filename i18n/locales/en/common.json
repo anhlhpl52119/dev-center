@@ -1,0 +1,8 @@
+{
+  "common": {
+    "case": "Case",
+    "bubbliz_guide": "Bubbliz Guide",
+    "go_to_creator_center": "Go to Creator Center",
+    "last_update_at": "Last Updated: {at}"
+  }
+}

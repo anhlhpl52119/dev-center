@@ -204,7 +204,7 @@
     </div>
 
     <p class="text-tcl-dimmed mt-5 text-right text-xs">
-      Last Updated: 2025.09.11 오후 20:22
+      {{ $t('common.last_update_at', { at: '2025.09.11 오후 20:22' }) }}
     </p>
   </article>
 </template>

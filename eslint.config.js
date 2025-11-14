@@ -43,5 +43,6 @@ export default antfu({
     'no-console': 'warn',
     'unused-imports/no-unused-vars': 'warn',
     'node/prefer-global/process': 'off',
+    'ts/ban-ts-comment': 'off',
   },
 });
