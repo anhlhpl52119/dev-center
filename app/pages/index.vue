@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-definePageMeta({
-  name: 'home',
-  redirect: '/web/etc/Generator', // TODO: get first content
-});
+const localePath = useLocalePath();
+navigateTo(localePath('/web/etc/Generator'), { replace: true });
 </script>

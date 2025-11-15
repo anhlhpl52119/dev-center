@@ -99,15 +99,13 @@ const { data: lnbData, execute } = await useAsyncData<any>('LeftNavigationBar', 
       <button class="mb-6">
         <Icon name="svg:menu" class="size-10" />
       </button>
-      <NewLNB
-        :items="convertToTree(lnb)"
-      />
+      <NewLNB :items="convertToTree(lnb)" />
     </div>
 
     <!-- article -->
     <slot />
 
-    <MdTOC
+    <MarkdownTOC
       :content="markdown"
       class="sticky top-0 ml-10 hidden h-screen w-51 shrink-0 overflow-y-auto pt-8 lg:block"
     />

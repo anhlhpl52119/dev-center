@@ -5,5 +5,5 @@ definePageMeta({
 </script>
 
 <template>
-  <ContentMain class="mt-10" />
+  <AppArticle class="mt-10" />
 </template>

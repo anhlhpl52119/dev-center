@@ -27,7 +27,7 @@ const isExpanded = (id: number) => expandedItems.value.has(id);
       <li
         v-for="item in items"
         :key="item.id"
-        class="pl-4 rounded-full leading-6 font-bold"
+        class="rounded-full leading-6 font-bold"
       >
         <!-- link -->
         <NuxtLinkLocale
