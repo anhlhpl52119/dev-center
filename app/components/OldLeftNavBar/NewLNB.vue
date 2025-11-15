@@ -57,7 +57,7 @@ const isExpanded = (id: number) => expandedItems.value.has(id);
         <!-- Nested child -->
         <ul
           v-if="item.children?.length && (!item.isFolder || isExpanded(item.id))"
-          class="mt-1"
+          class="mt-1 pl-4"
         >
           <NewLNB :items="item.children" />
         </ul>
