@@ -5,14 +5,15 @@ import { getLNBQuery } from '~~/graphql/queries/lnb';
 const { $api } = useNuxtApp();
 const { locale } = useI18n();
 const lnb = ref<LNBModel[]>([]);
-const markdown = ref('');
+const { content } = useRoutesContent();
+const markdown = computed(() => content.value);
 async function fetchLnb() {
   const graphqlQuery = {
     query: getLNBQuery,
     variables: {
       locale: locale.value,
       mode: 'LIKE',
-      path: 'web/auth',
+      path: 'web',
     },
   };
   return await $api('graphql', {

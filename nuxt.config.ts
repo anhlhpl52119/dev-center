@@ -14,6 +14,9 @@ export default defineNuxtConfig({
   imports: {
     dirs: ['constants'],
   },
+  devServer: {
+    host: 'local.onstove.com',
+  },
   components: [
     {
       path: '~/components',

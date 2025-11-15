@@ -1,53 +1,39 @@
 <script lang="ts" setup>
-const { $api } = useNuxtApp();
-const { locale } = useI18n();
-const route = useRoute();
-const markdown = ref('');
-const _subtitle = ref('');
-const _title = ref('');
+const { content, title, updatedAt } = useRoutesContent();
 
-// sample fetch data by routes
-// const { data: markdownResponse } = await useFetch<any>('/api/markdown', {
-//   body: {
-//     locale,
-//     path: route.path,
-//   },
-// });
-
-// (function init() {
-//   markdown.value = markdownResponse.value.pages.singleByPath.content;
-// })();
-
-// onMounted(async () => {
-//   const { data } = await $api('/api/markdown', {
-//     baseURL: '/',
-//   });
-//   markdown.value = data.pages.singleByPath.content;
-//   _subtitle.value = data.pages.singleByPath.title;
-//   _title.value = data.pages.singleByPath.title;
-// });
+const heading = computed(() => title.value || '');
+const description = computed(() => '');
+const lastUpdatedAt = computed(() => updatedAt.value);
 </script>
 
 <template>
   <article itemscope itemtype="http://schema.org/Article">
     <header>
       <h1 itemprop="headline" class="text-heading mb-1 font-bold">
-        {{ _title }}
+        {{ heading }}
       </h1>
 
-      <p itemprop="description" class="text-sx text-tcl-dimmed">
-        {{ _subtitle }}
+      <p
+        v-if="description"
+        itemprop="description"
+        class="text-sx text-tcl-dimmed"
+      >
+        {{ description }}
       </p>
     </header>
 
     <MarkdownRenderer
-      :content="markdown"
+      :content="content"
       itemprop="articleBody"
       class="bg-abg-base mt-10 min-h-10 max-w-179 rounded-4xl p-7.5 shadow-sm overflow-x-auto"
     />
 
-    <p itemprop="lastUpdatedAt" class="text-tcl-dimmed mt-5 text-right text-xs">
-      {{ $t('common.last_update_at', { at: '2025.09.11 오후 20:22' }) }}
+    <p
+      v-if="lastUpdatedAt"
+      itemprop="lastUpdatedAt"
+      class="text-tcl-dimmed mt-5 text-right text-xs"
+    >
+      {{ $t('common.last_update_at', { at: lastUpdatedAt }) }}
     </p>
   </article>
 </template>
