@@ -4,7 +4,6 @@ import { dummyLNB } from '@/data/lnb';
 definePageMeta({
   name: 'home',
 });
-const config = useRuntimeConfig().public;
 </script>
 
 <template>
@@ -15,7 +14,7 @@ const config = useRuntimeConfig().public;
       isShowTocMenuIcon
     />
 
-    <AppArticle class="min-w-80 pt-10 pb-38.5" />
+    <!-- <AppArticle class="min-w-80 pt-10 pb-38.5" /> -->
 
     <AppAside
       class="sticky top-0 ml-10 hidden h-screen w-51 shrink-0 overflow-y-auto pt-8 lg:block"

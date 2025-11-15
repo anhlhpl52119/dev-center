@@ -1,0 +1,36 @@
+@import './font-face.css';
+
+@layer theme, base, components, utilities;
+@import './layers/01-theme.css' layer(theme);
+@import './layers/02-base.css' layer(base);
+@import './layers/03-components.css' layer(components);
+@import './layers/04-utilities.css' layer(utilities);
+
+@layer base {
+  html {
+    font-family: var(--ff-stack-default);
+
+    scroll-behavior: smooth;
+
+    /* text visualize */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+
+    /* Korean font */
+    &[lang='ko'] {
+      font-family: var(--ff-han-sans-neo);
+    }
+    &[lang='en'] {
+      font-family: var(--ff-inter);
+    }
+  }
+
+  body {
+    @apply text-tcl-base min-h-screen bg-fixed;
+    font-size: var(--text-body);
+    background-repeat: no-repeat;
+    background-color: var(--color-abg-underlay);
+    background-image: var(--color-abg-gradient);
+  }
+}

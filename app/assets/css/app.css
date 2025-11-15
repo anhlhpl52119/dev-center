@@ -1,7 +1,0 @@
-@import './font-face.css';
-
-@layer theme, base, components, utilities;
-@import './layers/01-theme.css' layer(theme);
-@import './layers/02-base.css' layer(base);
-@import './layers/03-components.css' layer(components);
-@import './layers/04-utilities.css' layer(utilities);

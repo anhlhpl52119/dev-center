@@ -8,7 +8,7 @@ export default defineNuxtConfig({
   typescript,
   runtimeConfig,
 
-  css: ['~/assets/css/app.css'],
+  css: ['~/assets/css/main.css'],
   modules: ['@nuxt/icon', '@nuxtjs/i18n', '@vueuse/nuxt'],
   vite: { plugins: [tailwindcss()] },
   imports: {
