@@ -23,19 +23,19 @@ const isExpanded = (id: number) => expandedItems.value.has(id);
 
 <template>
   <nav>
-    <ul class="space-y-1">
+    <ul class="space-y-0.5">
       <li
         v-for="item in items"
         :key="item.id"
-        class="w-full"
+        class="pl-4 rounded-full leading-6 font-bold"
       >
         <!-- link -->
         <NuxtLinkLocale
           v-if="!item.isFolder"
           :to="`/${item.path}`"
-          replace
-          class="block cursor-pointer px-4 py-2 text-sm text-gray-600 hover:bg-gray-100 hover:text-gray-900 rounded-md"
-          activeClass="bg-blue-100 text-blue-900 font-medium"
+          exactActiveClass="bg-abg-active text-tcl-primary"
+          class="capitalize rounded-full block py-2 pr-3 pl-4 leading-6 font-medium hover:bg-abg-raised/7"
+          activeClass="font-medium"
         >
           {{ item.title }}
         </NuxtLinkLocale>
@@ -43,10 +43,10 @@ const isExpanded = (id: number) => expandedItems.value.has(id);
         <!-- Folder -->
         <div
           v-else
-          class="flex items-center justify-between px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 cursor-pointer rounded-md"
+          class="cursor-pointer text-md flex items-center rounded-full py-2 pr-3 pl-4 hover:bg-abg-raised/7"
           @click="toggleExpand(item.id)"
         >
-          <span>{{ item.title }}</span>
+          <span class="capitalize">{{ item.title }}</span>
           <Icon
             v-if="item.children?.length"
             name="svg:single-arrow-up"
@@ -57,7 +57,7 @@ const isExpanded = (id: number) => expandedItems.value.has(id);
         <!-- Nested child -->
         <ul
           v-if="item.children?.length && (!item.isFolder || isExpanded(item.id))"
-          class="ml-4 mt-1 space-y-1 border-l border-gray-200 pl-4"
+          class="mt-1"
         >
           <NewLNB :items="item.children" />
         </ul>
