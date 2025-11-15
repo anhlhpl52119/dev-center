@@ -7,8 +7,6 @@ interface NavLinkProps {
 
 const props = defineProps<NavLinkProps>();
 
-const localePath = useLocalePath();
-
 const isFolderDiv = computed(() => {
   return props.navItem.isFolder === true && props.navItem.pageId === null;
 });
@@ -37,9 +35,9 @@ function isParentLink(potentialParent: string, potentialChild: string) {
 <template>
   <li class="pl-4 rounded-full leading-6 font-bold">
     <!-- single route -->
-    <NuxtLink
+    <NuxtLinkLocale
       v-if="!isFolderDiv"
-      :to="localePath(navItem.href)"
+      :to="navItem.href"
       exactActiveClass="bg-abg-active text-tcl-primary"
       class="rounded-full block py-2 pr-3 pl-4 leading-6 font-medium hover:bg-abg-active hover:text-tcl-primary"
       :data-href="navItem.href"
@@ -51,7 +49,7 @@ function isParentLink(potentialParent: string, potentialChild: string) {
         name="svg:single-arrow-down"
         class="ml-auto w-2.5"
       />
-    </NuxtLink>
+    </NuxtLinkLocale>
 
     <!-- nested routes -->
     <div
