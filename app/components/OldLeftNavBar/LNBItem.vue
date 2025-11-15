@@ -1,18 +1,15 @@
 <script setup lang="ts">
 import type { LNBModel } from './types';
-import { isCurrentNavItemOrDirectChild } from './utils';
 
 interface NavLinkProps {
   navItem: LNBModel;
 }
 
 const props = defineProps<NavLinkProps>();
-const route = useRoute();
+
 const localePath = useLocalePath();
-const currentUrl = ref<string>(route.path.toString());
 
 const isFolderDiv = computed(() => {
-  // return true;
   return props.navItem.isFolder === true && props.navItem.pageId === null;
 });
 
@@ -38,55 +35,40 @@ function isParentLink(potentialParent: string, potentialChild: string) {
 </script>
 
 <template>
-  <li class="sdc-nav-item">
+  <li class="pl-4 rounded-full leading-6 font-bold">
+    <!-- single route -->
+    <NuxtLink
+      v-if="!isFolderDiv"
+      :to="localePath(navItem.href)"
+      exactActiveClass="bg-abg-active text-tcl-primary"
+      class="rounded-full block py-2 pr-3 pl-4 leading-6 font-medium hover:bg-abg-active hover:text-tcl-primary"
+      :data-href="navItem.href"
+      @click.stop="navClick(navItem.href)"
+    >
+      <span>{{ navItem?.title }}</span>
+      <Icon
+        v-if="navItem.children?.length"
+        name="svg:single-arrow-down"
+        class="ml-auto w-2.5"
+      />
+    </NuxtLink>
+
+    <!-- nested routes -->
     <div
-      v-if="isFolderDiv"
-      class="sdc-nav-title sdc-nav-depth"
-      :class="[
-        `sdc-nav-depth-${navItem.depth}`,
-        { show: isCurrentNavItemOrDirectChild(navItem, currentUrl) },
-      ]"
+      v-else
+      class="cursor-pointer text-md flex items-center rounded-full py-2 pr-3 pl-4 hover:bg-abg-active hover:text-tcl-primary"
       :data-href="navItem.href"
       role="button"
       @click.stop="navClick(navItem.href)"
     >
-      <span
-        class="sdc-nav-text"
-        :class="[
-          `sdc-nav-text-depth-${navItem.depth}`,
-          navItem.depth === 2 ? 'text-truncate-1' : 'text-truncate-3',
-        ]"
-      >{{ navItem?.title }}</span>
-      <i
+      <span>{{ navItem?.title }}</span>
+      <Icon
         v-if="navItem.children?.length"
-        class="ic-v2-control-select-arrow-down-fill sdc-nav-ic-collapse"
+        name="svg:single-arrow-down"
+        class="ml-auto w-2.5"
       />
     </div>
-    <NuxtLink
-      v-else
-      :to="localePath(navItem.href)"
-      exactActiveClass="sdc-nav-active"
-      class="sdc-nav-title sdc-nav-depth sdc-nav-link"
-      :class="[
-        `sdc-nav-depth-${navItem.depth}`,
-        { show: isCurrentNavItemOrDirectChild(navItem, currentUrl) },
-      ]"
-      :data-href="navItem.href"
-      @click.stop="navClick(navItem.href)"
-    >
-      <span
-        class="sdc-nav-text"
-        :class="[
-          navItem.depth === 2 ? 'text-truncate-1' : 'text-truncate-3',
-        ]"
-      >{{ navItem?.title }}</span>
-      <i
-        v-if="navItem.children?.length"
-        class="ic-v2-control-select-arrow-down-fill sdc-nav-ic-collapse"
-      />
-    </NuxtLink>
-
-    <ul v-if="navItem.children && navItem.children.length" class="sdc-nav-sublist">
+    <ul v-if="navItem.children && navItem.children.length">
       <LNBItem
         v-for="item in navItem.children"
         :key="`${navItem.id}-link-${item.depth}-${item.id}`"
