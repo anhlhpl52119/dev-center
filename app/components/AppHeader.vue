@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// console.log('');
+const search = ref('');
 </script>
 
 <template>
@@ -35,11 +35,14 @@
         </li>
 
         <li>
+          {{ search }}
           <input
+            v-model="search"
+            maxlength="100"
             type="text"
             class="border-abd-base w-55 rounded-full border py-3 pr-10 pl-4"
             placeholder="검색어를 입력하세요."
-            @keyup.enter="navigateTo('/search')"
+            @keyup.enter="navigateTo({ path: $localePath('/search'), query: { search } })"
           >
         </li>
 
