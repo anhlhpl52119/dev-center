@@ -7,6 +7,7 @@ import { sub } from '@mdit/plugin-sub';
 import { sup } from '@mdit/plugin-sup';
 import { tab } from '@mdit/plugin-tab';
 import { tasklist } from '@mdit/plugin-tasklist';
+import slugify from '@sindresorhus/slugify';
 import DOMPurify from 'dompurify';
 import MarkdownIt from 'markdown-it';
 import anchor from 'markdown-it-anchor';
@@ -38,14 +39,21 @@ const md = new MarkdownIt({
   .use(footnote)
   .use(linkAttrs)
   .use(markdownItTOC)
-  .use(anchor);
+  .use(anchor, {
+    slugify: s => slugify(s),
+  });
 
 const renderedContent = computed(() => {
   if (!props.content) {
     return '';
   }
   const html = md.render(props.content);
-  return DOMPurify.sanitize(html);
+
+  if (import.meta.client) {
+    return DOMPurify.sanitize(html);
+  }
+
+  return html;
 });
 </script>
 

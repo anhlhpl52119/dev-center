@@ -5,8 +5,7 @@ import { getLNBQuery } from '~~/graphql/queries/lnb';
 const { $api } = useNuxtApp();
 const { locale } = useI18n();
 const lnb = ref<LNBModel[]>([]);
-const { content } = useRoutesContent();
-const markdown = computed(() => content.value);
+
 async function fetchLnb() {
   const graphqlQuery = {
     query: getLNBQuery,
@@ -85,7 +84,7 @@ function convertToTree(models: Model[]): LNBModel[] {
   return result;
 }
 
-const { data: lnbData, execute } = await useAsyncData<any>('LeftNavigationBar', fetchLnb);
+const { data: lnbData } = await useAsyncData<any>('LeftNavigationBar', fetchLnb);
 
 (function init() {
   lnb.value = (lnbData.value.data.pages.tree as Model[]).filter(item => item.depth > 1);
@@ -105,10 +104,5 @@ const { data: lnbData, execute } = await useAsyncData<any>('LeftNavigationBar', 
 
     <!-- article -->
     <slot />
-
-    <MarkdownTOC
-      :content="markdown"
-      class="sticky top-0 ml-10 hidden h-screen w-51 shrink-0 overflow-y-auto pt-8 lg:block"
-    />
   </main>
 </template>

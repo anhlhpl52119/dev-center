@@ -28,6 +28,7 @@
     "@mdit/plugin-sup": "^0.22.2",
     "@mdit/plugin-tab": "^0.22.3",
     "@mdit/plugin-tasklist": "^0.22.2",
+    "@sindresorhus/slugify": "^3.0.0",
     "dompurify": "^3.3.0",
     "markdown-it": "^14.1.0",
     "markdown-it-anchor": "^9.2.0",

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import slugify from '@sindresorhus/slugify';
 import MarkdownIt from 'markdown-it';
 import anchor from 'markdown-it-anchor';
 
@@ -14,10 +15,9 @@ interface TocItem {
 
 const md = new MarkdownIt()
   .use(anchor, {
-    uniqueSlugStartIndex: 1,
-    permalink: anchor.permalink.ariaHidden(),
+    slugify: s => slugify(s),
   });
-const slugify = (s: string) => encodeURIComponent(String(s).trim().toLowerCase().replace(/\s+/g, '-'));
+
 const tocItems = computed(() => {
   if (!props.content)
     return [];
@@ -33,7 +33,6 @@ const tocItems = computed(() => {
         const title = titleToken.content.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1');
 
         const anchor = slugify(title);
-
         items.push({ level, title, anchor });
       }
     }
@@ -41,13 +40,6 @@ const tocItems = computed(() => {
 
   return items;
 });
-
-function scrollToHeading(anchor: string) {
-  const element = document.getElementById(anchor);
-  if (element) {
-    element.scrollIntoView({ behavior: 'smooth' });
-  }
-}
 </script>
 
 <template>
@@ -74,22 +66,22 @@ function scrollToHeading(anchor: string) {
         }"
       >
         <template v-if="item.level <= 2">
-          <button
+          <NuxtLink
             class="hover:text-primary cursor-pointer"
-            @click="scrollToHeading(item.anchor)"
+            :to="`#${item.anchor}`"
           >
             {{ item.title }}
-          </button>
+          </NuxtLink>
         </template>
 
         <template v-else>
           <div class="border-l-abd-base hover:border-l-primary border-l-1 py-1">
-            <button
+            <NuxtLink
               class="pl-4 hover:text-primary cursor-pointer"
-              @click="scrollToHeading(item.anchor)"
+              :to="`#${item.anchor}`"
             >
               {{ item.title }}
-            </button>
+            </NuxtLink>
           </div>
         </template>
       </li>
