@@ -33,7 +33,7 @@ export function useRoutesContent() {
   } = useFetch<any>('/api/single-page', {
     key: normalizedPath,
     query: {
-      path: normalizedPath.value,
+      path: normalizedPath,
       locale: locale.value,
     },
     onRequest() {
@@ -45,10 +45,6 @@ export function useRoutesContent() {
   const title = computed(() => data.value?.data?.pages?.singleByPath?.title ?? '');
   const updatedAt = computed(() => data.value?.data.pages?.singleByPath?.updatedAt ?? '');
 
-  watch(data, () => {
-    console.count();
-    console.log('changed', data.value);
-  }, { immediate: true });
   return {
     content,
     title,

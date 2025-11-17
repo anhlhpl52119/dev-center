@@ -1,4 +1,8 @@
 <script lang="ts" setup>
+definePageMeta({
+  name: 'search',
+});
+
 const route = useRoute();
 const search = ref(route.query?.search?.toString()?.trim() ?? '');
 const localePath = useLocalePath();

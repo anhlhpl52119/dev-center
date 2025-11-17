@@ -35,7 +35,6 @@ const search = ref('');
         </li>
 
         <li>
-          {{ search }}
           <input
             v-model="search"
             maxlength="100"
@@ -49,7 +48,7 @@ const search = ref('');
         <li>
           <Icon name="svg:locale" class="py-auto block size-5" />
         </li>
-        <li><i class="block">avatar</i></li>
+        <!-- <li><i class="block">avatar</i></li> -->
       </ul>
     </nav>
   </header>
