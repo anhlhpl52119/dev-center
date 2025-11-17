@@ -1,21 +1,29 @@
 <script lang="ts" setup>
+import { getPagesBySearchQuery } from '~~/graphql/queries/search';
+
 definePageMeta({
   name: 'search',
 });
 
+const { locale } = useI18n();
 const route = useRoute();
 const search = ref(route.query?.search?.toString()?.trim() ?? '');
 const localePath = useLocalePath();
-const { data, execute } = useFetch<any>('/api/search-page', {
-  query: {
-    query: search,
-    locale: 'ko',
-    page: 0,
-    size: 10,
-    category: '',
-    inCategory: [
-      'web',
-    ],
+const { data, execute } = useAPI<any>('graphql', {
+  method: 'POST',
+  body: {
+    query: getPagesBySearchQuery,
+    variables: {
+      query: search,
+      locale,
+      page: 0,
+      size: 10,
+      category: '',
+      inCategory: ['web'],
+    },
+  },
+  headers: {
+    'Content-Type': 'application/json',
   },
   watch: false,
 });

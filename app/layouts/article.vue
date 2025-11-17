@@ -2,27 +2,22 @@
 import type { LNBModel, Model } from '~/components/OldLeftNavBar/types';
 import { getLNBQuery } from '~~/graphql/queries/lnb';
 
-const { $api } = useNuxtApp();
 const { locale } = useI18n();
-const lnb = ref<LNBModel[]>([]);
 
-async function fetchLnb() {
-  const graphqlQuery = {
+const { data: lnbData } = await useAPI<any>('graphql', {
+  method: 'POST',
+  body: {
     query: getLNBQuery,
     variables: {
-      locale: locale.value,
+      locale,
       mode: 'LIKE',
       path: 'web',
     },
-  };
-  return await $api('graphql', {
-    method: 'POST',
-    body: JSON.stringify(graphqlQuery),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-};
+  },
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
 
 /**
  * Convert flat array of Model to hierarchical Tree structure
@@ -84,11 +79,7 @@ function convertToTree(models: Model[]): LNBModel[] {
   return result;
 }
 
-const { data: lnbData } = await useAsyncData<any>('LeftNavigationBar', fetchLnb);
-
-(function init() {
-  lnb.value = (lnbData.value.data.pages.tree as Model[]).filter(item => item.depth > 1);
-})();
+const lnb = computed(() => (lnbData.value.data?.pages?.tree ?? [] as Model[]).filter((item: any) => item.depth > 1));
 </script>
 
 <template>

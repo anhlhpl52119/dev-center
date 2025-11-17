@@ -1,3 +1,5 @@
+import { getSinglePageByPathQuery } from '~~/graphql/queries/single-page';
+
 function normalizeRoutePath(rawPath: string, localeCode?: string) {
   if (!rawPath) {
     return '/';
@@ -30,15 +32,17 @@ export function useRoutesContent() {
     pending,
     error,
     refresh,
-  } = useFetch<any>('/api/single-page', {
-    key: normalizedPath,
-    query: {
-      path: normalizedPath,
-      locale: locale.value,
+  } = useAPI<any>('graphql', {
+    key: normalizedPath.value,
+    method: 'POST',
+    body: {
+      query: getSinglePageByPathQuery,
+      variables: {
+        path: normalizedPath.value,
+        locale,
+      },
     },
-    onRequest() {
-      console.log(normalizedPath.value);
-    },
+    watch: false,
   });
 
   const content = computed(() => data.value?.data?.pages?.singleByPath?.content ?? '');
