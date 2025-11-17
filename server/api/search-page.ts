@@ -7,7 +7,7 @@ import { getPagesBySearchQuery } from '~~/graphql/queries/search';
  * request to the configured GraphQL endpoint.
  */
 export default defineEventHandler(async (event) => {
-  const config = useRuntimeConfig();
+  const config = useRuntimeConfig(event);
   const queryParams = getQuery(event);
 
   const category = queryParams.category?.toString().trim() ?? '';
@@ -27,14 +27,6 @@ export default defineEventHandler(async (event) => {
       query: query ?? '',
       size: size ?? 10,
     },
-    // variables: {
-    //   category: '',
-    //   inCategory: ['web'],
-    //   locale: 'ko',
-    //   page: 0,
-    //   query: 'pro',
-    //   size: 10,
-    // },
   };
 
   try {

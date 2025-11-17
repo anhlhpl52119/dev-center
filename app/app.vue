@@ -6,7 +6,7 @@ useHead(() => ({
   },
   link: [...(i18nHead.value.link || [])],
   meta: [...(i18nHead.value.meta || [])],
-  title: 'TODO',
+  title: 'Vulcanus',
 }));
 </script>
 

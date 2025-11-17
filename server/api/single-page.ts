@@ -7,7 +7,7 @@ import { getSinglePageByPathQuery } from '~~/graphql/queries/single-page';
  * request to the configured GraphQL endpoint.
  */
 export default defineEventHandler(async (event) => {
-  const config = useRuntimeConfig();
+  const config = useRuntimeConfig(event);
   const queryParams = getQuery(event);
   const body = event.method === 'POST' ? await readBody<{ path?: string; locale?: string }>(event) : {};
 
@@ -21,13 +21,6 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  if (!config.public?.apiBaseUrl) {
-    throw createError({
-      statusCode: 500,
-      statusMessage: 'GraphQL API base URL is not configured.',
-    });
-  }
-
   const graphqlPayload = {
     query: getSinglePageByPathQuery,
     variables: {
@@ -37,7 +30,7 @@ export default defineEventHandler(async (event) => {
   };
 
   try {
-    const response = await $fetch(`${config.public.apiBaseUrl.replace(/\/$/, '')}/graphql`, {
+    const response = await $fetch(`${config.public.apiBaseUrl}/graphql`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -25,7 +25,7 @@ const lastUpdatedAt = computed(() => updatedAt.value);
     <MarkdownRenderer
       :content="content"
       itemprop="articleBody"
-      class="bg-abg-base mt-10 min-h-10 max-w-179 rounded-4xl p-7.5 shadow-sm overflow-x-auto"
+      class="bg-abg-base mt-10 min-h-40 w-179 max-w-179 rounded-4xl p-7.5 shadow-sm overflow-x-auto"
     />
 
     <p

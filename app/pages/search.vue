@@ -20,10 +20,25 @@ const { data, execute } = useFetch<any>('/api/search-page', {
   watch: false,
 });
 
+function highlightMatchKeyword(fullText: string) {
+  const trimmedSearchInput = search.value?.trim();
+
+  // If search input is empty, return the original string
+  if (!trimmedSearchInput) {
+    return fullText;
+  }
+
+  const escapedInput = trimmedSearchInput.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+  const matchedReg = new RegExp(`(${escapedInput})`, 'gi');
+
+  return fullText.replace(matchedReg, `<span class="text-primary font-medium">\$1</span>`);
+}
+
 const searchContentV2 = computed(() => {
   const rs: any[] = data.value?.data?.pages?.search?.results?.web ?? [];
   return rs.map(i => ({ title:
-     i.title, matched: i.content, path: i.path }));
+     i.title, matched: highlightMatchKeyword(i.content), path: i.path }));
 });
 
 async function onSearch() {
