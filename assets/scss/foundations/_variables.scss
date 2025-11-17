@@ -46,7 +46,6 @@ $cyan: #1E88E5 !default;
 $gray: #7F7F7F !default;
 $black: #000000 !default;
 
-
 $blue-300: #80A5FF !default;
 $blue-400: #598AFF !default;;
 
@@ -128,6 +127,9 @@ $danger: $red !default;
 $light: $gray-100 !default;
 $dark: $blue-dark !default;
 $color-last-updated: #4e6e8e !default;
+
+$vulcanus-text-clr-dimmed: hsla(0, 0%, 40%, 1);
+$vulcanus-text-clr-base: hsla(0, 0%, 20%, 1);
 
 $theme-colors: (
         "primary": $primary,

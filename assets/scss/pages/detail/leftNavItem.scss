@@ -4,13 +4,13 @@
   align-items: center;
 
   &:hover {
-    background: var(--#{$prefix}sem-color-interaction-hover);
-    border-radius: var(--#{$prefix}border-radius-lg);
+    background: hsla(226, 100%, 59%, 0.06);
+    border-radius: calc(infinity * 1px);
     cursor: pointer;
   }
 
   &:active {
-    background: var(--#{$prefix}sem-color-interaction-pressed);
+    background: hsla(226, 100%, 59%, 0.06);
   }
 }
 
@@ -75,6 +75,9 @@ $base-padding: 0.8rem ;
 }
 
 .sdc-nav-active {
+  background: hsla(226, 100%, 59%, 0.06);
+    border-radius: calc(infinity * 1px);
+
   .sdc-nav-text {
     color: var(--#{$prefix}sem-color-brand-blue);
   }

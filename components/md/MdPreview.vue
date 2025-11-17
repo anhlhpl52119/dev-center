@@ -1,6 +1,6 @@
 <template>
-  <div class="title">
-    <h3>{{ title }}</h3>
+  <div class="content-heading">
+    <h1>{{ title }}</h1>
     <p>{{ description }}</p>
   </div>
 
@@ -123,10 +123,23 @@ const onGetCatalog = (list: HeadList[]) => {
 };
 
 </script>
-<style lang="css" scoped>
-.title {
+<style lang="scss" scoped>
+.content-heading {
   margin-bottom: 4rem;
   margin-top: 4rem;
+  & h1 {
+    font-weight: 700;
+    font-size: 3.2rem;
+    line-height: 4.4rem;
+  }
+
+  & p {
+    color: hsla(0, 0%, 40%, 1);
+    font-size: 1.3rem;
+    margin-top: 0.4rem;
+    line-height: 2.2rem;
+  }
+
 }
 
 .md2 {

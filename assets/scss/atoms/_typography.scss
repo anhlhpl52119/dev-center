@@ -69,12 +69,11 @@ $caption-sizes: (
 
 //Last updated
 .last-updated{
-  .prefix {
-    margin-right: 0.25rem;
-    color: $color-last-updated;
-  }
-  .time{
-    color: var(--#{$prefix}secondary-color);
-  }
+    color: hsla(0, 0%, 40%, 1);
+    font-size: 1.3rem;
+    line-height: 2.2rem;
+    .time {
+      margin-right: 0.4rem;
+    }
 }
 
