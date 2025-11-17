@@ -1,0 +1,16 @@
+.sdc-cursor-wrapper{
+  margin-bottom: 3.2rem;
+}
+
+.pagination .page-item{
+  padding: 0;
+}
+
+.page-item-placeholder{
+  width: 3.2rem;
+  height: 3.2rem;
+
+  &:not(:last-child){
+    margin-right: 0.5rem;
+  }
+}

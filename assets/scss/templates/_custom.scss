@@ -1,0 +1,7 @@
+// Custom template styles
+.height-wrapper {
+  min-height: calc(100vh - #{$header-height} - #{$footer-height-mobile});
+  @include media-breakpoint-up(md) {
+    min-height: calc(100vh - #{$header-height} - #{$footer-height-desktop});
+  }
+} 

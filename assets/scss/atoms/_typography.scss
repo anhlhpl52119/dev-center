@@ -1,0 +1,80 @@
+// Heading, title
+$heading-sizes: (
+        1: (fs: $h-1, lh: $line-height-1),
+        2: (fs: $h-2, lh: $line-height-2),
+        3: (fs: $h-3, lh: $line-height-3),
+        4: (fs: $h-4, lh: $line-height-4),
+        5: (fs: $h-5, lh: $line-height-5),
+        6: (fs: $h-6, lh: $line-height-6)
+);
+
+@mixin applyHeadings() {
+  @each $level, $sizes in $heading-sizes {
+    h#{$level}, .title#{$level} {
+      margin-top: 0;
+      margin-bottom: 0;
+      font-size: map-get($sizes, fs);
+      font-weight: var(--#{$prefix}glob-typography-fw-medium);
+      line-height: map-get($sizes, lh);
+      // font-family: var(--#{$prefix}heading-font-family);
+      font-style: normal;
+    }
+  }
+}
+@include applyHeadings();
+
+// Text
+$text-sizes: (
+        1: (fs: $fs-base, lh: $line-height-base),
+        2: (fs: 1.5rem, lh: 2.6rem),
+        3: (fs: 1.4rem, lh: 2.4rem),
+        4: (fs: 1.3rem, lh: 2.2rem),
+);
+@mixin applyTexts() {
+  @each $level, $sizes in $text-sizes {
+    .text#{$level} {
+      font-size: map-get($sizes, fs);
+      font-weight: var(--#{$prefix}glob-typography-fw-regular);
+      line-height: map-get($sizes, lh);
+      font-style: normal;
+    }
+  }
+}
+@include applyTexts();
+
+// Caption
+$caption-sizes: (
+        1: (fs: 1.2rem, lh: 1.8rem),
+        2: (fs: 1.1rem, lh: 1.8rem)
+);
+@mixin applyCaptions() {
+  @each $level, $sizes in $caption-sizes {
+    .caption#{$level} {
+      font-size: map-get($sizes, fs);
+      font-weight: var(--#{$prefix}glob-typography-fw-regular);
+      line-height: map-get($sizes, lh);
+      font-style: normal;
+    }
+  }
+}
+@include applyCaptions();
+
+//
+// Lists
+//
+.list-unstyled {
+  padding-left: 0;
+  list-style: none;
+}
+
+//Last updated
+.last-updated{
+  .prefix {
+    margin-right: 0.25rem;
+    color: $color-last-updated;
+  }
+  .time{
+    color: var(--#{$prefix}secondary-color);
+  }
+}
+

@@ -1,0 +1,13 @@
+// BETTERER RESULTS V2.
+// 
+// If this file contains merge conflicts, use `betterer merge` to automatically resolve them:
+// https://phenomnomnominal.github.io/betterer/docs/results-file/#merge
+//
+exports[`stricter compilation`] = {
+  value: `{
+    "configs/i18nConfig.ts:249638671": [
+      [1, 32, 18, "Cannot find module \'vue-i18n-routing\' or its corresponding type declarations.", "1535806705"],
+      [28, 6, 18, "Type \'{ jsTsFormatResource: true; }\' is not assignable to type \'ExperimentalFeatures\'.\\n  Object literal may only specify known properties, and \'jsTsFormatResource\' does not exist in type \'ExperimentalFeatures\'.", "2070323186"]
+    ]
+  }`
+};

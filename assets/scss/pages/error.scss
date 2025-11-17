@@ -1,0 +1,101 @@
+.sdc-error{
+  &-page{
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    max-width: 86rem;
+  }
+  &-wrapper{
+    padding: 4rem 1.6rem 8rem;
+  }
+}
+.error{
+  &-thumbnail{
+    max-width: 100%;
+    width: 16rem;
+    height: auto;
+    object-fit: cover;
+    -o-object-fit: cover;
+    margin-bottom: 1.6rem;
+  }
+
+  &-title{
+    color: var(--#{$prefix}sem-color-on-surface-elevation-1);
+
+    /* Title/Title5-M */
+    font-size: var(--#{$prefix}sem-typography-title5);
+    font-weight: var(--glob-typography-fw-medium);
+    line-height: 3rem; /* 150% */
+    letter-spacing: -0.06rem;
+    margin-bottom: 0.4rem;
+  }
+
+  &-msg{
+    color: var(--#{$prefix}sem-color-on-surface-elevation-3);
+
+    /* Text/Text3-R */
+    font-size: var(--#{$prefix}sem-typography-text3);
+    font-weight: var(--glob-typography-fw-regular);
+    line-height: 2.4rem; /* 171.429% */
+    letter-spacing: -0.042rem;
+    margin-bottom: 2.4rem;
+  }
+
+  &-msg-back{
+    color: var(--#{$prefix}sem-color-on-surface-elevation-3);
+
+    /* Text/Text3-R */
+    font-size: var(--#{$prefix}sem-typography-text3);
+    font-weight: var(--glob-typography-fw-regular);
+    line-height: 2.4rem; /* 171.429% */
+    letter-spacing: -0.042rem;
+  }
+}
+
+.btn-error-back{
+  max-width: 25rem;
+  padding: 1.2rem 2rem;
+  margin-bottom: 1.2rem;
+  height: 4.4rem;
+
+  color: var(--on-surface-white-x-primary, #FFF);
+  /* Button/Button2-M */
+  font-size: var(--#{$prefix}sem-typography-button2);
+  font-weight: var(--glob-typography-fw-medium);
+  line-height: 2rem; /* 142.857% */
+  letter-spacing: -0.042rem;
+}
+
+@include media-breakpoint-up(sm){
+  .sdc-error-wrapper{
+    padding: 4rem 3.2rem 8rem;
+  }
+}
+
+@include media-breakpoint-up(md){
+  .sdc-error-wrapper{
+    padding: 8rem 0 8rem;
+  }
+
+  .error{
+    &-title{
+      /* Title/Title4-M */
+      font-size: var(--#{$prefix}sem-typography-title4);
+      line-height: 3.4rem; /* 141.667% */
+      letter-spacing: -0.072rem;
+    }
+
+    &-msg{
+      /* Text/Text1-R */
+      font-size: var(--#{$prefix}sem-typography-text1);
+      font-weight: var(--glob-typography-fw-regular);
+      line-height: 2.6rem; /* 162.5% */
+      letter-spacing: -0.048rem;
+    }
+    &-thumbnail{
+      width: 24rem;
+    }
+  }
+}

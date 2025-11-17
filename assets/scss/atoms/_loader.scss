@@ -1,0 +1,36 @@
+.sdc-loading-box{
+  width: fit-content;
+
+  .ball {
+    background-color: $blue;
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;
+    animation: jump 1s infinite;
+    &:not(:last-child){
+      margin-right: 1rem;
+    }
+  }
+
+  .ball2 {
+    animation-delay: 0.15s;
+  }
+
+  .ball3 {
+    animation-delay: 0.3s;
+  }
+
+  @keyframes jump {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+}

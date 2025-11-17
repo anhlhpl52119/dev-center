@@ -1,0 +1,6 @@
+# START nuxt-simple-robots (indexable)
+User-agent: *
+Allow: /public/
+
+Sitemap: https://seed3-dev.onstove.com/sitemap.xml
+# END nuxt-simple-robots

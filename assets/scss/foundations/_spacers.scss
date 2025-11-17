@@ -1,0 +1,37 @@
+@use "functions" as *;
+
+// NOTE: This project 1rem = 10px, use tips 62.5%
+$spacer: 1.6rem !default; // This is the base spacer value
+$new_spacers:  (
+  '0': 0 * $spacer,
+  '2': 0.125 * $spacer,
+  '3': 0.1875 * $spacer,
+  '4': 0.25 * $spacer,
+  '6': 0.375 * $spacer,
+  '7': 0.7rem,
+  '8': 0.5 * $spacer,
+  '10': 0.625 * $spacer,
+  '12': 0.75 * $spacer,
+  '14': 0.875 * $spacer,
+  '16': $spacer,
+  '20': 1.25 * $spacer,
+  '24': 1.5 * $spacer,
+  '28': 1.75 * $spacer,
+  '30': 1.875 * $spacer,
+  '32': 2 * $spacer,
+  '36': 2.25 * $spacer,
+  '40': 2.5 * $spacer,
+  '46': 2.875 * $spacer,
+  '48': 3 * $spacer,
+  '50': 3.125 * $spacer,
+  '56': 3.5 * $spacer,
+  '64': 4 * $spacer,
+  '72': 4.5 * $spacer,
+  '80': 5 * $spacer
+);
+
+$new_negative-spacers: negativify-map($new_spacers);
+
+$sizes: (
+  40: 4rem,
+)

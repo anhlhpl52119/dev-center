@@ -1,0 +1,30 @@
+@import "../../templates/twoAsideBarVertical";
+
+.loading-wrapper{
+  padding-top: 8rem;
+}
+
+@include media-breakpoint-up(md){
+  .loading-wrapper{
+    padding-top: 20rem;
+  }
+}
+
+@include media-breakpoint-up(sm){
+  .sdc-toc{
+    width: 20rem;
+    position: sticky;
+    display: block;
+    overflow-y: auto;
+    height: auto;
+    max-height: calc(100vh - 7rem); //Header: 7rem, footer 31rem
+    margin-right: 4rem;
+    padding-top: 4rem;
+    top: 6rem;
+  }
+
+  .sdc-toc.collapse{
+    width: 3.2rem;
+  }
+}
+

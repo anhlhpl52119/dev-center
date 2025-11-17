@@ -1,0 +1,145 @@
+.hero-section {
+  position: relative;
+  background: linear-gradient(270deg, #F6F4F3 26.8%, #F1EEED 100%);
+}
+
+.stds-landing-row-inner{
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+
+.stds-landing-row-header{
+  text-align: center;
+  padding-top: 4.8rem;
+}
+
+.stds-landing-row-title{
+  // font-family: var(--#{$prefix}heading-font-family);
+  color: var(--#{$prefix}sem-color-on-surface-elevation-2);
+  font-weight: var(--#{$prefix}glob-typography-fw-blod);
+  margin-bottom: 1.6rem;
+  font-size: 2.6rem;
+  line-height: var(--#{$prefix}lh-base);
+}
+
+.stds-landing-row-desc{
+  color: var(--#{$prefix}sem-color-on-surface-elevation-3);
+
+  /* Caption/Caption2-R */
+  font-size: var(--#{$prefix}sem-typography-caption2);
+  font-weight: var(--glob-typography-fw-regular);
+  line-height: 1.8rem;
+  letter-spacing: -0.022rem;
+  margin-bottom: 3.2rem;
+}
+
+.stds-landing-row-media{
+  .banner-desktop {
+    shape-outside: polygon(50% 0%, 100% 50%, 50% 100%, 50% 50%);
+    float: right;
+    max-height: 300px;
+  }
+
+  .banner-mobile{
+    max-height: 214px;
+  }
+
+  .banner-tablet{
+    max-height: 304px;
+  }
+}
+
+// Mobile and tablet screens
+@include media-breakpoint-down(md){
+  .stds-landing-row-inner{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+  }
+
+  .stds-landing-row-header{
+    order: 1;
+  }
+
+  .stds-landing-row-media{
+    order: 2;
+  }
+}
+
+// Tablet sm screen or higher
+@include media-breakpoint-up(sm){
+  .stds-landing-row-header{
+    padding-top: 6.4rem;
+  }
+
+  .stds-landing-row-title{
+    font-size: 4rem;
+  }
+
+  /* Button/Button2-R */
+  .stds-landing-row-desc{
+    font-size: var(--#{$prefix}sem-typography-button2);
+    line-height: 2rem; /* 142.857% */
+    letter-spacing: -0.042rem;
+  }
+}
+
+@include media-breakpoint-down(md){
+  .stds-landing-row.hero-section{
+    .stds-landing-row-inner{
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
+
+// Desktop md 1 screen or higher
+@include media-breakpoint-up(md){
+  .stds-landing-row-inner{
+    overflow: hidden; // Reset for float
+  }
+
+  .stds-landing-row-header{
+    padding-top: 0;
+    padding-left: 4rem;
+    padding-right: 4rem;
+    text-align: left;
+    height: 300px;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .stds-landing-row-title{
+    font-size: 3.2rem;
+    line-height: var(--#{$prefix}lh-md);
+  }
+
+  .stds-landing-row-desc{
+    margin-bottom: 0;
+    // font-family: var(--#{$prefix}font-family-applesdgothicneo);
+    font-size: 1.8rem;
+    font-weight: var(--glob-typography-fw-medium);
+    line-height: 2.7rem; /* 150% */
+    letter-spacing: -0.054rem;
+  }
+}
+
+// Apply styles starting from MD devices and up to LG devices
+@include media-breakpoint-between(md, lg) {
+  .stds-landing-row-header{
+    background: rgba(247, 244, 242, 0.40);
+    backdrop-filter: blur(40px);
+  }
+}
+
+// Desktop 2 screen or higher
+@include media-breakpoint-up(lg){
+  .stds-landing-row-inner{
+    max-width: 130rem;
+  }
+}
+

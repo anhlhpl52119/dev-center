@@ -1,0 +1,56 @@
+.scrollTopButton {
+  position: fixed;
+  width: 4.8rem;
+  height: 4.8rem;
+  bottom: 1.6rem;
+  right: 1.6rem;
+  border: none;
+  outline: none;
+  border-radius: 50%;
+  background-color: var(--stds-glob-color-white);
+  box-shadow: 0 0.4rem 1rem rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: all .5s ease-out;
+  -webkit-transition: all .5s ease-out;
+  -o-transition: all .5s ease-out;
+  z-index: var(--#{$prefix}z-idx-header);
+
+  .btn {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.1s ease;
+    outline: none;
+    border: none;
+
+    i {
+      font-size: 2rem;
+      width: 2rem;
+      height: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--stds-tertiary-color);
+    }
+
+    &:active {
+      background-color: var(--stds-tertiary-bg);
+    }
+
+    &:focus:not(:active) {
+      width: 4.4rem;
+      height: 4.4rem;
+      border: 0.1rem solid var(--stds-glob-color-gray400);
+    }
+  }
+}
+
+.scrollTopButton.invisible {
+  visibility: hidden;
+}

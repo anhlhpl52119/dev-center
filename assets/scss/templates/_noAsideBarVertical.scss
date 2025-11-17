@@ -1,0 +1,18 @@
+.sdc-layout {
+  @include media-breakpoint-up(lg){
+    display: grid;
+    grid-template-areas: "main";
+    grid-template-columns: auto;
+    gap: 0;
+    position: relative;
+  }
+}
+
+.sdc-main{
+  grid-area: main;
+  position: relative;
+  margin-top: 6.8rem;
+  @include media-breakpoint-up(lg){
+    margin-top: 8.8rem;
+  }
+}

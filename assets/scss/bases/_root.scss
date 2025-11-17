@@ -1,0 +1,197 @@
+@use 'sass:map';
+@import '../foundations/variables';
+
+@mixin sysDesignDefaultTheme(
+  $pPalettes: $primaryColorPalettes,
+  $sPalettes: $secondaryColorPalettes,
+  $aPalettes: $accentColorPalettes
+) {
+  // @debug "CHECK PRIMARY: #{$secondaryColorPalettes}";
+  :root {
+    --white: #{$white};
+    --black: #{$black};
+
+    --#{$prefix}body-text-color: #{$blue-dark};
+    --#{$prefix}body-bg: var(--white);
+    --#{$prefix}body-text-color-rgb: #{to-rgb($blue-dark)};
+
+    --#{$prefix}body-font-size: #{$fs-base};
+    --#{$prefix}body-font-weight: #{$font-weight-400};
+    --#{$prefix}body-line-height: #{$line-height-base};
+    --#{$prefix}lh-base: #{$line-height-1per};
+    --#{$prefix}lh-md: #{$line-height-1per5};
+
+
+    --#{$prefix}sem-color-brand-primary: #{map.get($orangePalettes, '500')};
+    --#{$prefix}sem-color-brand-primary-pressed: #{map.get($orangePalettes, '700')};
+    --#{$prefix}sem-color-brand-blue: #{map.get($bluePalettes, '500')};
+    --#{$prefix}sem-color-brand-blue-pressed: #{map.get($bluePalettes, '700')};
+
+    --#{$prefix}sem-color-background-variant-1: #{$gray-60};
+    --#{$prefix}sem-color-background-variant-2: #{$white};
+
+    @each $color, $value in $globPalettes {
+      --#{$prefix}glob-color-#{$color}: #{$value};
+    }
+
+    @each $color, $value in $surfacePalettes {
+      --#{$prefix}sem-color-surface-#{$color}: #{$value};
+    }
+
+    @each $color, $value in $inversePalettes {
+      --#{$prefix}sem-color-inverse-#{$color}: #{$value};
+    }
+
+    @each $color, $value in $interactionPalettes {
+      --#{$prefix}sem-color-interaction-#{$color}: #{$value};
+    }
+
+    @each $color, $value in $disabledPalettes {
+      --#{$prefix}sem-color-disabled-#{$color}: #{$value};
+    }
+
+    @each $color, $value in $neutralPalettes {
+      --#{$prefix}sem-color-neutral-#{$color}: #{$value};
+    }
+
+    @each $color, $value in $onSurfacePalettes {
+      --#{$prefix}sem-color-on-surface-#{$color}: #{$value};
+    }
+
+    @each $text, $value in $typographies {
+      --#{$prefix}sem-typography-#{$text}: #{$value};
+    }
+
+    --#{$prefix}glob-typography-fw-regular: #{$font-weight-400};
+    --#{$prefix}glob-typography-fw-medium: #{$font-weight-500};
+    --#{$prefix}glob-typography-fw-blod: #{$font-weight-700};
+
+    --#{$prefix}sem-color-success: #{$success};
+    --#{$prefix}sem-color-warning: #{$warning};
+    --#{$prefix}sem-color-error: #{$danger};
+    --#{$prefix}sem-color-information: #{$info};
+
+    --#{$prefix}primary-color: #{map.get($pPalettes, '500')};
+    --#{$prefix}primary-hover-color: #{map.get($pPalettes, '900')};
+    --#{$prefix}primary-active-color: #{map.get($pPalettes, '600')};
+    --#{$prefix}color-for-primarybg: #{map.get($neutralPalettes, 'white')};
+
+    --#{$prefix}secondary-color: #{$gray-500};
+    --#{$prefix}secondary-hover-color: #{map.get($sPalettes, '400')};
+    --#{$prefix}secondary-active-color: #{map.get($sPalettes, '600')};
+    --#{$prefix}color-for-secondarybg: #{$white};
+    --#{$prefix}secondary-bg-color: #{map.get($sPalettes, '500')};
+    --#{$prefix}secondary-bg-rgb: #{to-rgb(map.get($sPalettes, '500'))};
+
+
+    --#{$prefix}emphasis-color: #{$black};
+    --#{$prefix}emphasis-color-rgb: #{to-rgb($black)};
+
+    --#{$prefix}tertiary-color: #{$gray-600};
+    --#{$prefix}tertiary-color-rgb: #{to-rgb($gray-600)};
+    --#{$prefix}tertiary-bg: #{$gray-100};
+    --#{$prefix}tertiary-bg-rgb: #{to-rgb($gray-100)};
+
+    --#{$prefix}success: #{$success};
+    --#{$prefix}warning: #{$warning};
+    --#{$prefix}error: #{$danger};
+    --#{$prefix}info: #{$info};
+
+    --#{$prefix}body-font-family: #{$font-family-base};
+    --#{$prefix}heading-font-family: #{$font-sf-pro};
+    --#{$prefix}font-family-ic: #{$font-ic};
+    --#{$prefix}font-family-applesdgothicneo: #{$font-applesdgothicneo};
+
+    @each $color, $value in $theme-colors-rgb {
+      --#{$prefix}#{$color}-rgb: #{$value};
+    }
+
+    --#{$prefix}link-color: $link-color;
+    --#{$prefix}link-color-rgb: #{to-rgb($link-color)};
+    --#{$prefix}link-decoration: #{$link-decoration};
+    --#{$prefix}link-color-hover: #{$link-hover-color};
+    --#{$prefix}link-hover-color: #{$link-hover-color};
+    --#{$prefix}link-hover-color-rgb: #{to-rgb($link-hover-color)};
+
+    @each $name, $value in $grid-breakpoints {
+      --#{$prefix}breakpoint-#{$name}: #{$value};
+    }
+
+    --#{$prefix}border-width: #{$border-width};
+    --#{$prefix}border-style: #{$border-style};
+    --#{$prefix}sem-color-border: #{$border-color};
+    --#{$prefix}sem-color-border-translucent: #{$border-color-translucent};
+
+    --#{$prefix}border-radius: #{$border-radius};
+    --#{$prefix}border-radius-sm: #{$border-radius-sm};
+    --#{$prefix}border-radius-lg: #{$border-radius-lg};
+    --#{$prefix}border-radius-xl: #{$border-radius-xl};
+    --#{$prefix}border-radius-pill: #{$border-radius-pill};
+
+    --#{$prefix}box-shadow-inset: #{$box-shadow-inset};
+    --#{$prefix}box-shadow-sm: #{$box-shadow-sm};
+
+    --#{$prefix}glob-box-shadow-0: none;
+    --#{$prefix}glob-box-shadow-2: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.06);
+    --#{$prefix}glob-box-shadow-4: 0 0.4rem 1rem rgba(0, 0, 0, 0.1);
+    --#{$prefix}glob-box-shadow-12: 0 1.2rem 2.8rem rgba(0, 0, 0, 0.2);
+
+
+    --#{$prefix}sem-color-placeholder: #{$gray-300};
+
+    --#{$prefix}glob-color-gray400: #{$gray-400};
+    --#{$prefix}glob-color-white25: #{$white-25};
+    --#{$prefix}glob-color-blue300: #{$blue-300};
+    --#{$prefix}glob-color-blue400: #{$blue-400};
+
+    --#{$prefix}z-idx-header: 1030;
+    --#{$prefix}z-idx-search: 1500;
+
+    --#{$prefix}breadcrumb-divider: "\e94a";
+
+    --#{$prefix}header-height: 6.8rem;
+
+    // Glob color
+    --#{$prefix}glob-color-white: #{$white};
+    --#{$prefix}glob-color-white-10: #{$white-10};
+    --#{$prefix}glob-color-white-50: #{$white-50};
+    --#{$prefix}glob-color-gray200: #{$gray-200};
+
+    --#{$prefix}sem-color-surface-footer: #{$gray-880};
+
+    //Custom
+    --05-tint-06-tint-teal-tint-teal-50: #ECF5F6;
+    --05-tint-06-tint-teal-tint-teal-600: #36777F;
+    --05-tint-05-tint-green-tint-green-a-50: #EDFAF2;
+    --05-tint-05-tint-green-tint-green-500: #4B9663;
+    --05-tint-05-tint-green-tint-green-400: #65AB7E;
+    --05-tint-03-tint-yellow-tint-yellow-a-50: #FCF8E7;
+    --05-tint-03-tint-yellow-tint-yellow-700: #986F2D;
+    --05-tint-03-tint-yellow-tint-yellow-A400: #FFB412;
+    --05-tint-01-tint-red-tint-red-50: #F9F1F2;
+    --05-tint-01-tint-red-tint-red-500: #CB5967;
+    --05-tint-01-tint-red-tint-red-A400: #EC3B47
+  }
+
+  body.dark {
+    --white: #{$black};
+    --black: #{$white};
+
+    --#{$prefix}body-text-color: #{$gray-100};
+    --#{$prefix}body-bg: #{$gray-800};
+    --#{$prefix}body-text-color-rgb: #{to-rgb($gray-100)};
+
+
+    ---#{$prefix}sem-color-border: #{$border-color-dark};
+    --#{$prefix}sem-color-border-translucent: #{$border-color-translucent-dark};
+
+    --#{$prefix}emphasis-color: #{$white};
+    --#{$prefix}emphasis-color-rgb: #{to-rgb($white)};
+
+    --#{$prefix}sem-color-border: #{$gray-650};
+    --#{$prefix}sem-color-placeholder: #{$gray-600};
+  }
+}
+
+
+@include sysDesignDefaultTheme($primaryColorPalettes, $secondaryColorPalettes, $accentColorPalettes);

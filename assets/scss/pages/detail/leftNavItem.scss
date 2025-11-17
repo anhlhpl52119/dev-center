@@ -1,0 +1,109 @@
+.sdc-nav-title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  &:hover {
+    background: var(--#{$prefix}sem-color-interaction-hover);
+    border-radius: var(--#{$prefix}border-radius-lg);
+    cursor: pointer;
+  }
+
+  &:active {
+    background: var(--#{$prefix}sem-color-interaction-pressed);
+  }
+}
+
+.sdc-nav-text {
+  color: var(--#{$prefix}sem-color-on-surface-elevation-2);
+
+  /* Text/Text3-R */
+  font-size: var(--#{$prefix}sem-typography-text3);
+  font-weight: var(--#{$prefix}glob-typography-fw-regular);
+  line-height: 2.4rem; /* 171.429% */
+  letter-spacing: -0.042rem;
+}
+
+
+// Start nav-depth The margin-left increases by 1.2 rem for each depth increase, from depth 2 to depth 6, default depth 6
+$base-padding: 0.8rem ;
+
+@mixin custom-ml-nav-depth($padding-number) {
+  $calculated-padding:  ($padding-number - 2) * $base-padding;
+  margin-left: $calculated-padding;
+}
+
+.sdc-nav-depth{
+  padding: 0.8rem 1.2rem;
+  @include custom-ml-nav-depth(6);
+}
+
+.sdc-nav-depth-2 {
+  padding: 1.2rem 1.6rem;
+  @include custom-ml-nav-depth(2);
+
+  .sdc-nav-text {
+    color: var(--#{$prefix}sem-color-on-surface-elevation-1);
+
+    /* Title/Title7-M */
+    font-size: var(--#{$prefix}sem-typography-title7);
+    font-weight: var(--#{$prefix}glob-typography-fw-medium);
+    line-height: 2.4rem; /* 150% */
+    letter-spacing: -0.048rem;
+  }
+}
+
+.sdc-nav-depth-3 {
+  @include custom-ml-nav-depth(3);
+}
+
+.sdc-nav-depth-4 {
+  @include custom-ml-nav-depth(4);
+}
+
+.sdc-nav-depth-5 {
+  @include custom-ml-nav-depth(5);
+}
+
+.sdc-nav-depth-6 {
+  @include custom-ml-nav-depth(6);
+}
+// End nav-depth
+
+.sdc-nav-link {
+  text-decoration: none;
+}
+
+.sdc-nav-active {
+  .sdc-nav-text {
+    color: var(--#{$prefix}sem-color-brand-blue);
+  }
+}
+
+.sdc-nav-sublist {
+  display: none;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  > .sdc-nav-item {
+    margin-left: 1.6rem;
+  }
+}
+
+.sdc-nav-title.show {
+  & + .sdc-nav-sublist {
+    display: block;
+  }
+
+  .sdc-nav-ic-collapse {
+    transform: rotate(-180deg);
+  }
+}
+
+.sdc-nav-ic-collapse {
+  color: var(--#{$prefix}sem-color-on-surface-elevation-4);
+  font-size: 1.2rem;
+  margin-left: 0.8rem;
+  line-height: 2.4rem;
+}

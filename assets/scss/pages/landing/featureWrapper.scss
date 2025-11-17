@@ -1,0 +1,41 @@
+.stds-landing-row-group{
+  --#{$prefix}gutter-x: 0;
+  --#{$prefix}gutter-y: 1.6rem;
+}
+
+.feature-section{
+  padding: 2.4rem 1.6rem;
+}
+
+@include media-breakpoint-up(sm){
+  .feature-section{
+    padding: 5.6rem 3.2rem;
+  }
+  .stds-landing-row-group{
+    --#{$prefix}gutter-x: 2.4rem;
+    --#{$prefix}gutter-y: 2.4rem;
+  }
+}
+
+@include media-breakpoint-up(md){
+  .feature-section{
+    padding: 5.6rem 4rem;
+  }
+}
+
+@include media-breakpoint-between(sm, lg){
+  .feature-section{
+    .container{
+      max-width: 100%;
+    }
+  }
+}
+
+@include media-breakpoint-up(lg){
+  .feature-section{
+    .container{
+      padding-left: 4rem;
+      padding-right: 4rem;
+    }
+  }
+}

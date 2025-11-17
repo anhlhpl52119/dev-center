@@ -1,0 +1,61 @@
+.sdc-lnb{
+  grid-area: nav;
+}
+
+.sdc-main{
+  grid-area: main;
+}
+
+.sdc-wrapper{
+  margin-top: var(--#{$prefix}header-height);
+}
+
+
+@include media-breakpoint-down(xs){
+  .sdc-lnb{
+    padding-left: 1.6rem;
+    padding-right: 1.6rem;
+  }
+}
+
+@include media-breakpoint-between(sm, md){
+  .sdc-lnb, .sdc-main{
+    max-width: 68.4rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+
+@include media-breakpoint-up(md){
+  .sdc-wrapper{
+    display: grid;
+    grid-template-areas: "nav main";
+    grid-template-columns: 27.2rem auto;
+  }
+
+  .sdc-lnb{
+    padding-top: 2.8rem;
+    margin-right: 4rem;
+    position: sticky;
+    display: block;
+    overflow-y: auto;
+    height: calc(100vh - 6.8rem);
+    border-right: var(--#{$prefix}border-width) var(--#{$prefix}border-style) var(--#{$prefix}sem-color-border);
+  }
+
+  .sdc-main{
+    overflow: hidden;
+  }
+}
+
+@include media-breakpoint-up(lg){
+  .sdc-wrapper{
+    max-width: 138rem;
+  }
+
+  .sdc-lnb{
+    padding-left: 2.4rem;
+    padding-right: 1.6rem;
+  }
+}

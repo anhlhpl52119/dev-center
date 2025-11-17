@@ -1,0 +1,30 @@
+.sdc-cursor-wrapper{
+  margin-bottom: 3.2rem;
+}
+
+.pagination .page-item{
+  padding: 0;
+}
+
+.ic-control{
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  font-size: 1.4rem;
+}
+
+.page-link{
+  border-radius: 1.6rem;
+  min-width: 3.2rem;
+  height: 3.2rem;
+  padding: 0.4rem 1.15rem;
+  text-align: center;
+
+  /* Text/Text3 (Medium) */
+  font-size: var(--#{$prefix}sem-typography-text3);
+  font-weight: var(--#{$prefix}glob-typography-fw-medium);
+  line-height: 2.4rem; /* 171.429% */
+  letter-spacing: -0.042rem;
+}

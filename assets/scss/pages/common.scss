@@ -1,0 +1,18 @@
+@mixin setupCommonVariable() {
+  :root {
+    @each $text, $value in $typographies {
+      --sem-typography-#{$text}: var(--#{$prefix}sem-typography-#{$text});
+    }
+
+    --glob-typography-fw-regular: var(--#{$prefix}glob-typography-fw-regular);
+    --glob-typography-fw-medium: var(--#{$prefix}glob-typography-fw-medium);
+    --glob-typography-fw-blod: var(--#{$prefix}glob-typography-fw-blod);
+
+    --sem-color-surface-footer: var(--#{$prefix}sem-color-surface-footer);
+    --glob-color-white-50: var(--#{$prefix}glob-color-white-50);
+    --glob-color-white-10: var(--#{$prefix}glob-color-white-10);
+    --glob-color-white: var(--#{$prefix}glob-color-white);
+  }
+}
+
+@include setupCommonVariable();

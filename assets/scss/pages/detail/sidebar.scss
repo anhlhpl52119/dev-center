@@ -1,0 +1,35 @@
+:deep(.sdc-nav-item) {
+  padding-left: 1ch;
+  padding-right: 1ch;
+}
+
+:deep(.nav-link) {
+  text-decoration: none;
+  color: var(--#{$prefix}body-text-color);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+
+  &:hover {
+    color: var(--#{$prefix}link-color);
+  }
+}
+
+:deep(.nav-active) {
+  color: var(--#{$prefix}link-color);
+}
+
+:deep(.nav-link.show) {
+  .bi-chevron-right {
+    transform: rotate(-270deg);
+  }
+}
+
+:deep(submenu){
+  display: none;
+}
+:deep(.nav-link.show + .submenu) {
+  display: block;
+}

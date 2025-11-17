@@ -1,0 +1,12 @@
+FROM registry01.idc-sginfra.net/public-images/node:16.20.0
+
+USER root
+
+# deploy
+RUN mkdir -p /stove/deploy/{project}
+
+ADD .output/ /stove/deploy/{project}
+
+WORKDIR /stove/deploy/{project}
+
+CMD [ "node", "server/index.mjs" ]

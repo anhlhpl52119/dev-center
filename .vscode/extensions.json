@@ -1,0 +1,17 @@
+{
+  "recommendations": [
+    "antfu.unocss",
+    "antfu.vite",
+    "antfu.iconify",
+    "antfu.goto-alias",
+    "csstools.postcss",
+    "dbaeumer.vscode-eslint",
+    "vue.volar",
+    "MisterJ.vue-volar-extention-pack",
+    "lokalise.i18n-ally",
+    "streetsidesoftware.code-spell-checker",
+    "eamodio.gitlens",
+    "sdras.vue-vscode-snippets",
+    "sibiraj-s.vscode-scss-formatter"
+  ]
+}

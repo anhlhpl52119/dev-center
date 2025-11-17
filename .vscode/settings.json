@@ -1,0 +1,13 @@
+{
+  "i18n-ally.localesPaths": ["locales"],
+  "i18n-ally.enabledParsers": ["json", "ts"],
+  "search.exclude": {
+    ".nuxt": true
+  },
+  "editor.gotoLocation.multipleTypeDefinitions": "goto",
+  "editor.gotoLocation.multipleDefinitions": "goto",
+  "files.eol": "\n",
+  "editor.tabSize": 2,
+  "iconify.inplace": false,
+  "scss.lint.unknownAtRules": "ignore"
+}

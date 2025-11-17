@@ -1,0 +1,20 @@
+@mixin text-truncate($lines) {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $lines;
+  overflow: hidden;
+  word-break: break-word;
+  text-overflow: ellipsis;
+}
+
+.text-truncate-1 {
+  @include text-truncate(1);
+}
+
+.text-truncate-2 {
+  @include text-truncate(2);
+}
+
+.text-truncate-3 {
+  @include text-truncate(3);
+}

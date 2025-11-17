@@ -1,0 +1,32 @@
+@use "variables" as *;
+@use "spacers" as *;
+// Re-assigned maps
+//
+// Placed here so that others can override the default Sass maps and see automatic updates to utilities and more.
+
+$theme-colors-rgb: map-loop($theme-colors, to-rgb, "$value") !default;
+$utilities-colors: $theme-colors-rgb !default;
+
+$utilities-border: map-merge(
+                $utilities-colors,
+                (
+                        "black": to-rgb($black),
+                        "white": to-rgb($white)
+                )
+) !default;
+$utilities-border-colors: map-loop($utilities-border, rgba-css-var, "$key", "border") !default;
+
+
+$utilities-text: map-merge(
+                $utilities-colors,
+                (
+                        "black": to-rgb($black),
+                        "white": to-rgb($white),
+                        "body": to-rgb($white)
+                )
+) !default;
+$utilities-text-colors: map-loop($utilities-text, rgba-css-var, "$key", "text") !default;
+
+$utilities-links-underline: map-loop($utilities-colors, rgba-css-var, "$key", "link-underline") !default;
+$negative-spacers: negativify-map($new_spacers) !default;
+$gutters: $new_spacers !default;

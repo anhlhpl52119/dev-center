@@ -1,0 +1,78 @@
+@mixin custom-ul-padding($depth) {
+  $padding: 1.2rem; // Điều chỉnh giá trị padding theo ý muốn
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+  }
+
+  @for $i from 2 through $depth {
+    ul:nth-child(#{$i}) {
+      padding-left: $padding * ($i - 1);
+    }
+  }
+}
+
+@include custom-ul-padding(6);
+
+.toc-nav-list-wrapper{
+  > .toc-nav-item:not(:last-child){
+    margin-bottom: 1.6rem;
+  }
+}
+
+.toc-link {
+  cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  // padding: 0 0 1.6rem 0;
+  padding: 0;
+
+  color: var(--#{$prefix}sem-color-on-surface-elevation-3);
+
+  /* Button/Button3-M */
+  font-size: var(--#{$prefix}sem-typography-button3);
+  font-weight: var(--#{$prefix}glob-typography-fw-medium);
+  line-height: 1.8rem; /* 150% */
+  letter-spacing: -0.024rem;
+
+  transition: color 0.4s ease;
+  &.active{
+    color: var(--#{$prefix}sem-color-brand-blue);
+  }
+  &:hover{
+    color: var(--#{$prefix}sem-color-brand-blue);
+  }
+
+}
+
+.toc-nav-sub-list{
+  margin-top: 0.8rem;
+  .toc-link{
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding: 0.4rem 0 0.4rem 1.2rem;
+    color: var(--#{$prefix}sem-color-on-surface-elevation-3);
+    border-left: 2px solid var(--#{$prefix}sem-color-inverse-elevation-5);
+
+    /* Button/Button3-R */
+    font-size: var(--#{$prefix}sem-typography-button3);
+    font-weight: var(--#{$prefix}glob-typography-fw-regular);
+    line-height: 1.8rem; /* 150% */
+    letter-spacing: -0.024rem;
+
+    &.active{
+      color: var(--#{$prefix}sem-color-brand-blue);
+    }
+    &:hover{
+      color: var(--#{$prefix}sem-color-brand-blue);
+    }
+  }
+}
+
+
