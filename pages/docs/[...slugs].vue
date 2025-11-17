@@ -12,17 +12,22 @@
       <TheLeftNavBar :isShowTocMenuIcon="isShowTocMenuIcon" :catalogs="lnb" :breadcrumbs="breadcrumbs" class="flex-grow-1 flex-md-grow-0" @toggleTOCMobile="toggleTOCMobile" />
 
       <div class="border-bottom d-md-none"></div>
-      <section class="v-main sdc-main docs">
+      <section class="v-main sdc-main">
         <MdPreview
           :editorId="renderId"
           :modelValue="contentRender"
+          :title="contentTitle"
+          :description="contentDescription"
           :lastUpdate="lastUpdated"
           :versioning="versioningList"
           :currentVersion="versionQueryParam"
           :href="path"
           class="order-lg-1"
-          @changeVersioning="handleChangeVersioning"
         />
+        <div class="last-updated text-end mt-20">
+          <span class="time">{{ t('dev_center.docs.last_updated') }}</span>
+          <span class="time">{{ lastUpdated }}</span>
+        </div>
       </section>
 
       <div id="tocMobile"></div>
@@ -66,7 +71,7 @@ import { isCurrentNavItemOrDirectChild, removeLocalePrefix } from '@/utils';
 // });
 
 const { locale, t } = useI18n();
-const localePath = useLocalePath();
+// const localePath = useLocalePath();
 const singlePageStore = useSinglePageStore();
 const isLoading = ref<boolean>(false);
 const lnbStore = useLNBStore();
@@ -75,6 +80,8 @@ const renderId = 'sdc-preview-docs';
 const isOpenTOC = ref<boolean>(false);
 
 const contentRender = ref<string>('');
+const contentTitle = ref<string>('Title');
+const contentDescription = ref<string>('description');
 const lastUpdated = ref<string>('');
 const route = useRoute();
 const path = ref<string>(!(Array.isArray(route.params.slugs) && route.params.slugs.length > 0) ? '' : route.params.slugs.join('/'));
@@ -116,55 +123,6 @@ const throwError = (statusCode: number = HttpStatusCode.BAD_REQUEST, statusMessa
   // then you can do this by setting fatal: true.
   // Ref: https://nuxt.com/docs/api/utils/create-error
   throw createError({ statusCode, statusMessage, fatal: true });
-};
-
-const handleChangeVersioning = async (versionId: string) => {
-  isLoading.value = true;
-  if (versionId) {
-    await navigateTo(localePath({
-      path: route.path,
-      query: {
-        version: versionId
-      }
-    }));
-
-    const fetchSinglePageByVersionOptions: FetchSinglePageByVersionOptions = {
-      pageId: pageId.value,
-      locale: locale.value,
-      timezone: timeZone.value,
-      versionId
-    };
-
-    const rsByVersion = await singlePageStore.fetchSinglePageByVersion(fetchSinglePageByVersionOptions);
-    if (rsByVersion.render) {
-      contentRender.value = rsByVersion.render;
-      lastUpdated.value = rsByVersion.lastUpdate;
-      isLoading.value = false;
-    } else {
-      isLoading.value = false;
-      throwError(HttpStatusCode.NOT_FOUND);
-    }
-  } else {
-    await navigateTo(localePath({
-      path: route.path
-    }));
-
-    const fetchSinglePageOptions: FetchSinglePageByPathOptions = {
-      path: path.value,
-      locale: locale.value,
-      timezone: timeZone.value
-    };
-
-    const detailRs = await singlePageStore.fetchSinglePageByPath(fetchSinglePageOptions);
-    if (!detailRs.render) {
-      isLoading.value = false;
-      throwError(HttpStatusCode.NOT_FOUND);
-    }
-
-    contentRender.value = detailRs.render;
-    lastUpdated.value = detailRs.lastUpdate;
-    isLoading.value = false;
-  }
 };
 
 const generateBreadcrumb = (path: string, lnbItems: LNBModel[], breadcrumb: BreadcrumbModel[] = []): BreadcrumbModel[] => {
@@ -246,6 +204,8 @@ const init = async () => {
         }
 
         contentRender.value = rsByVersion.render;
+        contentTitle.value = rsByVersion.title;
+        contentDescription.value = rsByVersion.description;
         lastUpdated.value = rsByVersion.lastUpdate;
         if (process.client) {
           versioningList.value = await singlePageStore.fetchVersioningList(pageId.value);
@@ -256,6 +216,8 @@ const init = async () => {
         }
 
         contentRender.value = detailRs.render;
+        contentTitle.value = detailRs.title;
+        contentDescription.value = detailRs.description;
         lastUpdated.value = detailRs.lastUpdate;
         if (process.client) {
           versioningList.value = await singlePageStore.fetchVersioningList(pageId.value);

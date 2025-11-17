@@ -13,6 +13,8 @@ import type {
 } from './type';
 
 export interface mdPreviewProps {
+  title: string;
+  description: string;
   /**
    * Markdown content.
    */

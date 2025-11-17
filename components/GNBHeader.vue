@@ -269,7 +269,6 @@
         </template>
       </ClientOnly>
     </nav>
-    <div class="border-bottom divider"></div>
   </header>
 </template>
 

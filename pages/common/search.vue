@@ -129,7 +129,6 @@ import { useSearchDocsStore } from '@stores/pageQueryStore/search';
 
 import BasePagination from '@/components/navigation/BasePagination.vue';
 import BasePaginationSkeleton from '@/components/navigation/BasePaginationSkeleton.vue';
-import { THUMBNAIL_DEFAULT } from '@/constants/Images';
 import { StateManagementKeys } from '@/constants/StateManagement';
 import { LocalStorageKeys } from '@/types/LocalStorageKeys';
 import type { CategoryModel, CategoryResultSearch, PageSearchModel, Pagination, SearchItemModel } from '@/types/pages/DocModel';
@@ -305,23 +304,6 @@ const handleCallSearchBox = async () => {
   } finally {
     isLoadingPageBoxSearch.value = false;
   }
-};
-
-const clickTab = (category: string) => {
-  currentTab.value = category;
-  let module: string | undefined = category;
-  if (category === '') {
-    module = undefined;
-  }
-
-  return navigateTo(localePath({
-    path: '/common/search',
-    query: {
-      ...route.query,
-      page: undefined,
-      module
-    }
-  }));
 };
 
 const addItemRecSearchStorage = (newItem: string): void => {

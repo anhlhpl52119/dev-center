@@ -4,6 +4,7 @@ export const getSinglePageByPathQuery : string = `query Pages($path: String!, $l
                           id
                           title
                           content
+                          description
                           updatedAt
                       }
                   }

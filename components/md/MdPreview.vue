@@ -1,4 +1,9 @@
 <template>
+  <div class="title">
+    <h3>{{ title }}</h3>
+    <p>{{ description }}</p>
+  </div>
+
   <div
     :id="editorId"
     :class="[
@@ -8,6 +13,7 @@
       props.theme === 'dark' && `${prefix}-dark`,
       `${prefix}-previewOnly`
     ]"
+    class="md2"
     :style="props.style"
   >
     <ClientOnly>
@@ -27,11 +33,6 @@
       :onHtmlChanged="onHtmlChanged"
       :onGetCatalog="onGetCatalog"
     />
-
-    <div class="last-updated text-end mt-16">
-      <strong class="prefix">{{ t('dev_center.docs.last_updated') }}</strong>
-      <span class="time">{{ lastUpdate }}</span>
-    </div>
   </div>
 </template>
 <script setup lang="ts">
@@ -53,9 +54,9 @@ import bus from '@/utils/event-bus';
 //   'https://primefaces.org/cdn/primevue/images/galleria/galleria4.jpg'
 // ];
 
-const { t } = useI18n();
-
 const props = withDefaults(defineProps<mdPreviewProps>(), {
+  title: '',
+  description: '',
   theme: 'light',
   class: '',
   language: 'en-US',
@@ -122,3 +123,16 @@ const onGetCatalog = (list: HeadList[]) => {
 };
 
 </script>
+<style lang="css" scoped>
+.title {
+  margin-bottom: 4rem;
+  margin-top: 4rem;
+}
+
+.md2 {
+  box-shadow: 0 4px 16px 0 hsla(228, 23%, 25%, 0.1);
+  padding: 3rem !important;
+  border-radius: 3.2rem;
+  margin-top: 4rem !important;
+}
+</style>

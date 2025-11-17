@@ -57,6 +57,7 @@ export interface PageRender {
     render: string;
     lastUpdate: string;
     title: string;
+    description: string;
     errMsg?: string;
 }
 
@@ -90,6 +91,7 @@ export interface PageSingModel {
     id: number;
     content: string;
     updatedAt: string;
+    description: string;
     title: string;
 }
 

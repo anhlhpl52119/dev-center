@@ -33,8 +33,7 @@ body {
 
   background-attachment: fixed;
   background-color: hsla(214, 100%, 99%, 1);
-  background-image: linear-gradient(0deg, #f8fbff, #f8fbff),
-    linear-gradient(180deg, rgba(134, 186, 255, 0.2) 0%, rgba(255, 255, 255, 0) 45.9%);
+  background-image: linear-gradient(180deg, rgba(134, 186, 255, 0.2) 0%, rgba(255, 255, 255, 0) 45.9%);
 }
 
 // Blockquote
@@ -84,4 +83,25 @@ body.error-layout {
 th {
   text-align: inherit;
   text-align: -webkit-match-parent;
+}
+
+/* Scroll bar */
+*::-webkit-scrollbar-track-piece {
+  border-radius: 2em;
+  background-color: #f8f8f8;
+}
+
+*::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 2em;
+  background-clip: padding-box;
+  background-color: #ddd;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: #bbb;
 }

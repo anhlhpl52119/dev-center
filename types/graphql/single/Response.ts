@@ -2,6 +2,7 @@ export interface SinglePageByPathItemSerRes{
     id : number;
     title : string;
     content: string;
+    description: string;
     updatedAt : string; // Ex: 2019-02-15T04:22:28.058Z
 }
 export interface SinglePageByPathSerRes{
@@ -32,6 +33,7 @@ export interface VersioningListSerRes{
 export interface SinglePageByVersionItemSerRes {
     id: number;
     content: string;
+    description: string;
     versionDate: string;
     title: string;
 }

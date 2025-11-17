@@ -26,6 +26,7 @@ export const mappingSinglePage = (options: MappingSinglePageOptions): PageSingMo
   return {
     id: options.data.id,
     content: options.data.content,
+    description: options.data.description,
     updatedAt: formatLastUpdateContentPage(options.data.updatedAt, {
       locale: options.locale,
       zoneName: options.timezone
@@ -40,6 +41,7 @@ export const mappingSinglePageByVersion = (
   return {
     id: options.data.id,
     content: options.data.content,
+    description: options.data.description,
     updatedAt: formatLastUpdateContentPage(options.data.versionDate, {
       locale: options.locale,
       zoneName: options.timezone

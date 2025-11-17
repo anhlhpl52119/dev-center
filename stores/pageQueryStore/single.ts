@@ -42,6 +42,7 @@ export const useSinglePageStore = defineStore(PiniaStoreKeys.docPage, () => {
     const rs: PageRender = {
       pageId: 0,
       render: '',
+      description: '',
       lastUpdate: '',
       title: ''
     };
@@ -96,6 +97,7 @@ export const useSinglePageStore = defineStore(PiniaStoreKeys.docPage, () => {
           rs.render = dataMapper.content;
           rs.pageId = dataMapper.id;
           rs.title = dataMapper.title;
+          rs.description = dataMapper.description;
           rs.lastUpdate = dataMapper.updatedAt;
         }
 
@@ -153,6 +155,7 @@ export const useSinglePageStore = defineStore(PiniaStoreKeys.docPage, () => {
     const rs: PageRender = {
       pageId: options.pageId,
       render: '',
+      description: '',
       lastUpdate: '',
       title: ''
     };
