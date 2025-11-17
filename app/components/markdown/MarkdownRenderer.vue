@@ -11,10 +11,11 @@ import slugify from '@sindresorhus/slugify';
 import DOMPurify from 'dompurify';
 import MarkdownIt from 'markdown-it';
 import anchor from 'markdown-it-anchor';
-
 import markdownItAttrs from 'markdown-it-attrs';
+
 import linkAttrs from 'markdown-it-link-attributes';
 import markdownItTOC from 'markdown-it-toc-done-right';
+import AdmonitionPlugin from '@/lib/markdown-it-plugins/admonition';
 
 const props = defineProps<{
   content?: string;
@@ -39,6 +40,7 @@ const md = new MarkdownIt({
   .use(footnote)
   .use(linkAttrs)
   .use(markdownItTOC)
+  .use(AdmonitionPlugin)
   .use(anchor, {
     slugify: s => slugify(s),
   });
@@ -61,13 +63,17 @@ const renderedContent = computed(() => {
   <div v-if="!renderedContent" />
   <div
     v-else
-    class="markdown-content"
+    class="markdown-body"
     v-html="renderedContent"
   />
 </template>
 
-<style scoped>
-@reference "~/assets/css/main.css";
+<style>
+@import '~/assets/css/github/github-markdown.css';
+@import '~/assets/css/github/github-light.css';
+/* @import '~/assets/css/github/github-dark.css'; */
+
+/* @reference "~/assets/css/main.css";
 
 .markdown-content {
   @apply leading-relaxed;
@@ -163,5 +169,5 @@ const renderedContent = computed(() => {
   &:deep(del) {
     @apply line-through;
   }
-}
+} */
 </style>
