@@ -190,22 +190,22 @@
 
           <!--Start menu list for screen sizes >= md-->
           <div
-            class="d-none d-md-flex align-items-center justify-content-lg-between"
+            class="d-none d-md-flex align-items-center"
             :class="{ 'flex-grow-1': !isExpandSearchWrapper }"
           >
             <ul
               v-if="gnbMenus?.length"
-              class="navbar-nav stds-navbar-nav-horizontal gnb-nav-menu-custom me-lg-auto"
+              class="navbar-nav ms-md-auto stds-navbar-nav-horizontal gnb-nav-menu-custom"
               :class="{ 'd-none': isExpandSearchWrapper }"
             >
-              <!-- <li v-for="item in gnbMenus" :key="item.id">
-                <NuxtLink :to="localePath(item.href)" class="nav-link">{{ item.title }}</NuxtLink>
-              </li> -->
+              <li>
+                <NuxtLink to="#" class="nav-link">창작자 센터 바로가기</NuxtLink>
+              </li>
             </ul>
 
             <div
               ref="inputSearchDesktopRef"
-              class="ms-md-auto me-8 form-search-wrapper"
+              class="me-8 form-search-wrapper"
               :class="{ 'd-none': isExpandSearchWrapper }"
               @click="expandSearchForm"
             >

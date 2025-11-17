@@ -5,7 +5,6 @@
 //
 // Normalize is licensed MIT. https://github.com/necolas/normalize.css
 
-
 // Document
 //
 // Change from `box-sizing: content-box` so that `width` is not affected by `padding` or `border`.
@@ -21,7 +20,7 @@ html {
 }
 
 // Language specific font families
-html[lang="en"] {
+html[lang='en'] {
   --#{$prefix}body-font-family: #{$font-family-en};
 }
 
@@ -31,7 +30,11 @@ body {
   font-weight: var(--#{$prefix}body-font-weight);
   line-height: var(--#{$prefix}body-line-height);
   color: var(--#{$prefix}body-text-color);
-  background-color: var(--#{$prefix}body-bg);
+
+  background-attachment: fixed;
+  background-color: hsla(214, 100%, 99%, 1);
+  background-image: linear-gradient(0deg, #f8fbff, #f8fbff),
+    linear-gradient(180deg, rgba(134, 186, 255, 0.2) 0%, rgba(255, 255, 255, 0) 45.9%);
 }
 
 // Blockquote
@@ -47,32 +50,32 @@ figure {
   margin: 0;
 }
 
-p{
+p {
   margin-top: 0;
   margin-bottom: 0;
 }
 
-body.error-layout{
-  #__nuxt{
+body.error-layout {
+  #__nuxt {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     min-height: 100vh;
 
-    .layout-footer{
+    .layout-footer {
       margin-top: 0 !important;
     }
   }
 }
 
-.has-error-api-wrapper{
+.has-error-api-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: calc(100vh - $header-height);
 }
 
-.has-error-api-wrapper + .layout-footer{
+.has-error-api-wrapper + .layout-footer {
   margin-top: 0 !important;
 }
 
@@ -82,6 +85,3 @@ th {
   text-align: inherit;
   text-align: -webkit-match-parent;
 }
-
-
-
