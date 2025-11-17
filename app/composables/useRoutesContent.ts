@@ -42,6 +42,12 @@ export function useRoutesContent() {
         locale,
       },
     },
+    onRequest() {
+      // TODO: check error on first time visit page
+      if (!normalizedPath.value) {
+        return {};
+      }
+    },
     watch: false,
   });
 
