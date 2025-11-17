@@ -1,4 +1,12 @@
 <script setup lang="ts">
+import { Dropdown as VDropdown } from 'floating-vue';
+
+const isShowLanguageMenus = ref<boolean>(false);
+const { locale, setLocale } = useI18n();
+const DEFAULT_LOCALES: Record<string, any> = {
+  ko: { code: 'ko', name: '한국어', iso: 'ko-KR' },
+  en: { code: 'en', name: 'English (US)', iso: 'en-US' },
+};
 const search = ref('');
 </script>
 
@@ -46,8 +54,45 @@ const search = ref('');
         </li>
 
         <li>
-          <Icon name="svg:locale" class="py-auto block size-5" />
+          <!-- <Icon name="svg:locale" class="py-auto block size-5" /> -->
+          <VDropdown
+            v-model:shown="isShowLanguageMenus"
+            distance="0"
+            popperClass="v-popper--theme-dc-dropdown-menu language-settings-wrapper"
+            placement="bottom-end"
+          >
+            <!-- <button
+              type="button"
+              class="btn btn-link btn-language"
+              aria-controls="language-menu"
+              aria-haspopup="true"
+            > -->
+            <!-- <i class="ic-language ic-v2-navigation-language-line" /> -->
+            <Icon name="svg:locale" class="py-auto block size-5" />
+            <!-- </button> -->
+            <template #popper>
+              <ul
+                class="gnb-custom-lang-list-vdropdown"
+              >
+                <li
+                  v-for="(value, key) in DEFAULT_LOCALES"
+                  :key="key"
+                  class="gnb-custom-lang-item"
+                >
+                  <a
+                    class="dropdown-item gnb-custom-lang-item-link"
+                    :class="{ 'is-active': key === locale }"
+                    href="#"
+                    @click.prevent.stop="setLocale(value.code)"
+                  >
+                    {{ value.name }}
+                  </a>
+                </li>
+              </ul>
+            </template>
+          </VDropdown>
         </li>
+
         <!-- <li><i class="block">avatar</i></li> -->
       </ul>
     </nav>

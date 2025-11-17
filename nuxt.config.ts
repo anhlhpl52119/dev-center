@@ -9,7 +9,7 @@ export default defineNuxtConfig({
   runtimeConfig,
 
   css: ['~/assets/css/main.css'],
-  modules: ['@nuxt/icon', '@nuxtjs/i18n', '@vueuse/nuxt'],
+  modules: ['@nuxt/icon', '@nuxtjs/i18n', '@vueuse/nuxt', 'floating-vue/nuxt'],
   vite: { plugins: [tailwindcss()] },
   imports: {
     dirs: ['constants'],
@@ -40,6 +40,14 @@ export default defineNuxtConfig({
     detectBrowserLanguage: {
       useCookie: true,
       cookieKey: 'LOCALE',
+    },
+  },
+  app: {
+    head: {
+      link: [{
+        rel: 'stylesheet',
+        href: 'https://d2x8kymwjom7h7.cloudfront.net/live/application_no/STATIC/common/stds-font-icon-v2/stds-font-icon.css',
+      }],
     },
   },
   icon: {
