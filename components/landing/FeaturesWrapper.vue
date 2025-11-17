@@ -53,7 +53,6 @@ const initPage = async () => {
   errMsg.value = '';
 
   const data = await store.fetchDevSiteProducts(locale.value);
-
   if (data.errMsg) {
     errMsg.value = data.errMsg;
   } else {

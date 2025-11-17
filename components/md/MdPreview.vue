@@ -11,22 +11,6 @@
     :style="props.style"
   >
     <ClientOnly>
-      <div
-        v-if="versioning.length > 1"
-        class="d-flex justify-content-end"
-      >
-        <select
-          :modelValue="selectedVersioning"
-          class="form-select versioning w-auto"
-          aria-label="Versioning select"
-          @change="selectVersioning"
-        >
-          <option v-for="item in versioning" :key="item.versionId" :value="item.versionId" :selected="item.versionId === Number(selectedVersioning)">{{ item.version }}</option>
-        </select>
-      </div>
-
-      <!-- <GalleryComponent :images="imageList" /> -->
-
       <template #fallback>
         <!-- this will be rendered on server side -->
         <div class="text-end versioning" aria-label="Versioning List"></div>
@@ -103,8 +87,6 @@ const {
   noHighlight
 } = props;
 
-const selectedVersioning = ref<string>(props.currentVersion);
-
 useProvidePreview(props);
 
 // Insert extended external link
@@ -139,8 +121,4 @@ const onGetCatalog = (list: HeadList[]) => {
   }
 };
 
-const selectVersioning = (evt: Event) => {
-  selectedVersioning.value = (evt.target as HTMLInputElement).value;
-  emit('changeVersioning', selectedVersioning.value);
-};
 </script>

@@ -13,7 +13,7 @@
               class="d-md-inline-block d-md-none ic-v2-stove-symbol-fill stds-logo-img stds-logo-img-mobile"
               role="img"
             ></i>
-            <span class="d-inline-block stds-logo-text">developers</span>
+            <span class="d-inline-block stds-logo-text">버블리즈 가이드</span>
           </NuxtLink>
 
           <!--Start Expand search form-->
@@ -142,9 +142,9 @@
                 </div>
                 <div class="offcanvas-body">
                   <ul v-if="gnbMenus?.length" class="navbar-nav stds-navbar-nav-vertical gnb-divider--top">
-                    <li v-for="item in gnbMenus" :key="item.id" class="nav-item">
+                    <!-- <li v-for="item in gnbMenus" :key="item.id" class="nav-item">
                       <NuxtLink :to="localePath(item.href)" class="nav-link">{{ item.title }}</NuxtLink>
-                    </li>
+                    </li> -->
                   </ul>
 
                   <div class="language-settings-wrapper">
@@ -198,9 +198,9 @@
               class="navbar-nav stds-navbar-nav-horizontal gnb-nav-menu-custom me-lg-auto"
               :class="{ 'd-none': isExpandSearchWrapper }"
             >
-              <li v-for="item in gnbMenus" :key="item.id">
+              <!-- <li v-for="item in gnbMenus" :key="item.id">
                 <NuxtLink :to="localePath(item.href)" class="nav-link">{{ item.title }}</NuxtLink>
-              </li>
+              </li> -->
             </ul>
 
             <div

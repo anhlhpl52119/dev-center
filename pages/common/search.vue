@@ -72,24 +72,6 @@
       </div>
     </section>
 
-    <section class="tabs-wrapper">
-      <header class="tabs-header scroll-snap-x">
-        <nav class="tabs" role="tablist">
-          <div
-            v-for="item in categories"
-            :key="item.id"
-            :class="['tab-item', {active: item.category === currentTab}]"
-          >
-            <button type="button" class="btn btn-tab" aria-current="page" @click="clickTab(item.category)">
-              {{
-                item.label
-              }}
-            </button>
-          </div>
-        </nav>
-      </header>
-    </section>
-
     <div v-if="isLoadingPageBoxSearch" class="d-flex align-items-center mx-auto mt-72 sdc-loading-box">
       <div class="ball1 ball"></div>
       <div class="ball2 ball"></div>
@@ -100,51 +82,15 @@
       <template v-if="resultsSearch && Object.keys(resultsSearch).length">
         <section class="sdc-results-wrapper">
           <article v-for="(value, key, index) in resultsSearch" :key="`c${index}`" class="sdc-result-item">
-            <div v-if="categories.length > 1" class="sdc-result-category">
-              <div class="sdc-result-category-media">
-                <NuxtImg
-                  :src="categoriesResultSearch[key]?.thumbnailMobile || THUMBNAIL_DEFAULT"
-                  loading="lazy"
-                  :alt="`${key} thumbnail`"
-                  class="sdc-result-category-thumbnail"
-                  :placeholder="THUMBNAIL_DEFAULT"
-                />
-              </div>
-
-              <div class="sdc-result-category-info">
-                <div class="sdc-result-category-info-content">
-                  <h4 class="sdc-result-category-title text-truncate-1">{{ categoriesResultSearch[key]?.title }}</h4>
-                  <p class="sdc-result-category-desc text-truncate-2">
-                    {{ categoriesResultSearch[key]?.description }}
-                  </p>
-                </div>
-
-                <NuxtLink
-                  class="sdc-result-category-learn-more-link"
-                  :to="localePath({
-                    path : '/common/search',
-                    query:{
-                      ...route.query,
-                      page: undefined,
-                      module: key
-                    }
-                  })"
-                >
-                  <span class="learn-more-title">{{ t('common.button.more') }}</span>
-                  <i class="ic-v2-control-arrow-right-line ic-learn-more"></i>
-                </NuxtLink>
-              </div>
-            </div>
-
             <div class="sdc-result-list">
               <div v-for="(childItem, i) in value" :key="`i${i}`" class="sdc-result-list-item">
                 <NuxtLink :to="localePath(childItem.href)" class="sdc-result-list-item-link">
                   <div class="sdc-result-list-item-card">
-                    <div
+                    <!-- <div
                       class="sdc-result-breadcrumbs text-truncate-1"
                     >
                       {{ childItem.breadcrumb }}
-                    </div>
+                    </div> -->
                     <h5 class="sdc-result-title text-truncate-1">{{ childItem.title }}</h5>
 
                     <p class="sdc-result-description text-truncate-2" v-html="childItem.content"></p>

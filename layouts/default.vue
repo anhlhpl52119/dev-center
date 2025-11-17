@@ -1,12 +1,12 @@
 <template>
   <GNBHeader />
   <slot></slot>
-  <Footer />
+  <!-- <Footer /> -->
   <ScrollButton />
 </template>
 
 <script setup lang="ts">
-import Footer from '@/components/Footer.vue';
+// import Footer from '@/components/Footer.vue';
 import GNBHeader from '@/components/GNBHeader.vue';
 import ScrollButton from '@/components/ScrollButton.vue';
 import { commonHead } from '@/configs/head';
