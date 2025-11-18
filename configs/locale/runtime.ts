@@ -22,7 +22,6 @@ export const getResourcesByLocale = async (
     const data = await mergeData(locale, res);
     return await nestingToFlatten(data);
   } catch (e) {
-    // nuxtApp.$sentry.captureException(e);
     console.error(`I18en cdn of locale ${locale} resource download timeout..!`, e);
     throw e;
   }
