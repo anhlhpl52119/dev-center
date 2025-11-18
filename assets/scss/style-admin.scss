@@ -91,20 +91,21 @@
 .v-main .contents h2 {
   position: relative;
   color: var(--#{$prefix}sem-color-on-surface-elevation-2);
-
+  margin-top: 4rem;
   /* Title/Title4-B */
-  font-size: var(--#{$prefix}sem-typography-title4);
+  font-size: 2rem;
   font-weight: var(--glob-typography-fw-blod);
-  line-height: 3.4rem; /* 141.667% */
+  line-height: 3rem;
   letter-spacing: -0.072rem;
 }
 
 .v-main .contents h3 {
   position: relative;
   color: var(--#{$prefix}sem-color-on-surface-elevation-2);
+  margin-top: 0.8rem;
 
   /* Title/Title5-B */
-  font-size: var(--#{$prefix}sem-typography-title5);
+  font-size: 1.6rem;
   font-weight: var(--glob-typography-fw-blod);
   line-height: 3rem; /* 150% */
   letter-spacing: -0.06rem;
@@ -113,9 +114,9 @@
 
 .v-main .contents h4 {
   color: var(--#{$prefix}sem-color-on-surface-elevation-2);
-
+  margin-top: 0.8rem;
   /* Title/Title6-B */
-  font-size: var(--#{$prefix}sem-typography-title6);
+  font-size: 1.5rem;
   font-weight: var(--glob-typography-fw-blod);
   line-height: 2.6rem; /* 144.444% */
   letter-spacing: -0.054rem;
@@ -145,12 +146,12 @@
 
 
 .v-main .contents p {
-  padding: 1rem 0;
+  padding: 0.8rem 0;
   margin: 0;
   color: $vulcanus-text-clr-dimmed;
 
   /* Text/Text1-R */
-  font-size: var(--#{$prefix}sem-typography-text1);
+  font-size: 1.4rem;
   font-weight: var(--glob-typography-fw-regular);
   line-height: 2.6rem; /* 162.5% */
   letter-spacing: -0.048rem;
