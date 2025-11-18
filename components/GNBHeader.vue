@@ -199,13 +199,16 @@
               :class="{ 'd-none': isExpandSearchWrapper }"
             >
               <li>
-                <NuxtLink to="#" class="nav-link">창작자 센터 바로가기</NuxtLink>
+                <NuxtLink to="#" class="nav-link">
+                  <span>창작자 센터 바로가기</span>
+                  <i class="ic-v2-control-web-link-line nav-link-icon"></i>
+                </NuxtLink>
               </li>
             </ul>
 
             <div
               ref="inputSearchDesktopRef"
-              class="me-8 form-search-wrapper"
+              class="me-24 form-search-wrapper"
               :class="{ 'd-none': isExpandSearchWrapper }"
               @click="expandSearchForm"
             >

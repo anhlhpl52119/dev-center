@@ -128,8 +128,13 @@ $light: $gray-100 !default;
 $dark: $blue-dark !default;
 $color-last-updated: #4e6e8e !default;
 
+$vulcanus-bd-radius-full: calc(infinity * 1px);
 $vulcanus-text-clr-dimmed: hsla(0, 0%, 40%, 1);
 $vulcanus-text-clr-base: hsla(0, 0%, 20%, 1);
+$vulcanus-text-clr-raised: hsla(0, 0%, 12%, 1);
+$vulcanus-clr-primary: hsla(226, 100%, 59%, 1);
+$vulcanus-clr-bg-active: hsla(226, 100%, 59%, 0.06);
+$vulcanus-clr-bd-base: hsla(0, 0%, 0%, 0.1);
 
 $theme-colors: (
         "primary": $primary,
@@ -421,7 +426,7 @@ $directions: (
 
 $icon-size: 2.4rem;
 $viewport-height: var(--mobile-vh, 100vh);
-$header-height: 6rem;
+$header-height: 6.4rem;
 $footer-height-mobile: 25.25rem; // height of footer in mobile + margin-top
 $footer-height-desktop: 37.25rem; // height of footer in desktop + margin-top
 

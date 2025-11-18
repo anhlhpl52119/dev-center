@@ -1,5 +1,5 @@
 @mixin custom-ul-padding($depth) {
-  $padding: 1.2rem; // Điều chỉnh giá trị padding theo ý muốn
+  $padding: 0.4rem; // Điều chỉnh giá trị padding theo ý muốn
 
   ul {
     list-style: none;
@@ -18,7 +18,7 @@
 
 .toc-nav-list-wrapper{
   > .toc-nav-item:not(:last-child){
-    margin-bottom: 1.6rem;
+    margin-bottom: 0.8rem;
   }
 }
 
@@ -28,23 +28,22 @@
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  // padding: 0 0 1.6rem 0;
   padding: 0;
 
-  color: var(--#{$prefix}sem-color-on-surface-elevation-3);
+  color: $vulcanus-text-clr-dimmed;
 
   /* Button/Button3-M */
-  font-size: var(--#{$prefix}sem-typography-button3);
+  font-size: 1.3rem;
   font-weight: var(--#{$prefix}glob-typography-fw-medium);
-  line-height: 1.8rem; /* 150% */
-  letter-spacing: -0.024rem;
+  line-height: 2.2rem; /* 150% */
+  letter-spacing: -0.025rem;
 
   transition: color 0.4s ease;
   &.active{
-    color: var(--#{$prefix}sem-color-brand-blue);
+    color: $vulcanus-clr-primary;
   }
   &:hover{
-    color: var(--#{$prefix}sem-color-brand-blue);
+    color: $vulcanus-clr-primary;
   }
 
 }
@@ -56,21 +55,21 @@
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    padding: 0.4rem 0 0.4rem 1.2rem;
+    padding: 0.4rem 0 0.4rem 1.6rem;
     color: var(--#{$prefix}sem-color-on-surface-elevation-3);
     border-left: 2px solid var(--#{$prefix}sem-color-inverse-elevation-5);
 
     /* Button/Button3-R */
-    font-size: var(--#{$prefix}sem-typography-button3);
-    font-weight: var(--#{$prefix}glob-typography-fw-regular);
-    line-height: 1.8rem; /* 150% */
-    letter-spacing: -0.024rem;
+    font-size: 1.3rem;
+    font-weight: 400;
+    line-height: 2.2rem; /* 150% */
+    letter-spacing: -0.025rem;
 
     &.active{
-      color: var(--#{$prefix}sem-color-brand-blue);
+      color: $vulcanus-clr-primary;
     }
     &:hover{
-      color: var(--#{$prefix}sem-color-brand-blue);
+      color: $vulcanus-clr-primary;
     }
   }
 }

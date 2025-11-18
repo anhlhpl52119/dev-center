@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
 
   &:hover {
     background: hsla(226, 100%, 59%, 0.06);
@@ -24,29 +25,28 @@
   letter-spacing: -0.042rem;
 }
 
-
 // Start nav-depth The margin-left increases by 1.2 rem for each depth increase, from depth 2 to depth 6, default depth 6
-$base-padding: 0.8rem ;
+$base-padding: 0.8rem;
 
 @mixin custom-ml-nav-depth($padding-number) {
-  $calculated-padding:  ($padding-number - 2) * $base-padding;
+  $calculated-padding: ($padding-number - 2) * $base-padding;
   margin-left: $calculated-padding;
 }
 
-.sdc-nav-depth{
-  padding: 0.8rem 1.2rem;
+.sdc-nav-depth {
+  padding: 0.8rem 1.6rem;
   @include custom-ml-nav-depth(6);
 }
 
 .sdc-nav-depth-2 {
-  padding: 1.2rem 1.6rem;
+  padding: 0.8rem 1.6rem;
   @include custom-ml-nav-depth(2);
 
   .sdc-nav-text {
     color: var(--#{$prefix}sem-color-on-surface-elevation-1);
 
     /* Title/Title7-M */
-    font-size: var(--#{$prefix}sem-typography-title7);
+    font-size: 1.5rem;
     font-weight: var(--#{$prefix}glob-typography-fw-medium);
     line-height: 2.4rem; /* 150% */
     letter-spacing: -0.048rem;
@@ -76,7 +76,7 @@ $base-padding: 0.8rem ;
 
 .sdc-nav-active {
   background: hsla(226, 100%, 59%, 0.06);
-    border-radius: calc(infinity * 1px);
+  border-radius: calc(infinity * 1px);
 
   .sdc-nav-text {
     color: var(--#{$prefix}sem-color-brand-blue);
@@ -87,6 +87,7 @@ $base-padding: 0.8rem ;
   display: none;
   list-style: none;
   margin: 0;
+  margin-top: 0.2rem;
   padding: 0;
 
   > .sdc-nav-item {
@@ -96,7 +97,8 @@ $base-padding: 0.8rem ;
 
 .sdc-nav-title.show {
   & + .sdc-nav-sublist {
-    display: block;
+    display: grid;
+    gap: 0.2rem;
   }
 
   .sdc-nav-ic-collapse {

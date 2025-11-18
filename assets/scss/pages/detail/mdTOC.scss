@@ -8,20 +8,19 @@ ul{
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-bottom: 1.6rem;
+  margin-bottom: 0.6rem;
 }
 
 .toc-nav-heading{
   flex-grow: 1;
-  color: var(--#{$prefix}sem-color-on-surface-elevation-1);
+  color: $vulcanus-text-clr-raised;
 
   /* Button/Button2-M */
-  font-size: var(--#{$prefix}sem-typography-button2);
-  font-weight: var(--#{$prefix}glob-typography-fw-medium);
-  line-height: 2rem;
-  letter-spacing: -0.042rem;
-
-  padding: 0.6rem 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 2.4rem;
+  letter-spacing: -0.03rem;
+  padding: 0.4rem 0;
 }
 
 .btn-toggle-toc{
@@ -29,10 +28,9 @@ ul{
   flex-shrink: 0;
   width: 3.2rem;
   height: 3.2rem;
-  padding: 0.6rem;
-  line-height: 2rem;
-  border-radius: $border-radius-lg;
-  border: 1px solid var(--#{$prefix}sem-color-inverse-elevation-5) !important;
+  padding: 0.8rem;
+  border-radius: $vulcanus-bd-radius-full;
+  background-color: hsla(225, 29%, 95%, 1);
 
   &:hover{
     background: var(--#{$prefix}sem-color-interaction-hover);
@@ -44,12 +42,12 @@ ul{
 }
 
 .ic-toggle-toc{
-  width: 2rem;
-  height: 2rem;
-  font-size: 2rem;
+  width: 1.6rem;
+  height: 1.6rem;
+  font-size: 1.6rem;
 
   &:before{
-    color: var(--#{$prefix}sem-color-on-surface-elevation-4);
+    color: $vulcanus-text-clr-base;
   }
 }
 
