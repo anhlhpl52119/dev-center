@@ -135,6 +135,7 @@ $vulcanus-text-clr-raised: hsla(0, 0%, 12%, 1);
 $vulcanus-clr-primary: hsla(226, 100%, 59%, 1);
 $vulcanus-clr-bg-active: hsla(226, 100%, 59%, 0.06);
 $vulcanus-clr-bd-base: hsla(0, 0%, 0%, 0.1);
+$vulcanus-box-shadow-sm: 0 4px 16px 0 hsla(228, 23%, 25%, 0.1);
 
 $theme-colors: (
         "primary": $primary,
@@ -399,8 +400,8 @@ $container-max-widths: (
         xs: 33.6rem,
         sm: 68.4rem,
         md: 94rem,
-        lg: 160rem,
-        xl: 160rem,
+        lg: 132rem,
+        xl: 132rem,
 ) !default;
 
 /*===== End ot Breakpoints =====*/

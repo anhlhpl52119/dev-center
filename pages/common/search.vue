@@ -8,6 +8,12 @@
   </main>
 
   <main v-else class="sdc-search-page-wrapper container">
+    <div class="mt-80 text-center">
+      <h1 class="text-title font-bold">
+        🔍 검색 결과
+      </h1>
+    </div>
+
     <section class="form-search-wrapper">
       <div class="form-search-recent-list-wrapper">
         <div class="form-search-container" role="search">

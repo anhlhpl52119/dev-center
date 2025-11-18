@@ -3,7 +3,8 @@
   padding-right: 1.6rem;
 
   .form-search-wrapper {
-    padding-top: 4rem;
+    padding-top: 2.4rem;
+    padding-bottom: 1.6rem;
   }
 
   .form-search-container {
@@ -13,15 +14,16 @@
   }
 
   .form-search-query {
-    padding: 1.2rem 1.6rem;
-    background: var(--#{$prefix}sem-color-neutral-variant-3);
-    color: var(--#{$prefix}sem-color-on-surface-elevation-2);
-
+    padding: 1.6rem 2rem;
+    background: $white;
+    color: $vulcanus-text-clr-base;
+    border-radius: $vulcanus-bd-radius-full;
+    border: 1px solid $vulcanus-clr-bd-base;
     /* Button/Button2-R */
-    font-size: var(--#{$prefix}sem-typography-button2);
-    font-weight: var(--#{$prefix}glob-typography-fw-regular);
-    line-height: 2rem; /* 142.857% */
-    letter-spacing: -0.042rem;
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 2.4rem; /* 142.857% */
+    letter-spacing: -0.03rem;
 
     &:focus {
       outline: none;
@@ -44,22 +46,23 @@
       transform: translateY(-50%);
     }
 
-    .btn-clear-search, .btn-search {
+    .btn-clear-search,
+    .btn-search {
       width: 2rem;
       height: 2rem;
       margin-right: 0.8rem;
 
-      > [class^="ic-v2"],
-      > [class*=" ic-v2"] {
+      > [class^='ic-v2'],
+      > [class*=' ic-v2'] {
         font-size: 2rem;
       }
     }
 
-    .btn-search{
+    .btn-search {
       color: $gray-800;
     }
 
-    .btn-clear-search{
+    .btn-clear-search {
       color: $black-15;
       &:hover {
         color: var(--#{$prefix}error);
@@ -225,7 +228,7 @@
 }
 
 .sdc-result-list-item {
-  margin-bottom: 1.2rem;
+  margin-bottom: 1.6rem;
 }
 
 .sdc-result-list-item-link {
@@ -235,18 +238,20 @@
 }
 
 .sdc-result-list-item-card {
+  background-color: $white;
   display: flex;
   flex-direction: column;
   padding: 1.6rem;
-  border-radius: 1.2rem;
-  border: 1px solid var(--#{$prefix}sem-color-inverse-elevation-4);
+  border-radius: 2.2rem;
+  transition: box-shadow 0.3s ease-in-out;
 
   &:hover {
-    background: var(--#{$prefix}sem-color-interaction-hover);
+    outline: 1px solid var(--#{$prefix}sem-color-inverse-elevation-4);
+    box-shadow: $vulcanus-box-shadow-sm;
   }
 
   &:active {
-    background: var(--#{$prefix}sem-color-interaction-pressed);
+    box-shadow: $vulcanus-box-shadow-sm;
   }
 }
 
@@ -262,7 +267,7 @@
 }
 
 .sdc-result-title {
-  color: var(--#{$prefix}sem-color-on-surface-elevation-1);
+  color: $vulcanus-text-clr-base;
 
   /* Title/Title7-M */
   font-size: var(--#{$prefix}sem-typography-title7);
@@ -273,7 +278,7 @@
 }
 
 .sdc-result-description {
-  color: var(--#{$prefix}sem-color-on-surface-elevation-2);
+  color: $vulcanus-text-clr-dimmed;
 
   /* Text/Text4-R */
   font-size: var(--#{$prefix}sem-typography-text4);
@@ -282,17 +287,17 @@
   letter-spacing: -0.0325rem;
 }
 
-.sdc-search-page-wrapper{
-  .form-search-recent-list-wrapper{
+.sdc-search-page-wrapper {
+  .form-search-recent-list-wrapper {
     position: relative;
   }
   // Start recent-search-dropdown
-  .recent-search-list-wrapper{
+  .recent-search-list-wrapper {
     display: none;
     position: absolute;
     left: 50%;
     top: 100%;
-    transform: translateX(-50%)!important;
+    transform: translateX(-50%) !important;
     width: 100%;
     z-index: 100;
     max-height: 30rem;
@@ -384,7 +389,6 @@
   // End recent-search-dropdown
 }
 
-
 @include media-breakpoint-down(xs) {
   .sdc-search-page-wrapper {
     padding-left: 1.6rem;
@@ -395,7 +399,6 @@
     margin-top: 0.8rem;
   }
 }
-
 
 @include media-breakpoint-down(md) {
   .sdc-search-page-wrapper {
@@ -420,7 +423,7 @@
     margin-right: 2.4rem;
   }
 
-  .sdc-result-category-thumbnail{
+  .sdc-result-category-thumbnail {
     width: 5.6rem;
     height: 5.6rem;
   }
@@ -451,8 +454,9 @@
     }
   }
 
-  .sdc-result-list-item-card{
-    padding: 2.4rem 3.2rem;
+  .sdc-result-list-item-card {
+    border-radius: 3.2rem;
+    padding: 3rem;
   }
 
   .sdc-result-breadcrumbs {
@@ -468,9 +472,9 @@
 
   .sdc-result-title {
     /* Title/Title5-M */
-    font-size: var(--#{$prefix}sem-typography-title5);
-    letter-spacing: -0.06rem;
-    margin-bottom: 1.2rem;
+    font-size: 2rem;
+    letter-spacing: -0.03rem;
+    margin-bottom: 0.8rem;
   }
 
   .sdc-result-description {
@@ -488,16 +492,16 @@
     min-height: calc(100vh - $header-height);
 
     .form-search-wrapper {
-      padding-top: 6.4rem;
-      padding-bottom: 4.8rem;
+      padding-top: 2.4rem;
+      padding-bottom: 4rem;
     }
 
     .form-search-container {
-      width: 64rem;
+      width: 60rem;
     }
 
-    .recent-search-list-wrapper{
-      width: 64rem;
+    .recent-search-list-wrapper {
+      width: 60rem;
     }
   }
 
@@ -507,10 +511,8 @@
   }
 }
 
-
 @include media-breakpoint-up(lg) {
   .sdc-search-page-wrapper {
     max-width: 86rem;
   }
 }
-

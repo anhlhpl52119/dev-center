@@ -1,7 +1,7 @@
 <template>
   <GNBHeader />
   <slot></slot>
-  <!-- <Footer /> -->
+  <Footer />
   <ScrollButton />
 </template>
 
