@@ -5,14 +5,11 @@ import { getHead } from './configs/head';
 import { getHooks } from './configs/hook';
 import { getI18n } from './configs/i18nConfig';
 import { getRuntimeOptions } from './configs/runtime';
-import sentryVitePlugin from './configs/viteSentryConfig';
 
 const RUN_TYPE = process.env.RUN_TYPE || 'dev';
 const isProduction = process.env.NODE_ENV === 'production';
 
 const useHttps = RUN_TYPE !== 'sandbox';
-const SENTRY_STATUS = process.env.SENTRY || 'off';
-const isForceSentryOn = SENTRY_STATUS === 'on';
 const runTypeConfig = getRuntimeOptions({ RUN_TYPE }).public.runTypeConfig;
 
 // Config CSS
@@ -104,10 +101,6 @@ export default defineNuxtConfig({
       fs: {
         allow: ['..']
       }
-    },
-    plugins: isForceSentryOn ? [sentryVitePlugin] : [],
-    ssr: {
-      external: ['@sentry/profiling-node']
     }
   },
   nitro: {
