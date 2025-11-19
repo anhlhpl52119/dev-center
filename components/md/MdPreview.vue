@@ -13,7 +13,7 @@
       props.theme === 'dark' && `${prefix}-dark`,
       `${prefix}-previewOnly`
     ]"
-    class="md2"
+    class="md-wrapper"
     :style="props.style"
   >
     <ClientOnly>
@@ -125,6 +125,7 @@ const onGetCatalog = (list: HeadList[]) => {
 </script>
 <style lang="scss" scoped>
 .content-heading {
+  color: $vulcanus-text-clr-raised;
   margin-bottom: 4rem;
   margin-top: 4rem;
   & h1 {
@@ -142,8 +143,8 @@ const onGetCatalog = (list: HeadList[]) => {
 
 }
 
-.md2 {
-  box-shadow: 0 4px 16px 0 hsla(228, 23%, 25%, 0.1);
+.md-wrapper {
+  box-shadow: $vulcanus-box-shadow-sm;
   padding: 3rem !important;
   border-radius: 3.2rem;
   margin-top: 4rem !important;

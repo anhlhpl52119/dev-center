@@ -16,13 +16,13 @@
 }
 
 .sdc-nav-text {
-  color: var(--#{$prefix}sem-color-on-surface-elevation-2);
+  color: $vulcanus-text-clr-base;
 
   /* Text/Text3-R */
-  font-size: var(--#{$prefix}sem-typography-text3);
-  font-weight: var(--#{$prefix}glob-typography-fw-regular);
+  font-size: 1.4rem;
+  font-weight: 500;
   line-height: 2.4rem; /* 171.429% */
-  letter-spacing: -0.042rem;
+  letter-spacing: -0.03rem;
 }
 
 // Start nav-depth The margin-left increases by 1.2 rem for each depth increase, from depth 2 to depth 6, default depth 6
@@ -43,11 +43,11 @@ $base-padding: 0.8rem;
   @include custom-ml-nav-depth(2);
 
   .sdc-nav-text {
-    color: var(--#{$prefix}sem-color-on-surface-elevation-1);
+    color: $vulcanus-text-clr-raised;
 
     /* Title/Title7-M */
     font-size: 1.5rem;
-    font-weight: var(--#{$prefix}glob-typography-fw-medium);
+    font-weight: 700;
     line-height: 2.4rem; /* 150% */
     letter-spacing: -0.048rem;
   }
@@ -79,7 +79,7 @@ $base-padding: 0.8rem;
   border-radius: calc(infinity * 1px);
 
   .sdc-nav-text {
-    color: var(--#{$prefix}sem-color-brand-blue);
+    color: $vulcanus-clr-primary;
   }
 }
 

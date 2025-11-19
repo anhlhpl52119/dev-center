@@ -17,10 +17,11 @@
     display: block;
     overflow-y: auto;
     height: auto;
-    max-height: calc(100vh - 7rem); //Header: 7rem, footer 31rem
+    max-height: calc(100vh - 7rem);
     margin-right: 4rem;
     padding-top: 4rem;
     top: 6rem;
+    align-self: flex-start;
   }
 
   .sdc-toc.collapse{
