@@ -87,8 +87,8 @@
     <template v-else>
       <template v-if="resultsSearch && Object.keys(resultsSearch).length">
         <section class="sdc-results-wrapper">
-          <article v-for="(value, key, index) in resultsSearch" :key="`c${index}`" class="sdc-result-item">
-            <div class="sdc-result-list">
+          <article v-for="(value, key, index) in resultsSearch" :key="`c${index}`" class="">
+            <div class="">
               <div v-for="(childItem, i) in value" :key="`i${i}`" class="sdc-result-list-item">
                 <NuxtLink :to="localePath(childItem.href)" class="sdc-result-list-item-link">
                   <div class="sdc-result-list-item-card">
