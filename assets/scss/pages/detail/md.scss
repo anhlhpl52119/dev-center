@@ -244,7 +244,6 @@ $border-left-color_1: currentColor;
   flex-direction: column;
   overflow: hidden;
   color: $color_40;
-  background-color: $background-color_35;
 
   .md-editor-fullscreen {
     position: fixed !important;
@@ -1556,6 +1555,11 @@ $border-left-color_1: currentColor;
   // flex: 1;
   box-sizing: border-box;
   overflow: auto;
+
+  box-shadow: $vulcanus-box-shadow-sm;
+  padding: 3rem;
+  border-radius: 3.2rem;
+  background-color: $background-color_35;
 }
 
 .md-editor-preview-wrapper:focus-visible {

@@ -1,9 +1,4 @@
 <template>
-  <div class="content-heading">
-    <h1>{{ title }}</h1>
-    <p>{{ description }}</p>
-  </div>
-
   <div
     :id="editorId"
     :class="[
@@ -13,9 +8,13 @@
       props.theme === 'dark' && `${prefix}-dark`,
       `${prefix}-previewOnly`
     ]"
-    class="md-wrapper"
     :style="props.style"
   >
+    <div class="content-heading">
+      <h1>{{ title }}</h1>
+      <p>{{ description }}</p>
+    </div>
+
     <ClientOnly>
       <template #fallback>
         <!-- this will be rendered on server side -->
@@ -132,21 +131,25 @@ const onGetCatalog = (list: HeadList[]) => {
     font-weight: 700;
     font-size: 3.2rem;
     line-height: 4.4rem;
+    letter-spacing: -0.03rem;
   }
 
   & p {
-    color: hsla(0, 0%, 40%, 1);
+    color: $vulcanus-text-clr-dimmed;
     font-size: 1.3rem;
     margin-top: 0.4rem;
+    font-weight: 400;
     line-height: 2.2rem;
+    padding: 0 0 0.2rem 0;
+    letter-spacing: 0.0025rem;
   }
-
 }
 
-.md-wrapper {
-  box-shadow: $vulcanus-box-shadow-sm;
-  padding: 3rem !important;
-  border-radius: 3.2rem;
-  margin-top: 4rem !important;
+@include media-breakpoint-down(md) {
+  .content-heading {
+    margin-top: 0;
+    margin-bottom: 2rem;
+    padding-left: 3rem;
+  }
 }
 </style>

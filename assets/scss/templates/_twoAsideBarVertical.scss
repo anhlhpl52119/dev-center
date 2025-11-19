@@ -1,7 +1,7 @@
 .sdc-wrapper {
   // Reset style by admin wikijs
   :deep(.v-main .contents) {
-    padding: 4rem 0 2.4rem 0;
+    padding: 0 4rem 2rem 10.4rem;
     margin: 0;
   }
 }
@@ -16,18 +16,24 @@
   }
   .sdc-wrapper {
     :deep(.v-main .contents) {
-      padding: 4rem 1.6rem 2.4rem;
+      padding: 2rem 1.6rem 2.4rem;
       margin: 0;
     }
   }
 }
 
 @include media-breakpoint-between(sm, md) {
+  .sdc-wrapper {
+    :deep(.v-main .contents) {
+      padding: 2rem 1.6rem 2.4rem;
+      margin: 0;
+    }
+  }
   .sdc-lnb,
   .sdc-main {
     max-width: 100%;
-    padding-left: 3.2rem;
-    padding-right: 3.2rem;
+    // padding-left: 3.2rem;
+    // padding-right: 3.2rem;
   }
 }
 
@@ -35,6 +41,10 @@
   .sdc-wrapper {
     display: flex;
     flex-direction: row;
+    :deep(.v-main .contents) {
+      padding: 2rem 1.6rem 2.4rem;
+      margin: 0;
+    }
   }
 
   .sdc-lnb {
@@ -47,8 +57,6 @@
 
   .sdc-main {
     overflow: hidden;
-    padding-left: 4rem;
-    padding-right: 3.2rem;
     flex-basis: 0;
     flex-grow: 1;
   }
@@ -61,14 +69,10 @@
 }
 
 @include media-breakpoint-up(lg) {
-  .sdc-main {
-    padding-right: 4rem;
-  }
-
   .sdc-wrapper {
     // Reset style by admin wikijs
     :deep(.v-main .contents) {
-      padding: 4rem 0 10rem 0;
+      padding: 0 4rem 2rem 10.4rem;
       margin: 0;
     }
   }
