@@ -39,7 +39,6 @@ module.exports = {
         'store'
       ]
     ],
-    'subject-case': [2, 'never', ['sentence-case', 'start-case', 'pascal-case', 'upper-case']],
     'subject-empty': [2, 'never']
   },
   plugins: [

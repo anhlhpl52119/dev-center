@@ -97,6 +97,15 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
   window.removeEventListener('resize', handleResize);
+  document.body.style.removeProperty('overflow');
+});
+
+// Watch for route changes and reset body overflow
+const route = useRoute();
+watch(() => route.path, () => {
+  if (isShowLNB.value) {
+    closeSidebar();
+  }
 });
 
 const clickBackdrop = () => {
