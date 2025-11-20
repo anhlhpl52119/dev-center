@@ -1,11 +1,5 @@
 <template>
-  <ul v-if="gnbMenus?.length" class="d-md-none navbar-nav stds-navbar-nav-vertical gnb-divider--top my-8">
-    <!-- <li v-for="item in gnbMenus" :key="item.id" class="nav-item">
-      <a :href="item.href" class="nav-link">{{ item.title }}</a>
-    </li> -->
-  </ul>
-
-  <div v-if="isAuthentication" class="d-block d-md-none language-settings-wrapper gnb-divider--bottom py-8">
+  <div v-if="isAuthentication" class="d-block d-md-none language-settings-wrapper  gnb-divider--top gnb-divider--bottom py-8">
     <div class="gnb-custom-lang-title min-h-40">
       <div class="gnb-lang-title-label text-truncate-1">{{ languageSettingsText }}</div>
       <ClientOnly>

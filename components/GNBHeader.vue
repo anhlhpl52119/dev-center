@@ -141,12 +141,6 @@
                   </button>
                 </div>
                 <div class="offcanvas-body">
-                  <ul v-if="gnbMenus?.length" class="navbar-nav stds-navbar-nav-vertical gnb-divider--top">
-                    <!-- <li v-for="item in gnbMenus" :key="item.id" class="nav-item">
-                      <NuxtLink :to="localePath(item.href)" class="nav-link">{{ item.title }}</NuxtLink>
-                    </li> -->
-                  </ul>
-
                   <div class="language-settings-wrapper">
                     <div class="gnb-custom-lang-title">
                       <div class="gnb-lang-title-label text-truncate-1">{{ t('language-settings') }}</div>
