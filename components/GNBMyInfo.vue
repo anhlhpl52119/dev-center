@@ -1,8 +1,8 @@
 <template>
   <ul v-if="gnbMenus?.length" class="d-md-none navbar-nav stds-navbar-nav-vertical gnb-divider--top my-8">
-    <li v-for="item in gnbMenus" :key="item.id" class="nav-item">
+    <!-- <li v-for="item in gnbMenus" :key="item.id" class="nav-item">
       <a :href="item.href" class="nav-link">{{ item.title }}</a>
-    </li>
+    </li> -->
   </ul>
 
   <div v-if="isAuthentication" class="d-block d-md-none language-settings-wrapper gnb-divider--bottom py-8">
