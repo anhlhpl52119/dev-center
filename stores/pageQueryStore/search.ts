@@ -6,6 +6,7 @@ import { FormatResponse } from 'seed-core';
 import { useRequest } from '@/composables/useRequest';
 import { APIKeys } from '@/constants/ApiKeys';
 import { CommonTimeout } from '@/constants/ApiTimeout';
+import { BUBBLYZ_QUERY } from '@/constants/Common';
 import { DEFAULT_LOCALE } from '@/constants/Locale';
 import { PiniaStoreKeys } from '@/constants/PiniaStoreKeys';
 import { getCategoriesQuery, getPagesBySearchQuery } from '@/graphql/queries/search';
@@ -79,7 +80,7 @@ export const useSearchDocsStore = defineStore(PiniaStoreKeys.searchPage, () => {
       page: paginationRq.currentPage - 1,
       size,
       category,
-      inCategory: searchDocsRq?.inCategory || null
+      inCategory: [BUBBLYZ_QUERY]
     };
 
     const graphqlQuery = {
