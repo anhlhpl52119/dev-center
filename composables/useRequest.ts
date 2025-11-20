@@ -10,7 +10,7 @@ export const useRequest = async <T>(
 ): Promise<ResponseNormalization<T>> => {
   const config = useRuntimeConfig();
   const RUN_TYPE = config.public.runTypeConfig.RUN_TYPE;
-
+  const TEMP_DISABLED_SSR = true;
   const debug = ref<boolean>(false);
   const { axiosService } = useSeedCore();
   const { request } = axiosService;
@@ -21,7 +21,7 @@ export const useRequest = async <T>(
 
   const keyUseAsyncData = key || url;
 
-  if (debug.value) {
+  if (TEMP_DISABLED_SSR) {
     return request<T>(url, { isAuth: true, ...option }).then((data: AxiosResponseModel<T>) => {
       return data.data as ResponseNormalization<T>;
     });

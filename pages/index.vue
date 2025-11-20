@@ -17,6 +17,7 @@ useHead(getHead(RUN_TYPE));
 
 const initPage = async () => {
   const data = await store.fetchDevSiteProducts(locale.value);
+
   if (data.errMsg) {
     errMsg.value = data.errMsg;
   } else {
@@ -27,3 +28,6 @@ const initPage = async () => {
 
 initPage();
 </script>
+<template>
+  <main></main>
+</template>
