@@ -327,7 +327,7 @@ const addItemRecSearchStorage = (newItem: string): void => {
 };
 
 const enterKeyword = async (event: any) => {
-  if (!event.isComposing && event.key === 'Enter') {
+  if ((!event.isComposing && event.key === 'Enter') || event.type === 'click') {
     let queryParamKeyword;
     const trimKeyword = currentSearchTwoBinding.value?.trim() || '';
     if (trimKeyword) {
