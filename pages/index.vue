@@ -29,5 +29,11 @@ const initPage = async () => {
 initPage();
 </script>
 <template>
-  <main></main>
+  <main class="container"></main>
 </template>
+
+<style lang="css" scoped>
+main {
+  min-height: calc(100vh - 6.4rem);
+}
+</style>
