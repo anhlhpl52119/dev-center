@@ -12,6 +12,7 @@ import footnote from 'markdown-it-footnote';
 import ImageFiguresPlugin from 'markdown-it-image-figures';
 import mila from 'markdown-it-link-attributes';
 import MarkdownItMark from 'markdown-it-mark';
+import replaceLink from 'markdown-it-replace-link';
 import MarkdownItSub from 'markdown-it-sub';
 import MarkdownItSup from 'markdown-it-sup';
 import TaskListPlugin from 'markdown-it-task-lists';
@@ -111,6 +112,15 @@ const useMarkdownIt = (props: contentPreviewProps) => {
     quotes: '“”‘’',
     xhtmlOut: true,
     langPrefix: 'language-'
+    // replaceLink: function(link: any) {
+    // // is relative path (begin with . or .. or no protocol)
+    //   if (link.startsWith('.') || link.startsWith('/') || !link.match(/^[a-zA-Z]+:\/\//)) {
+    //   // concat Base URL before relative link
+    //     return 'https://abc.com' + link;
+    //   }
+    //   // if absolute path, retain (http...)
+    //   return link;
+    // }
   });
 
     markdownItConfig!(md);
@@ -228,6 +238,11 @@ const useMarkdownIt = (props: contentPreviewProps) => {
         options: {
           listType: 'ul'
         }
+      },
+      {
+        type: 'replaceLink',
+        plugin: replaceLink,
+        options: {}
       },
       {
         type: 'tabContent',

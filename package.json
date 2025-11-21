@@ -73,6 +73,7 @@
     "markdown-it-mark": "^3.0.1",
     "markdown-it-multimd-table": "^4.2.3",
     "markdown-it-plantuml": "^1.4.1",
+    "markdown-it-replace-link": "^1.2.2",
     "markdown-it-sub": "^2.0.0",
     "markdown-it-sup": "^2.0.0",
     "markdown-it-task-lists": "^2.1.1",
