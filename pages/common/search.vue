@@ -122,7 +122,9 @@
           </template>
         </ClientOnly>
       </template>
-      <SafeHtml v-else class="text-center py-24 py-lg-56 min-vh-100" :html="t('api-returncode.E400')" />
+      <div v-else class="text-center py-24 py-lg-56 min-vh-100">
+        <SafeHtml :html="t('api-returncode.E400')" />
+      </div>
     </template>
   </main>
 </template>
