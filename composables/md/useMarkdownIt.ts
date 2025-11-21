@@ -88,6 +88,7 @@ const useMarkdownIt = (props: contentPreviewProps) => {
     markdownItPlugins
   } = configOption;
 
+  const { locale } = useI18n();
   const runtime = useRuntimeConfig();
   const apiBaseUrl = runtime.public.runTypeConfig.API_BASE_URL;
   const editorId = inject('editorId') as string;
@@ -112,15 +113,6 @@ const useMarkdownIt = (props: contentPreviewProps) => {
     quotes: '“”‘’',
     xhtmlOut: true,
     langPrefix: 'language-'
-    // replaceLink: function(link: any) {
-    // // is relative path (begin with . or .. or no protocol)
-    //   if (link.startsWith('.') || link.startsWith('/') || !link.match(/^[a-zA-Z]+:\/\//)) {
-    //   // concat Base URL before relative link
-    //     return 'https://abc.com' + link;
-    //   }
-    //   // if absolute path, retain (http...)
-    //   return link;
-    // }
   });
 
     markdownItConfig!(md);
@@ -242,7 +234,26 @@ const useMarkdownIt = (props: contentPreviewProps) => {
       {
         type: 'replaceLink',
         plugin: replaceLink,
-        options: {}
+        options: {
+          replaceLink: (link: any) => {
+            // is relative path (begin with . or .. or no protocol)
+            // if (link.startsWith('.') || link.startsWith('/') || !link.match(/^[a-zA-Z]+:\/\//)) {
+            // // concat Base URL before relative link
+            //   return 'https://abc.com' + link;
+            // }
+
+            // markdown
+            if (link.startsWith('/') && link.endsWith('.md')) {
+              if (link.startsWith('/en') || link.startsWith('/ko')) {
+                return link.replace('.md', '');
+              }
+              return locale.value + link.replace('.md', '');
+            }
+
+            // if absolute path, retain (http...)
+            return link;
+          }
+        }
       },
       {
         type: 'tabContent',
