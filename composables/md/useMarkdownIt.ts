@@ -241,21 +241,20 @@ const useMarkdownIt = (props: contentPreviewProps) => {
       plugin: replaceLink,
       options: {
         replaceLink: (link: any) => {
-          // is relative path (begin with . or .. or no protocol)
-          // if (link.startsWith('.') || link.startsWith('/') || !link.match(/^[a-zA-Z]+:\/\//)) {
-          // // concat Base URL before relative link
-          //   return 'https://abc.com' + link;
-          // }
-
-          // markdown
-          if (link.startsWith('/') && link.endsWith('.md')) {
-            if (link.startsWith('/en') || link.startsWith('/ko')) {
-              return link.replace('.md', '');
-            }
-            return '/' + locale.value + '/docs' + link.replace('.md', '');
+          if (link.startsWith('/ko/')) {
+            link = link.replace('/ko/', '/ko/docs/');
+            return link.replace('.md', '');
           }
 
-          // if absolute path, retain (http...)
+          if (link.startsWith('/en/')) {
+            link = link.replace('/en/', '/en/docs/');
+            return link.replace('.md', '');
+          }
+
+          if (link.startsWith('/')) {
+            return `/${locale.value}/docs${link}`.replace('.md', '');
+          }
+
           return link;
         }
       }
