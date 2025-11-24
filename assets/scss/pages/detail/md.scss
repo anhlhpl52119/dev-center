@@ -718,7 +718,7 @@ $border-left-color_1: currentColor;
     margin: 20px 0;
 
     code {
-      padding: 0 2rem 1rem;
+      padding: 0 2rem 2rem;
       background-color: $background-color_2;
       color: var(--#{$prefix}glob-color-gray200);
       border-radius: 0 0 5px 5px;
@@ -735,11 +735,9 @@ $border-left-color_1: currentColor;
       }
 
       .code-block {
-        display: inline-block;
         width: 100%;
         overflow-x: scroll;
         vertical-align: bottom;
-        padding-bottom: 0.6rem;
       }
 
       &::-webkit-scrollbar {

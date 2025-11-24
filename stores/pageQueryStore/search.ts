@@ -6,11 +6,14 @@ import { FormatResponse } from 'seed-core';
 import { useRequest } from '@/composables/useRequest';
 import { APIKeys } from '@/constants/ApiKeys';
 import { CommonTimeout } from '@/constants/ApiTimeout';
-import { BUBBLYZ_QUERY } from '@/constants/Common';
 import { DEFAULT_LOCALE } from '@/constants/Locale';
 import { PiniaStoreKeys } from '@/constants/PiniaStoreKeys';
 import { getCategoriesQuery, getPagesBySearchQuery } from '@/graphql/queries/search';
-import { mappingCategories, mappingCategoryResultSearch, mappingListPageSearch } from '@/services/page/PageMapper';
+import {
+  mappingCategories,
+  mappingCategoryResultSearch,
+  mappingListPageSearch
+} from '@/services/page/PageMapper';
 import type { GNBSerRes } from '@/types/graphql/home-page/Response';
 import type { GraphQLResponse } from '@/types/graphql/Response';
 import type { CategoryModel, PageSearchModel, Pagination } from '@/types/pages/DocModel';
@@ -20,11 +23,13 @@ export const useSearchDocsStore = defineStore(PiniaStoreKeys.searchPage, () => {
   const apiBaseUrl = useAPIEndPoints().apiBaseGraphQLWikiJs;
 
   const fetchCategories = async (locale: string, labelAll: string): Promise<CategoryModel[]> => {
-    const rs: CategoryModel[] = [{
-      id: -1,
-      label: labelAll,
-      category: ''
-    }];
+    const rs: CategoryModel[] = [
+      {
+        id: -1,
+        label: labelAll,
+        category: ''
+      }
+    ];
     const variables = { tags: [`gnb-depth1-${locale}`] };
 
     const graphqlQuery = {
@@ -34,7 +39,8 @@ export const useSearchDocsStore = defineStore(PiniaStoreKeys.searchPage, () => {
 
     try {
       const { data } = await useRequest<GraphQLResponse<GNBSerRes>>(
-        apiBaseUrl, {
+        apiBaseUrl,
+        {
           method: RequestMethod.POST,
           headers: {
             'Content-Type': 'application/json'
@@ -80,7 +86,7 @@ export const useSearchDocsStore = defineStore(PiniaStoreKeys.searchPage, () => {
       page: paginationRq.currentPage - 1,
       size,
       category,
-      inCategory: [BUBBLYZ_QUERY]
+      inCategory: searchDocsRq?.inCategory || null
     };
 
     const graphqlQuery = {
@@ -90,7 +96,8 @@ export const useSearchDocsStore = defineStore(PiniaStoreKeys.searchPage, () => {
 
     try {
       const { data } = await useRequest<any>(
-        apiBaseUrl, {
+        apiBaseUrl,
+        {
           method: RequestMethod.POST,
           headers: {
             'Content-Type': 'application/json'
