@@ -91,8 +91,8 @@ $border-left-color_1: currentColor;
 @keyframes zoomIn {
   0% {
     opacity: 0;
-    -webkit-transform: scale3d(.3, .3, .3);
-    transform: scale3d(.3, .3, .3);
+    -webkit-transform: scale3d(0.3, 0.3, 0.3);
+    transform: scale3d(0.3, 0.3, 0.3);
   }
   50% {
     opacity: 1;
@@ -105,8 +105,8 @@ $border-left-color_1: currentColor;
   }
   50% {
     opacity: 0;
-    -webkit-transform: scale3d(.3, .3, .3);
-    transform: scale3d(.3, .3, .3);
+    -webkit-transform: scale3d(0.3, 0.3, 0.3);
+    transform: scale3d(0.3, 0.3, 0.3);
   }
   to {
     opacity: 0;
@@ -125,9 +125,9 @@ $border-left-color_1: currentColor;
     --md-theme-bg-color: #fff;
     --md-theme-bg-color-inset: #ececec;
     --md-theme-bg-color-scrollbar-track: #e2e2e2;
-    --md-theme-bg-color-scrollbar-thumb: rgba(0, 0, 0, .3019607843);
-    --md-theme-bg-color-scrollbar-thumb-hover: rgba(0, 0, 0, .3490196078);
-    --md-theme-bg-color-scrollbar-thumb-active: rgba(0, 0, 0, .3803921569);
+    --md-theme-bg-color-scrollbar-thumb: rgba(0, 0, 0, 0.3019607843);
+    --md-theme-bg-color-scrollbar-thumb-hover: rgba(0, 0, 0, 0.3490196078);
+    --md-theme-bg-color-scrollbar-thumb-active: rgba(0, 0, 0, 0.3803921569);
     --md-theme-code-copy-tips-color: inherit;
     --md-theme-code-copy-tips-bg-color: #fff;
     --md-theme-code-active-color: #61aeee;
@@ -215,7 +215,7 @@ $border-left-color_1: currentColor;
 
   .default-theme {
     --md-theme-code-inline-color: #3594f7;
-    --md-theme-code-inline-bg-color: rgba(59, 170, 250, .1);
+    --md-theme-code-inline-bg-color: rgba(59, 170, 250, 0.1);
     --md-theme-code-block-color: #a9b7c6;
     --md-theme-code-block-bg-color: #282c34;
     --md-theme-code-before-bg-color: var(--md-theme-code-block-bg-color);
@@ -373,7 +373,7 @@ $border-left-color_1: currentColor;
     }
   }
 
-  [data-show=false] {
+  [data-show='false'] {
     display: none;
   }
 }
@@ -480,13 +480,12 @@ $border-left-color_1: currentColor;
 
   .default-theme {
     --md-theme-code-inline-color: #3594f7;
-    --md-theme-code-inline-bg-color: rgba(59, 170, 250, .1);
+    --md-theme-code-inline-bg-color: rgba(59, 170, 250, 0.1);
     --md-theme-code-block-color: #a9b7c6;
     --md-theme-code-block-bg-color: #1a1a1a;
     --md-theme-code-before-bg-color: var(--md-theme-code-block-bg-color);
     --md-theme-code-copy-tips-color: inherit;
   }
-
 
   --md-color: #999;
   --md-hover-color: #bbb;
@@ -524,7 +523,7 @@ $border-left-color_1: currentColor;
       &:before {
         color: $color_1;
         display: block;
-        padding-right: .5rem;
+        padding-right: 0.5rem;
         text-align: right;
         content: counter(linenumber);
       }
@@ -542,17 +541,17 @@ $border-left-color_1: currentColor;
   .md-editor-admonition {
     background-color: $background-color_1;
     border: 1px solid var(--md-admonition-color);
-    border-radius: .5rem;
+    border-radius: 0.5rem;
     color: $color_2;
     display: flow-root;
     font-size: 14px;
     font-weight: 400;
     margin: 1rem 0;
-    padding: 1rem 1rem .5rem;
+    padding: 1rem 1rem 0.5rem;
     page-break-inside: avoid;
 
     p {
-      margin: .5rem 0;
+      margin: 0.5rem 0;
       padding: 0;
 
       &:first-of-type {
@@ -562,8 +561,8 @@ $border-left-color_1: currentColor;
   }
 
   .md-editor-admonition-title {
-    border-top-left-radius: .5rem;
-    border-top-right-radius: .5rem;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
     margin: 0;
     padding: 0;
     position: relative;
@@ -673,11 +672,11 @@ $border-left-color_1: currentColor;
   text-align: center;
 }
 
-[class=md-editor-mermaid][data-processed] {
+[class='md-editor-mermaid'][data-processed] {
   display: block;
 }
 
-[class=mermaid][data-processed] {
+[class='mermaid'][data-processed] {
   display: block;
 }
 
@@ -724,7 +723,7 @@ $border-left-color_1: currentColor;
       color: var(--#{$prefix}glob-color-gray200);
       border-radius: 0 0 5px 5px;
       display: block;
-      line-height: 1;
+      line-height: 1.5;
       overflow: auto;
 
       > * {
@@ -742,7 +741,6 @@ $border-left-color_1: currentColor;
         vertical-align: bottom;
         padding-bottom: 0.6rem;
       }
-
 
       &::-webkit-scrollbar {
         height: 0.8rem;
@@ -766,11 +764,10 @@ $border-left-color_1: currentColor;
           }
         }
       }
-
     }
 
     &:before {
-      content: "";
+      content: '';
       display: block;
       height: 3.2rem;
       width: 100%;
@@ -792,7 +789,6 @@ $border-left-color_1: currentColor;
       }
     }
   }
-
 
   h1 {
     position: relative;
@@ -891,8 +887,8 @@ $border-left-color_1: currentColor;
   }
 
   a {
-    color: var(--#{$prefix}link-color);;
-    transition: color .3s;
+    color: var(--#{$prefix}link-color);
+    transition: color 0.3s;
     // text-decoration: none;
 
     &:hover {
@@ -902,12 +898,12 @@ $border-left-color_1: currentColor;
   }
 
   ol {
-    margin: .6rem 0;
+    margin: 0.6rem 0;
     padding-left: 1.6rem;
 
     li {
       line-height: 1.6;
-      margin: .5rem 0;
+      margin: 0.5rem 0;
     }
 
     > li {
@@ -919,7 +915,7 @@ $border-left-color_1: currentColor;
 
       input {
         margin-left: -1.5rem;
-        margin-right: .1rem;
+        margin-right: 0.1rem;
       }
     }
   }
@@ -940,7 +936,7 @@ $border-left-color_1: currentColor;
 
       input {
         margin-left: -1.5rem;
-        margin-right: .1rem;
+        margin-right: 0.1rem;
       }
     }
   }
@@ -948,7 +944,7 @@ $border-left-color_1: currentColor;
   p {
     line-height: 1.6;
     margin: 0;
-    padding: .5rem 0;
+    padding: 0.5rem 0;
 
     &:empty {
       display: none;
@@ -997,11 +993,11 @@ $border-left-color_1: currentColor;
       top: 50%;
       transform: translate(-100%, -50%);
       visibility: hidden;
-      transition: .3s;
+      transition: 0.3s;
     }
 
     &:after {
-      content: "";
+      content: '';
       color: $color_11;
       position: absolute;
       width: 0;
@@ -1012,11 +1008,10 @@ $border-left-color_1: currentColor;
       left: -2px;
       top: 50%;
       transform: translateY(-50%);
-      filter: drop-shadow(4px 0 2px rgba(0, 0, 0, .2));
+      filter: drop-shadow(4px 0 2px rgba(0, 0, 0, 0.2));
       visibility: hidden;
-      transition: .3s;
+      transition: 0.3s;
     }
-
 
     &:hover {
       &:before {
@@ -1044,7 +1039,7 @@ $border-left-color_1: currentColor;
 
     figcaption {
       color: $color_6;
-      font-size: .875rem;
+      font-size: 0.875rem;
       margin-top: 5px;
     }
   }
@@ -1069,14 +1064,14 @@ $border-left-color_1: currentColor;
   text-align: center;
 
   &:after {
-    content: "";
+    content: '';
     font-weight: 700;
   }
 }
 
 .md-editor-checkbox-checked {
   &:after {
-    content: "✓";
+    content: '✓';
   }
 }
 
@@ -1084,8 +1079,8 @@ $border-left-color_1: currentColor;
   position: relative;
   display: inline-block;
   width: 1px;
-  top: .1rem;
-  height: .9rem;
+  top: 0.1rem;
+  height: 0.9rem;
   margin: 0 8px;
   background-color: $background-color_34;
 }
@@ -1094,7 +1089,7 @@ $border-left-color_1: currentColor;
   overflow: hidden;
   box-sizing: border-box;
   position: absolute;
-  transition: all .3s;
+  transition: all 0.3s;
   opacity: 1;
   z-index: 10000;
   background-color: $background-color_35;
@@ -1180,19 +1175,19 @@ $border-left-color_1: currentColor;
 }
 
 .animation {
-  animation-duration: .15s;
+  animation-duration: 0.15s;
   animation-fill-mode: forwards;
 }
 
 .zoom-in {
   animation-name: zoomIn;
-  animation-duration: .15s;
+  animation-duration: 0.15s;
   animation-fill-mode: forwards;
 }
 
 .zoom-out {
   animation-name: zoomOut;
-  animation-duration: .15s;
+  animation-duration: 0.15s;
   animation-fill-mode: forwards;
 }
 
@@ -1333,7 +1328,7 @@ $border-left-color_1: currentColor;
   background-color: $background-color_35;
   background-image: none;
   border: 1px solid var(--md-border-color);
-  transition: all .2s;
+  transition: all 0.2s;
 
   &:focus {
     outline: 0;
@@ -1359,7 +1354,7 @@ $border-left-color_1: currentColor;
   padding: 0 15px;
   font-size: 14px;
   border-radius: 4px;
-  transition: all .2s linear;
+  transition: all 0.2s linear;
   color: $color_40;
   background-color: $background-color_35;
   border-color: $border-color_4;
@@ -1431,7 +1426,7 @@ $border-left-color_1: currentColor;
   .md-editor-toolbar-item {
     display: inline-block;
     padding: 0 4px;
-    transition: all .3s;
+    transition: all 0.3s;
     border-radius: 0;
     cursor: pointer;
     list-style: none;
@@ -1521,12 +1516,12 @@ $border-left-color_1: currentColor;
 }
 
 .cm-scroller {
-  .cm-content[contenteditable=true] {
+  .cm-content[contenteditable='true'] {
     margin: 10px;
     min-height: calc(100% - 20px);
   }
 
-  .cm-gutters + .cm-content[contenteditable=true] {
+  .cm-gutters + .cm-content[contenteditable='true'] {
     margin: 0;
     min-height: 100%;
   }
