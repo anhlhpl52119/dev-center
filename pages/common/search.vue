@@ -123,7 +123,11 @@
         </ClientOnly>
       </template>
       <div v-else class="text-center py-24 py-lg-56 min-vh-100">
-        <SafeHtml :html="t('api-returncode.E400')" />
+        <p>
+          <span>{{ t('api-returncode.E400_1') }}</span>
+          <br />
+          <span>{{ t('api-returncode.E400_2') }}</span>
+        </p>
       </div>
     </template>
   </main>

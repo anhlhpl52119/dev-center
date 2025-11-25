@@ -42,6 +42,8 @@ export default {
   'launcher.dev-center.error.E499': '<h1 class="error-title text-truncate-2">Cannot find the requested content.</h1><p class="error-msg text-truncate-3">Please try again in a few minutes.</p>',
   'login-txt1': 'Please',
   'login-txt2': ' login',
+  'api-returncode.E400_1': 'Cannot find the requested content.',
+  'api-returncode.E400_2': 'Check the content and try again.',
   'wikijs-returncode.E1001': 'An unexpected error occured during login.',
   'wikijs-returncode.E1002': 'Invalid email / username or password.',
   'wikijs-returncode.E1003': 'Invalid authentication provider.',

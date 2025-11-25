@@ -42,6 +42,8 @@ export default {
   'launcher.dev-center.error.E499': '<h1 class="error-title text-truncate-2">요청하신 내용을 찾을 수 없습니다.</h1><p class="error-msg text-truncate-3">잠시 후 다시 시도해주세요.</p>',
   'login-txt1': '로그인',
   'login-txt2': '을 해주세요',
+  'api-returncode.E400_1': '요청하신 내용을 찾을 수 없습니다.',
+  'api-returncode.E400_2': '확인 후 다시 시도해주세요.',
   'wikijs-returncode.E1001': '로그인 중 예기치 않은 오류가 발생했습니다.',
   'wikijs-returncode.E1002': '잘못된 이메일/사용자 이름 또는 비밀번호입니다.',
   'wikijs-returncode.E1003': '잘못된 인증 제공자입니다.',
