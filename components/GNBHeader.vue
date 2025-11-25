@@ -188,7 +188,6 @@
             :class="{ 'flex-grow-1': !isExpandSearchWrapper }"
           >
             <ul
-              v-if="gnbMenus?.length"
               class="navbar-nav ms-md-auto stds-navbar-nav-horizontal gnb-nav-menu-custom"
               :class="{ 'd-none': isExpandSearchWrapper }"
             >
