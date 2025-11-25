@@ -6,7 +6,7 @@
         <p class="copy">{{ t('footer.copyRighter') }}</p>
         <p class="footer-logo">
           <a :href="STOVE_MAIN_LINK" target="_blank">
-            <img class="ci-logo" src="https://www.onstove.com/assets/images/ci/ci-group@2x.png" alt="Smilegate Stove" />
+            <img class="ci-logo" src="https://d2x8kymwjom7h7.cloudfront.net/live/application_no/10009/iop-center-front/ci-group-copy2x.png" alt="Smilegate Stove" />
           </a>
         </p>
       </div>
