@@ -274,6 +274,12 @@ watch(currentPage, async (newPage: number, _oldPage: number) => {
   await handleCallSearchBox();
 });
 
+watch(locale, async () => {
+  paginationRq.value.currentPage = 1;
+
+  await handleCallSearchBox();
+});
+
 watch(
   () => route.query.module,
   async (newMenu: LocationQueryValue | LocationQueryValue[]) => {
