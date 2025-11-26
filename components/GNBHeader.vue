@@ -4,7 +4,7 @@
       <div class="flex-grow-1 stds-gnb-row-start gnb-custom">
         <div class="d-flex align-items-center">
           <NuxtLink
-            :to="localePath('/')"
+            :to="logoLink"
             class="flex-shrink-0 navbar-brand stds-logo-wrapper d-flex align-items-center text-decoration-none"
             aria-label="Stove developers logo"
           >
@@ -192,7 +192,7 @@
               :class="{ 'd-none': isExpandSearchWrapper }"
             >
               <li>
-                <NuxtLink to="#" class="nav-link">
+                <NuxtLink :to="creatorCenterLink[RUN_TYPE]" external target="_blank" class="nav-link">
                   <span>창작자 센터 바로가기</span>
                   <i class="ic-v2-control-web-link-line nav-link-icon"></i>
                 </NuxtLink>
@@ -351,6 +351,22 @@ const renderGnbMyInfo = (customDom: HTMLElement) => {
   });
   render(vNode, customDom.querySelector('.menu-user .gnb-dropdown-content')!);
 };
+
+const creatorCenterLink: Record<string, string> = {
+  dev: 'https://dev-prob-bb.onstove.com',
+  dev2: 'https://dev2-prob-bb.onstove.com',
+  qa: 'https://qa-prob-bb.onstove.com',
+  qa2: 'https://qa2-prob-bb.onstove.com',
+  sandbox: 'https://prob-bb.gate8.com',
+  live: 'https://prob-bb.gate8.com'
+};
+
+const logoLink = computed(() => {
+  if (['live', 'sandbox'].includes(RUN_TYPE) && locale.value === 'en') {
+    return localePath('/docs/bubblyz/Int');
+  }
+  return localePath('/');
+});
 
 // const gnbOption = {
 //   wrapper: '#generateGNBScript',
