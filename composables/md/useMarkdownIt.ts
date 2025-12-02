@@ -19,6 +19,7 @@ import TaskListPlugin from 'markdown-it-task-lists';
 import markdownItTextualUml from 'markdown-it-textual-uml';
 import MarkdownItTOC from 'markdown-it-toc-done-right';
 import type { ComputedRef } from 'vue';
+import { useRoute } from 'vue-router';
 
 import useHighlight from '@/composables/md/useHighlight';
 import useKatex from '@/composables/md/useKatex';
@@ -29,7 +30,7 @@ import type { contentPreviewProps } from '@/types/md/props';
 import type { HeadList, MarkdownItConfigPlugin, Themes } from '@/types/md/type';
 import bus from '@/utils/event-bus';
 import { generateCodeRowNumber, uuid } from '@/utils/md';
-import { processMdTextBeforeRender } from '@/utils/StringUtil';
+import { processMdTextBeforeRender, singleSlash } from '@/utils/StringUtil';
 
 import AdmonitionPlugin from '../markdownIt/admonition';
 import CodeTabsPlugin from '../markdownIt/codetabs';
@@ -95,7 +96,7 @@ const initLineNumber = (md: mdit) => {
 
 const useMarkdownIt = (props: contentPreviewProps) => {
   const { editorConfig, markdownItConfig, markdownItPlugins } = configOption;
-
+  const routes = useRoute();
   const { locale } = useI18n();
   const runtime = useRuntimeConfig();
   const apiBaseUrl = runtime.public.runTypeConfig.API_BASE_URL;
@@ -240,22 +241,33 @@ const useMarkdownIt = (props: contentPreviewProps) => {
       type: 'replaceLink',
       plugin: replaceLink,
       options: {
-        replaceLink: (link: any) => {
-          if (link.startsWith('/ko/')) {
-            link = link.replace('/ko/', '/ko/docs/');
-            return link.replace('.md', '');
+        replaceLink: (link: string) => {
+          if (link.startsWith('http://') || link.startsWith('https://')) {
+            return link;
           }
 
-          if (link.startsWith('/en/')) {
-            link = link.replace('/en/', '/en/docs/');
-            return link.replace('.md', '');
+          const articlePath = routes.fullPath.replace(/^\/(ko|en)\/docs\//, '/$1/');
+
+          const allowedExtensions = ['.jpg', '.jpeg', '.png', '.webp', '.gif'];
+          const hasImgExtension = allowedExtensions.some((ext: string) =>
+            link.toLowerCase().endsWith(ext)
+          );
+          if (hasImgExtension) {
+            const imgHost = singleSlash(`${apiBaseUrl}/resources`);
+            return new URL(link, singleSlash(`${imgHost}/${articlePath}`)).href;
           }
 
-          if (link.startsWith('/')) {
-            return `/${locale.value}/docs${link}`.replace('.md', '');
+          const siteUrl = runtime.public.runTypeConfig.SITE_URL;
+          const docsHost = singleSlash(`${siteUrl}/${articlePath}`);
+          const mdPathname = new URL(link.replace('.md', ''), docsHost).pathname;
+
+          if (mdPathname.startsWith('/ko')) {
+            return mdPathname.replace('/ko', '/ko/docs');
+          } else if (mdPathname.startsWith('/en')) {
+            return mdPathname.replace('/en', '/en/docs');
           }
 
-          return link;
+          return singleSlash(`/${locale.value}/${mdPathname}`);
         }
       }
     },
