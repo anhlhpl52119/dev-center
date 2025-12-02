@@ -112,3 +112,18 @@ export const isImageUrl = (url: string): boolean => {
  * slug Output: 'hello-world'
  */
 export const slugify = (s: string) => encodeURIComponent(String(s).trim().toLowerCase().replace(/\s+/g, '-'));
+
+export function singleSlash(url: string) {
+  const protocolMatch = url.match(/^(https?:\/\/)/);
+
+  if (protocolMatch) {
+    const protocol = protocolMatch[1];
+    const restOfUrl = url.slice(protocol.length);
+
+    const normalizedRest = restOfUrl.replace(/\/+/g, '/');
+
+    return protocol + normalizedRest;
+  } else {
+    return url.replace(/\/+/g, '/');
+  }
+}
