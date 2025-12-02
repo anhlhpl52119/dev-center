@@ -129,12 +129,15 @@ $dark: $blue-dark !default;
 $color-last-updated: #4e6e8e !default;
 
 $vulcanus-bd-radius-full: calc(infinity * 1px);
+$vulcanus-text-clr-muted: hsla(0, 0%, 60%, 1);
 $vulcanus-text-clr-dimmed: hsla(0, 0%, 40%, 1);
 $vulcanus-text-clr-base: hsla(0, 0%, 20%, 1);
 $vulcanus-text-clr-raised: hsla(0, 0%, 12%, 1);
 $vulcanus-clr-primary: hsla(226, 100%, 59%, 1);
 $vulcanus-clr-bg-active: hsla(226, 100%, 59%, 0.06);
+$vulcanus-clr-bg-dimmed: hsla(225, 29%, 95%, 1);
 $vulcanus-clr-bd-base: hsla(0, 0%, 0%, 0.1);
+$vulcanus-box-shadow-xs: 0px 4px 10px 0px hsla(0, 0%, 0%, 0.102);;
 $vulcanus-box-shadow-sm: 0 4px 16px 0 hsla(228, 23%, 25%, 0.1);
 
 $theme-colors: (

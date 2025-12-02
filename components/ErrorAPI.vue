@@ -1,27 +1,39 @@
 <template>
   <section class="error-api-info-wrapper">
-    <img
-      v-if="showErrImg"
-      loading="lazy"
-      :src="errorImg"
-      class="error-thumbnail"
-      alt="The red icon on a computer screen represents the image for a page error"
-      @error="handleLoadImgErr()"
-    />
-    <SafeHtml tag="div" :class="['text-center', styleErrMsg]" :html="t(errMsg)" />
-    <p v-if="errMsg === 'wikijs-returncode.E6013'">({{ t('dev_center.email') }}: <a href="mailto: stove.developers@smilegate.com">stove.developers@smilegate.com</a>)</p>
+    <div class="error-image-container">
+      <img :src="bannerErrorImg" alt="" class="img-layer layer-bg" />
+
+      <img :src="penguinErrorImg" alt="Page not found mascot" class="img-layer layer-main" />
+    </div>
+
+    <SafeHtml tag="div" :class="['mt-20 text-center ', styleErrMsg]" :html="t(errMsg)" />
+    <p v-if="errMsg === 'wikijs-returncode.E6013'">
+      ({{ t('dev_center.email') }}: <a href="mailto: stove.developers@smilegate.com">stove.developers@smilegate.com</a>)
+    </p>
     <section class="d-grid gap-8 d-sm-flex justify-content-sm-center">
       <section v-if="errMsg === GraphQLErrorCode.REQUIRED_AUTHENTICATION.msg" class="text-center">
-        <a class="btn btn-secondary btn-error-back btn-new-error" @click="goLogin()">{{ t('dev_center.go_to_login_page') }}</a>
-        <!-- <SafeHtml tag="p" class="error-msg-back" :html="errMsgBack" /> -->
+        <a class="btn btn-secondary btn-error-back btn-vulcanus" @click="goLogin()">{{ t('dev_center.go_to_login_page')
+        }}</a>
       </section>
-      <section v-else-if="hasGoPreviousPage" class="text-center">
-        <a class="btn btn-secondary btn-error-back btn-new-error" @click="goBack()">{{ t(GO_TO_PREVIOUS_PAGE_KEY) }}</a>
+      <section class="text-center">
+        <div class="group-btn-navigator">
+          <!-- go previous -->
+          <NuxtLink
+            v-if="hasGoPreviousPage"
+            class="btn btn-secondary btn-error-back btn-vulcanus btn-vulcanus--plain"
+            @click="goBack()"
+          >
+            {{ t(GO_TO_PREVIOUS_PAGE_KEY) }}
+          </NuxtLink>
+
+          <!-- go home -->
+          <NuxtLink :to="localePath(toRedirect)" class="btn-error-back btn-vulcanus btn-vulcanus--primary">
+            {{ t('take-me-home') }}
+          </NuxtLink>
+        </div>
+
         <SafeHtml tag="p" class="error-msg-back" :html="errMsgBack" />
       </section>
-      <NuxtLink v-else :to="localePath(toRedirect)" class="btn btn-secondary btn-error-back btn-new-error">
-        {{ t('take-me-home') }}
-      </NuxtLink>
     </section>
   </section>
 </template>
@@ -65,6 +77,9 @@ const props = withDefaults(defineProps<ErrorAPIProps>(), {
   styleErrMsg: '',
   showErrImg: true
 });
+
+const penguinErrorImg = ref<string>('/v1/img/vulcanus-penguin.png');
+const bannerErrorImg = ref<string>('/v1/img/vulcanus-error-banner.png');
 
 const hasGoPreviousPage = [GraphQLErrorCode.PAGE_NOT_FOUND.msg, API_RETURNCODE_E500_KEY].includes(props.errMsg);
 const errorImg = ref<string>(ERR_LIGHT_CND);
@@ -112,4 +127,43 @@ onUnmounted(() => clearInterval(_timerId));
 
 <style scoped lang="scss">
 @import "assets/scss/pages/errorAPI";
+
+.error-image-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  justify-items: center;
+  align-items: center;
+  max-width: 46.4rem;
+  height: 22rem;
+}
+
+.img-layer {
+  grid-column: 1 / -1;
+  grid-row: 1 / -1;
+}
+
+.layer-main {
+  z-index: 2;
+  height: 18.8rem;
+  width: 12.8rem;
+  transform: translateX(6.3rem);
+}
+
+.layer-bg {
+  height: 15.9rem;
+  width: 25.1rem;
+  z-index: 1;
+  transform: translateX(-6.3rem);
+}
+
+@include media-breakpoint-down(sm) {
+  .layer-bg {
+    transform: translateX(0);
+  }
+
+  .layer-main {
+    display: none;
+  }
+}
 </style>

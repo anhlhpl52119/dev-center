@@ -79,7 +79,7 @@ export default {
   'dev_center.docs.last_updated': 'Last Updated:',
   'dev_center.empty_data': 'No data',
   'dev_center.go_to_previous_page': 'Go to Previous Page',
-  'launcher.dev-center.error.msg-previous-page': 'Go to the Previous Page after <span class="text-primary">{second}</span> seconds.',
+  'launcher.dev-center.error.msg-previous-page': 'Go to the Previous Page after <span>{second}</span> seconds.',
   'launcher.dev-center.error.connection': '<h1 class="error-title text-truncate-2">Service connection is not smooth.</h1><p class="error-msg text-truncate-3">Click the button below to try again from the Previous Page.</p>',
   'dev_center.email': 'E-mail',
   // Store Dev Guide page meta
