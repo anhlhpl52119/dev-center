@@ -24,10 +24,6 @@
           :href="path"
           class="order-lg-1"
         />
-        <div class="last-updated text-end mt-20">
-          <span class="time">{{ t('dev_center.docs.last_updated') }}</span>
-          <span class="time">{{ lastUpdated }}</span>
-        </div>
       </section>
 
       <div id="tocMobile"></div>
@@ -45,7 +41,7 @@
       </ClientOnly>
     </main>
     <!-- Do not use v-else because SSR does not re-render the value-->
-    <main v-if="!contentRender || !contentRender.length" class="container-fluid bg-variant-1 has-error-api-wrapper">
+    <main v-if="!contentRender || !contentRender.length" class="container-fluid has-error-api-wrapper">
       <ErrorAPI :errMsg="errMsg" styleWrapper="text-center" />
     </main>
   </template>

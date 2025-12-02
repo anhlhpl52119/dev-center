@@ -43,7 +43,7 @@ const props = defineProps({
 
 useHead({
   bodyAttrs: {
-    class: 'bg-variant-1 error-layout'
+    class: 'error-layout'
   }
 });
 

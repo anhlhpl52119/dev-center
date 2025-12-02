@@ -32,6 +32,11 @@
       :onHtmlChanged="onHtmlChanged"
       :onGetCatalog="onGetCatalog"
     />
+
+    <div class="last-updated text-end mt-20">
+      <span class="time">{{ t('dev_center.docs.last_updated') }}</span>
+      <span class="time">{{ lastUpdate }}</span>
+    </div>
   </div>
 </template>
 <script setup lang="ts">
@@ -91,6 +96,7 @@ useProvidePreview(props);
 
 // Insert extended external link
 useExpansionPreview(props);
+const { t } = useI18n();
 
 const exposeParam: ExposePreviewParam = {
   rerender() {
@@ -127,6 +133,7 @@ const onGetCatalog = (list: HeadList[]) => {
   color: $vulcanus-text-clr-raised;
   margin-bottom: 4rem;
   margin-top: 4rem;
+  word-wrap: break-word;
   & h1 {
     font-weight: 700;
     font-size: 3.2rem;
