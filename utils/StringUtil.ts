@@ -1,5 +1,3 @@
-import type { BreadcrumbModel } from '@/types/pages/DocModel';
-
 export const capitalizeFirstLetter = (inputString: string): string => {
   if (inputString.length === 0) {
     return '';

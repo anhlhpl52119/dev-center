@@ -35,7 +35,7 @@ export default {
   'footer.copyRighter': '© Smilegate. All Rights Reserved.',
   'launcher.dev-center.error.title': 'サービスの接続がスムーズではありません。',
   'launcher.dev-center.error.msg': 'ホームページからもう一度試すには、以下のボタンをクリックしてください。',
-  'launcher.dev-center.error.msg-back': '<span class="text-primary">{second}</span> 秒後にホームページに移動します。',
+  'launcher.dev-center.error.msg-back': '<span>{second}</span> 秒後にホームページに移動します。',
   'launcher.dev-center.error.E404.title': 'ページが見つかりません！',
   // 'launcher.dev-center.error.go-home': '<h1 class="error-title text-truncate-2">サービスの接続がスムーズではありません</h1><p class="error-msg text-truncate-3">ホームページからもう一度試すには、以下のボタンをクリックしてください。</p>',
   // 'launcher.dev-center.error.common': '<h1 class="error-title text-truncate-2">サービスの接続がスムーズではありません。</h1><p class="error-msg text-truncate-3">確認後、再度お試しください。</p>',

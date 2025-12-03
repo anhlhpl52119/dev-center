@@ -35,7 +35,7 @@ export default {
   'footer.copyRighter': '© Smilegate. 保留所有权利。',
   'launcher.dev-center.error.title': '服务连接不畅。',
   'launcher.dev-center.error.msg': '点击下面的按钮重新尝试从主页开始。',
-  'launcher.dev-center.error.msg-back': '在<span class="text-primary">{second}</span>秒后返回主页。',
+  'launcher.dev-center.error.msg-back': '在<span>{second}</span>秒后返回主页。',
   'launcher.dev-center.error.E404.title': '页面未找到！',
   // 'launcher.dev-center.error.go-home': '<h1 class="error-title text-truncate-2">服务连接不畅。</h1><p class="error-msg text-truncate-3">点击下面的按钮重新尝试从主页开始。</p>',
   // 'launcher.dev-center.error.common': '<h1 class="error-title text-truncate-2">服务连接不畅。</h1><p class="error-msg text-truncate-3">请稍后再试。</p>',

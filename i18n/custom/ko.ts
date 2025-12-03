@@ -35,7 +35,7 @@ export default {
   'footer.copyRighter': '© Smilegate. All Rights Reserved.',
   'launcher.dev-center.error.title': '서비스 접속이 원활하지 않습니다.',
   'launcher.dev-center.error.msg': '홈 페이지에서 다시 시도하려면 아래 버튼을 클릭하세요',
-  'launcher.dev-center.error.msg-back': '<span class="text-primary">{second}</span> 초 후 홈페이지로 이동하세요.',
+  'launcher.dev-center.error.msg-back': '<span>{second}</span> 초 후 홈페이지로 이동하세요.',
   'launcher.dev-center.error.E404.title': '페이지를 찾을 수 없습니다!',
   // 'launcher.dev-center.error.go-home': '<h1 class="error-title text-truncate-2">서비스 접속이 원활하지 않습니다.</h1><p class="error-msg text-truncate-3">홈 페이지에서 다시 시도하려면 아래 버튼을 클릭하세요</p>',
   // 'launcher.dev-center.error.common': '<h1 class="error-title text-truncate-2">서비스 접속이 원활하지 않습니다.</h1><p class="error-msg text-truncate-3">잠시 후 다시 시도해주세요.</p>',

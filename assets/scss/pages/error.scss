@@ -1,5 +1,5 @@
-.sdc-error{
-  &-page{
+.sdc-error {
+  &-page {
     flex-grow: 1;
     display: flex;
     justify-content: center;
@@ -7,12 +7,12 @@
     height: 100%;
     max-width: 86rem;
   }
-  &-wrapper{
+  &-wrapper {
     padding: 4rem 1.6rem 8rem;
   }
 }
-.error{
-  &-thumbnail{
+.error {
+  &-thumbnail {
     max-width: 100%;
     width: 16rem;
     height: auto;
@@ -21,46 +21,51 @@
     margin-bottom: 1.6rem;
   }
 
-  &-title{
-    color: var(--#{$prefix}sem-color-on-surface-elevation-1);
+  &-title {
+    color: $vulcanus-text-clr-base;
 
     /* Title/Title5-M */
-    font-size: var(--#{$prefix}sem-typography-title5);
-    font-weight: var(--glob-typography-fw-medium);
-    line-height: 3rem; /* 150% */
-    letter-spacing: -0.06rem;
+    font-size: 2.4rem;
+    font-weight: 700;
+    line-height: 3.4rem;
+    letter-spacing: -0.03rem;
     margin-bottom: 0.4rem;
   }
 
-  &-msg{
-    color: var(--#{$prefix}sem-color-on-surface-elevation-3);
+  &-msg {
+    color: $vulcanus-text-clr-dimmed;
 
     /* Text/Text3-R */
-    font-size: var(--#{$prefix}sem-typography-text3);
-    font-weight: var(--glob-typography-fw-regular);
-    line-height: 2.4rem; /* 171.429% */
-    letter-spacing: -0.042rem;
-    margin-bottom: 2.4rem;
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 2.6rem;
+    letter-spacing: -0.03rem;
+    margin-bottom: 4rem;
   }
 
-  &-msg-back{
-    color: var(--#{$prefix}sem-color-on-surface-elevation-3);
-
-    /* Text/Text3-R */
-    font-size: var(--#{$prefix}sem-typography-text3);
-    font-weight: var(--glob-typography-fw-regular);
-    line-height: 2.4rem; /* 171.429% */
-    letter-spacing: -0.042rem;
+  &-msg-back {
+    color: $vulcanus-text-clr-muted;
+    margin-top: 2rem;
+    font-size: 1.3rem;
+    line-height: 2.2rem;
+    letter-spacing: -0.025rem;
+    font-weight: 400;
   }
 }
 
-.btn-error-back{
+.group-btn-navigator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.6rem;
+}
+
+.btn-error-back {
   max-width: 25rem;
   padding: 1.2rem 2rem;
-  margin-bottom: 1.2rem;
   height: 4.4rem;
 
-  color: var(--on-surface-white-x-primary, #FFF);
+  color: var(--on-surface-white-x-primary, #fff);
   /* Button/Button2-M */
   font-size: var(--#{$prefix}sem-typography-button2);
   font-weight: var(--glob-typography-fw-medium);
@@ -68,33 +73,52 @@
   letter-spacing: -0.042rem;
 }
 
-@include media-breakpoint-up(sm){
-  .sdc-error-wrapper{
+.btn-vulcanus {
+  border-radius: 1.2rem;
+  text-decoration: none;
+  &--primary {
+    background-color: $vulcanus-clr-primary;
+    outline: 1px solid $vulcanus-clr-bg-active;
+  }
+  &--plain {
+    background-color: $vulcanus-clr-bg-dimmed;
+    outline: none;
+    border: none;
+    color: $vulcanus-text-clr-base;
+    &:active {
+      background-color: $vulcanus-clr-bg-dimmed;
+      color: $vulcanus-text-clr-base;
+    }
+  }
+}
+
+@include media-breakpoint-up(sm) {
+  .sdc-error-wrapper {
     padding: 4rem 3.2rem 8rem;
   }
 }
 
-@include media-breakpoint-up(md){
-  .sdc-error-wrapper{
+@include media-breakpoint-up(md) {
+  .sdc-error-wrapper {
     padding: 8rem 0 8rem;
   }
 
-  .error{
-    &-title{
+  .error {
+    &-title {
       /* Title/Title4-M */
       font-size: var(--#{$prefix}sem-typography-title4);
       line-height: 3.4rem; /* 141.667% */
       letter-spacing: -0.072rem;
     }
 
-    &-msg{
+    &-msg {
       /* Text/Text1-R */
       font-size: var(--#{$prefix}sem-typography-text1);
       font-weight: var(--glob-typography-fw-regular);
       line-height: 2.6rem; /* 162.5% */
       letter-spacing: -0.048rem;
     }
-    &-thumbnail{
+    &-thumbnail {
       width: 24rem;
     }
   }

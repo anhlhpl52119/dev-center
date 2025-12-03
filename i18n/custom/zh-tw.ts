@@ -35,7 +35,7 @@ export default {
   'footer.copyRighter': '© Smilegate. All Rights Reserved.',
   'launcher.dev-center.error.title': 'Service connection is not smooth.',
   'launcher.dev-center.error.msg': 'Click the button below to try again from the Homepage.',
-  'launcher.dev-center.error.msg-back': 'Go to the Homepage after <span class="text-primary">{second}</span> seconds.',
+  'launcher.dev-center.error.msg-back': 'Go to the Homepage after <span>{second}</span> seconds.',
   'launcher.dev-center.error.E404.title': 'Page not found!',
   // 'launcher.dev-center.error.go-home': '<h1 class="error-title text-truncate-2">Service connection is not smooth.</h1><p class="error-msg text-truncate-3">Click the button below to try again from the Homepage.</p>',
   // 'launcher.dev-center.error.common': '<h1 class="error-title text-truncate-2">Service connection is not smooth.</h1><p class="error-msg text-truncate-3">Please try again in a few minutes.</p>',

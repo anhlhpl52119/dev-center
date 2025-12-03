@@ -1,9 +1,11 @@
 <template>
   <section class="error-api-info-wrapper">
     <div class="error-image-container">
-      <img :src="bannerErrorImg" alt="" class="img-layer layer-bg" />
+      <div class="container-banner">
+        <img :src="bannerErrorImg" alt="" class="img-layer layer-bg" />
 
-      <img :src="penguinErrorImg" alt="Page not found mascot" class="img-layer layer-main" />
+        <img :src="penguinErrorImg" alt="Page not found mascot" class="img-layer layer-main" />
+      </div>
     </div>
 
     <SafeHtml tag="div" :class="['mt-20 text-center ', styleErrMsg]" :html="t(errMsg)" />
@@ -43,7 +45,6 @@ import { getRunTypeConfig } from '@/configs/runtime/run-type';
 import { RedirectTimeoutBySeconds } from '@/constants/ApiTimeout';
 import { GraphQLErrorCode } from '@/constants/GraphQL';
 import { API_RETURNCODE_E500_KEY, ERROR_CONNECTION_KEY, GO_TO_PREVIOUS_PAGE_KEY } from '@/constants/i18n-key';
-import { ERR_LIGHT_ASSERT, ERR_LIGHT_CND } from '@/constants/Images';
 import type { PublicRunTypeModel } from '@/types/run-type/PublicRunTypeModel';
 
 const config = useRuntimeConfig();
@@ -82,7 +83,7 @@ const penguinErrorImg = ref<string>('/v1/img/vulcanus-penguin.png');
 const bannerErrorImg = ref<string>('/v1/img/vulcanus-error-banner.png');
 
 const hasGoPreviousPage = [GraphQLErrorCode.PAGE_NOT_FOUND.msg, API_RETURNCODE_E500_KEY].includes(props.errMsg);
-const errorImg = ref<string>(ERR_LIGHT_CND);
+
 const errMsg = computed(() => {
   return props?.errMsg || ERROR_CONNECTION_KEY;
 });
@@ -92,10 +93,6 @@ const errMsgBack = computed<string>(() => {
   return t('launcher.dev-center.error.msg-previous-page', { second: seconds.value });
 });
 let _timerId : any = null;
-
-const handleLoadImgErr = () => {
-  errorImg.value = ERR_LIGHT_ASSERT;
-};
 
 const goBack = () => {
   router.back();
@@ -129,13 +126,23 @@ onUnmounted(() => clearInterval(_timerId));
 @import "assets/scss/pages/errorAPI";
 
 .error-image-container {
+  position: relative;
+  margin: 0 auto;
+  max-width: 46.4rem;
+  height: 22rem;
+}
+
+.container-banner {
+  position: absolute;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr;
   justify-items: center;
   align-items: center;
-  max-width: 46.4rem;
-  height: 22rem;
+  left: 50%;
+  top: 50%;
+  max-width: 20rem;
+  transform: translateX(-50%) translateY(-50%);
 }
 
 .img-layer {
@@ -156,9 +163,9 @@ onUnmounted(() => clearInterval(_timerId));
   z-index: 1;
   transform: translateX(-6.3rem);
 }
-
 @include media-breakpoint-down(sm) {
   .layer-bg {
+    position: absolute;
     transform: translateX(0);
   }
 
