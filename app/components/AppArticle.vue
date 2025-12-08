@@ -1,11 +1,10 @@
 <script lang="ts" setup>
-import { PagesSearchDocument } from '@@/graphql';
-
-const { content, title, updatedAt } = useRoutesContent();
-
-const heading = computed(() => title.value || '');
-const description = computed(() => '');
-const lastUpdatedAt = computed(() => updatedAt.value);
+defineProps<{
+  content: string;
+  updatedAt: string;
+  description: string;
+  heading: string;
+}>();
 </script>
 
 <template>
@@ -17,7 +16,7 @@ const lastUpdatedAt = computed(() => updatedAt.value);
       <p
         v-if="description"
         itemprop="description"
-        class="text-13 text-dimmed leading-22 tracking-[-0.0025rem]"
+        class="text-13 text-quiet leading-22 tracking-[-0.0025rem]"
       >
         {{ description }}
       </p>
@@ -30,11 +29,11 @@ const lastUpdatedAt = computed(() => updatedAt.value);
     />
 
     <p
-      v-if="lastUpdatedAt"
+      v-if="updatedAt"
       itemprop="lastUpdatedAt"
-      class="text-dimmed text-13 mt-20 text-right"
+      class="text-quiet text-13 mt-20 text-right"
     >
-      {{ $t('common.last_update_at', { at: lastUpdatedAt }) }}
+      {{ $t('common.last_update_at', { at: updatedAt }) }}
     </p>
   </article>
 </template>

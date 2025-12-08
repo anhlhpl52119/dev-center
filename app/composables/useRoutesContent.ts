@@ -1,5 +1,3 @@
-const getSinglePageByPathQuery = {};
-
 function normalizeRoutePath(rawPath: string, localeCode?: string) {
   if (!rawPath) {
     return '/';
@@ -23,39 +21,26 @@ function normalizeRoutePath(rawPath: string, localeCode?: string) {
 
 export function useRoutesContent() {
   const route = useRoute();
+  const { GetPageByPath } = useGraphqlRequest();
   const { locale } = useI18n();
 
   const normalizedPath = computed(() =>
     normalizeRoutePath(route.path, locale.value),
   );
 
-  const { data, pending, error, refresh } = useAPI<any>('graphql', {
-    key: normalizedPath.value,
-    method: 'POST',
-    body: {
-      query: getSinglePageByPathQuery,
-      variables: {
-        path: normalizedPath.value,
-        locale,
-      },
-    },
-    onRequest() {
-      // TODO: check error on first time visit page
-      if (!normalizedPath.value) {
-        return {};
-      }
-    },
-    watch: false,
-  });
+  const { data, pending, error, refresh } = useAsyncData(route.path, () => GetPageByPath({
+    locale: locale.value,
+    path: normalizedPath.value,
+  }));
 
   const content = computed(
-    () => data.value?.data?.pages?.singleByPath?.content ?? '',
+    () => data.value?.pages?.singleByPath?.content ?? '',
   );
   const title = computed(
-    () => data.value?.data?.pages?.singleByPath?.title ?? '',
+    () => data.value?.pages?.singleByPath?.title ?? '',
   );
   const updatedAt = computed(
-    () => data.value?.data.pages?.singleByPath?.updatedAt ?? '',
+    () => data.value?.pages?.singleByPath?.updatedAt ?? '',
   );
 
   return {
@@ -64,6 +49,6 @@ export function useRoutesContent() {
     updatedAt,
     pending,
     error,
-    refresh,
+    refresh: () => {},
   };
 }
