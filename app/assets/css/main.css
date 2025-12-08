@@ -13,6 +13,7 @@
     font-size: 62.5%;
     font-family: var(--ff-han-sans-neo);
     scroll-behavior: smooth;
+    font-display: swap
   }
 
   body {

@@ -13,6 +13,10 @@ export default defineNuxtConfig({
   imports: {
     dirs: ['constants'],
   },
+  devServer: {
+    host: 'local.onstove.com',
+    https: true,
+  },
   components: [
     {
       path: '~/components',
@@ -39,16 +43,6 @@ export default defineNuxtConfig({
     detectBrowserLanguage: {
       useCookie: true,
       cookieKey: 'LOCALE',
-    },
-  },
-  app: {
-    head: {
-      link: [
-        {
-          rel: 'stylesheet',
-          href: 'https://d2x8kymwjom7h7.cloudfront.net/live/application_no/STATIC/common/stds-font-icon-v2/stds-font-icon.css',
-        },
-      ],
     },
   },
   icon: {

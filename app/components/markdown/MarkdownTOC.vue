@@ -45,6 +45,9 @@ const tocItems = computed(() => {
     <div class="flex items-center justify-between leading-24">
       <span class="text-15 font-bold">{{ $t('common.vulcanus_guide') }}</span>
       <button
+        aria-label="title of content"
+        aria-describedby="Content Heading list"
+        aria-pressed="false"
         class="hover:bg-abd-active relative size-32 rounded-full bg-[#eff0f6] p-8"
       >
         <Icon
