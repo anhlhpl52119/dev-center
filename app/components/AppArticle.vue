@@ -21,10 +21,7 @@ const lastUpdatedAt = computed(() => updatedAt.value);
       >
         {{ description }}
       </p>
-      <pre><p>{{ PagesSearchDocument.loc?.source.body }} | {{ typeof PagesSearchDocument }}</p></pre>
     </header>
-
-    <Button>Try search</Button>
 
     <MarkdownRenderer
       :content="content"

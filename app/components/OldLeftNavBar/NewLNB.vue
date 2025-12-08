@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import type { LNBModel } from './types';
+import type { LeftNavigationBarTreeQuery_pages_PageQuery_tree_PageTreeItem } from '~~/graphql/generated/codegen-typescript';
 
-interface Props {
-  items: LNBModel[];
+export interface LNBModel extends LeftNavigationBarTreeQuery_pages_PageQuery_tree_PageTreeItem {
+  children?: LNBModel[];
 }
 
-defineProps<Props>();
+defineProps<{
+  items: LNBModel[];
+}>();
 
 const expandedItems = ref<Set<number>>(new Set());
 
@@ -23,18 +25,18 @@ const isExpanded = (id: number) => expandedItems.value.has(id);
 
 <template>
   <nav>
-    <ul class="space-y-0.5">
+    <ul class="space-y-2">
       <li
         v-for="item in items"
         :key="item.id"
-        class="rounded-full leading-6 font-bold"
+        class="rounded-full leading-24 font-bold"
       >
         <!-- link -->
         <NuxtLinkLocale
           v-if="!item.isFolder"
           :to="`/${item.path}`"
           exactActiveClass="bg-abg-active text-tcl-primary"
-          class="hover:bg-abg-raised/7 block rounded-full py-2 pr-3 pl-4 leading-6 font-medium capitalize"
+          class="hover:bg-abg-raised/7 block rounded-full py-8 pr-12 pl-16 leading-24 font-medium capitalize"
           activeClass="font-medium"
         >
           {{ item.title }}
@@ -43,14 +45,14 @@ const isExpanded = (id: number) => expandedItems.value.has(id);
         <!-- Folder -->
         <div
           v-else
-          class="text-md hover:bg-abg-raised/7 flex cursor-pointer items-center rounded-full py-2 pr-3 pl-4"
+          class="text-md hover:bg-abg-raised/7 flex cursor-pointer items-center rounded-full py-8 pr-12 pl-16"
           @click="toggleExpand(item.id)"
         >
           <span class="capitalize">{{ item.title }}</span>
           <Icon
             v-if="item.children?.length"
             name="svg:single-arrow-up"
-            class="ml-auto w-2.5"
+            class="ml-auto w-10"
           />
         </div>
 
@@ -59,7 +61,7 @@ const isExpanded = (id: number) => expandedItems.value.has(id);
           v-if="
             item.children?.length && (!item.isFolder || isExpanded(item.id))
           "
-          class="mt-1 pl-4"
+          class="mt-4 pl-16"
         >
           <NewLNB :items="item.children" />
         </ul>

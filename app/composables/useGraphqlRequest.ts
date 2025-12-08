@@ -15,11 +15,6 @@ interface GraphQLError {
   extensions?: Record<string, any>;
 }
 
-interface FetchRequesterOptions {
-  headers?: Record<string, string>;
-  [key: string]: any;
-}
-
 const validDocDefOps = ['mutation', 'query', 'subscription'];
 class GraphQLRequestError extends Error {
   public errors: GraphQLError[];
@@ -37,14 +32,10 @@ class GraphQLRequestError extends Error {
   }
 }
 
-export function createFetchRequester(
-  endpoint: string,
-  defaultOptions: FetchRequesterOptions = {},
-) {
+export function useGraphqlRequest() {
   const requester: Requester = async <R, V>(
     doc: DocumentNode,
     variables: V,
-    options?: FetchRequesterOptions,
   ): Promise<R> => {
     // Validate document contains single query or mutation
     if (
@@ -54,47 +45,28 @@ export function createFetchRequester(
           && validDocDefOps.includes(d.operation),
       ).length !== 1
     ) {
-      throw new Error(
-        'DocumentNode must contain single query or mutation',
-      );
+      throw new Error('DocumentNode must contain single query or mutation');
     }
 
     const definition = doc.definitions[0] || {} as DefinitionNode;
 
     // Validate document contains OperationDefinition
     if (definition.kind !== 'OperationDefinition') {
-      throw new Error(
-        'DocumentNode must contain single query or mutation',
-      );
+      throw new Error('DocumentNode must contain single query or mutation');
     }
 
     // Handle subscription separately
     if (definition.operation === 'subscription') {
-      throw new Error(
-        'Subscription requests through SDK interface are not supported',
-      );
+      throw new Error('Subscription requests through SDK interface are not supported');
     }
 
     try {
-      // Merge default options with request-specific options
-      const mergedOptions = {
-        ...defaultOptions,
-        ...options,
-        headers: {
-          'Content-Type': 'application/json',
-          ...defaultOptions.headers,
-          ...options?.headers,
-        },
-      };
-
-      // Make GraphQL request using $fetch
-      const response = await $fetch<GraphQLResponse<R>>(endpoint, {
+      const response = await useNuxtApp().$api<GraphQLResponse<R>>('/graphql', {
         method: 'POST',
         body: {
           query: print(doc),
           variables,
         },
-        ...mergedOptions,
       });
 
       // Handle GraphQL errors
@@ -123,6 +95,5 @@ export function createFetchRequester(
       throw error;
     }
   };
-
   return getSdk(requester);
 }

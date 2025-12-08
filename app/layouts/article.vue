@@ -1,46 +1,24 @@
 <script lang="ts" setup>
-import type { Pages2Query, Pages2QueryVariables } from '@@/graphql';
-import type { LNBModel, Model } from '~/components/OldLeftNavBar/types';
-import { getSdk, Pages2Document, PageTreeMode } from '@@/graphql';
-import getLNBQuery from '@@/graphql/queries/lnb.gql?raw';
+import type { LeftNavigationBarTreeQuery_pages_PageQuery_tree_PageTreeItem } from '@@/graphql';
+import type { LNBModel } from '~/components/OldLeftNavBar/NewLNB.vue';
+import { PageTreeMode } from '@@/graphql';
+
+const { LeftNavigationBarTree } = useGraphqlRequest();
 
 const { locale } = useI18n();
-// const res = createFetchRequester('/').PagesHome({
-//   tags:
-// });
-// const ress = await res({
-//   locale: 'ko',
-//   mode: 'asd',
-//   path: '/asd',
-// });
-// ress.data?.pages?.tree
 
-async function asd() {
-  const res = await createFetchRequester('https://developers-vulcanus-api-dev.onstove.com/graphql').Pages2({
-    locale: 'ko',
-    mode: PageTreeMode.Like,
-    path: 'web/etc',
-  });
-}
-
-const { data: lnbData, execute } = await useAPI<any>('graphql', {
-  method: 'POST',
-  body: {
-    query: getQueryFromDocument(Pages2Document),
-    variables: {
-      locale,
-      mode: PageTreeMode.Like,
-      path: 'web/etc',
-    },
-  },
-});
+const { data: lnbData } = await useAsyncData('lnb', () => LeftNavigationBarTree({
+  locale: locale.value,
+  mode: PageTreeMode.Like,
+  path: '/web/etc',
+}));
 
 /**
  * Convert flat array of Model to hierarchical Tree structure
  * @param models - Array of Model objects
  * @returns Array of Tree objects with nested children
  */
-function convertToTree(models: Model[]): LNBModel[] {
+function convertToTree(models: LeftNavigationBarTreeQuery_pages_PageQuery_tree_PageTreeItem[]): LeftNavigationBarTreeQuery_pages_PageQuery_tree_PageTreeItem[] {
   // Create a map for quick lookup by id
   const map = new Map<number, LNBModel>();
   const result: LNBModel[] = [];
@@ -95,11 +73,10 @@ function convertToTree(models: Model[]): LNBModel[] {
   return result;
 }
 
-const lnb = computed(() =>
-  (lnbData.value.data?.pages?.tree ?? ([] as Model[])).filter(
-    (item: any) => item.depth > 1,
-  ),
-);
+const lnb = computed(() => {
+  const tree = lnbData.value?.pages?.tree as LeftNavigationBarTreeQuery_pages_PageQuery_tree_PageTreeItem[] || [];
+  return tree.filter(item => item.depth > 1);
+});
 </script>
 
 <template>
@@ -109,7 +86,7 @@ const lnb = computed(() =>
     <div
       class="sticky top-0 mr-104 hidden h-screen w-272 shrink-0 overflow-y-auto p-24 pt-32 md:block"
     >
-      <button class="mb-24" @click="asd()">
+      <button class="mb-24">
         <Icon name="svg:menu" class="size-40" />
       </button>
       <NewLNB :items="convertToTree(lnb)" />

@@ -1,9 +1,7 @@
-query PagesHome($tags: [String!]!) {
+query SearchByTags($tags: [String!]!) {
   pages {
     menu(tags: $tags) {
       id
-      path
-      locale
       title
       category
     }

@@ -1,4 +1,4 @@
-query PagesSearch(
+query SearchPagesByKeyword(
   $query: String!
   $category: String
   $locale: String

@@ -25,4 +25,4 @@ logs
 
 .nvmrc
 
-graphql/generated
+graphql/generated/

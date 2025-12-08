@@ -1,4 +1,4 @@
-query PagesSingleSeven($path: String!, $locale: String!) {
+query GetPageByPath($path: String!, $locale: String!) {
   pages {
     singleByPath(path: $path, locale: $locale) {
       id

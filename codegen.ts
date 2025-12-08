@@ -7,7 +7,8 @@ const config: CodegenConfig = {
     './graphql/generated/codegen-typescript.ts': {
       plugins: ['typescript', 'typescript-operations', 'typescript-generic-sdk'],
       config: {
-        rawRequest: true,
+        skipTypename: true, // https://the-guild.dev/graphql/codegen/plugins/typescript/typescript#skiptypename
+        extractAllFieldsToTypes: true,
       },
     },
   },
