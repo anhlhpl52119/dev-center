@@ -26,7 +26,7 @@ const { screenSmallerOrEq } = useBreakpoints();
             external
             target="_blank"
             rel="noopener noreferrer"
-            class="group clickable hover:bg-abg-dimmed hidden h-32 items-center justify-center gap-2 rounded-full py-7 pr-8 pl-12 sm:flex"
+            class="group clickable hover:bg-abg-dimmed hidden h-32 mr-8 items-center justify-center gap-2 rounded-full py-7 pr-8 pl-12 sm:flex"
           >
             <span class="text-12 font-medium tracking-[-0.0132em]">
               {{ $t('common.go_to_creator_center') }}
