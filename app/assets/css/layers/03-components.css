@@ -59,4 +59,27 @@
     @apply m-0 mt-8 mb-40 overflow-x-auto rounded-lg p-16;
     @apply border border-gray-200 dark:border-gray-700;
   }
+
+  table {
+    @apply w-full border-collapse mt-8 mb-40;
+    @apply border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden;
+  }
+
+  th {
+    @apply bg-gray-50 dark:bg-gray-800 text-raised font-semibold;
+    @apply px-12 py-8 text-left border-b border-gray-200 dark:border-gray-700;
+  }
+
+  td {
+    @apply px-12 py-8 border-b border-gray-100 dark:border-gray-800;
+    @apply text-quiet;
+  }
+
+  tr:last-child td {
+    @apply border-b-0;
+  }
+
+  tr:hover {
+    @apply bg-gray-200 dark:bg-gray-900/50;
+  }
 }
