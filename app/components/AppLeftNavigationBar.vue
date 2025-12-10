@@ -27,7 +27,7 @@ const isExpanded = (id: number) => expandedItems.value.has(id);
 function getFocusableElements() {
   if (!navRef.value)
     return [];
-  return Array.from(navRef.value.querySelectorAll('a, button')) as HTMLElement[];
+  return Array.from(navRef.value.querySelectorAll('a')) as HTMLElement[];
 }
 
 function handleKeydown(event: KeyboardEvent, id: number) {
@@ -66,8 +66,8 @@ function handleKeydown(event: KeyboardEvent, id: number) {
         <NuxtLinkLocale
           v-if="!item.isFolder"
           :to="`/${item.path}`"
-          exactActiveClass="bg-abg-active text-primary"
-          class="hover:bg-abg-raised/7 focus:outline-none focus:ring-1 focus:ring-primary block rounded-full py-8 pr-12 pl-16 leading-24 font-medium capitalize"
+          exactActiveClass="!bg-abg-active text-primary"
+          class="hover:bg-gray-500/5 transition-all duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary block rounded-full py-8 pr-12 pl-16 leading-24 font-medium capitalize"
           activeClass="font-medium"
           @keydown="handleKeydown($event, item.id)"
         >
@@ -75,24 +75,42 @@ function handleKeydown(event: KeyboardEvent, id: number) {
         </NuxtLinkLocale>
 
         <!-- Folder -->
-        <button
+        <NuxtLinkLocale
           v-else
-          type="button"
-          :aria-expanded="isExpanded(item.id)"
-          :aria-label="`${isExpanded(item.id) ? 'Collapse' : 'Expand'} ${item.title}`"
-          class="text-md hover:bg-abg-raised/7 focus:outline-none focus:ring-1 focus:ring-primary flex w-full items-center rounded-full py-8 pr-12 pl-16"
-          @click="toggleExpand(item.id)"
+          v-slot="{ isExactActive }"
+          :to="`/${item.path}`"
+          exactActiveClass="!bg-abg-active"
+          class="hover:bg-gray-500/5 transition-all duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary block rounded-full"
           @keydown="handleKeydown($event, item.id)"
         >
-          <span class="capitalize">{{ item.title }}</span>
-          <Icon
-            v-if="item.children?.length"
-            name="svg:single-arrow-up"
-            class="ml-auto w-10 transition-transform duration-200"
-            :class="[isExpanded(item.id) ? 'rotate-180' : '']"
-            aria-hidden="true"
-          />
-        </button>
+          <div
+            class="flex w-full items-center rounded-full py-8 pr-12 pl-16"
+            :class="{ '!bg-abg-active': isExactActive }"
+          >
+            <span
+              class="flex-1 capitalize"
+              :class="{ 'text-primary': isExactActive }"
+            >
+              {{ item.title }}
+            </span>
+
+            <button
+              v-if="item.children?.length"
+              :aria-expanded="isExpanded(item.id)"
+              tabindex="-1"
+              :aria-label="`${isExpanded(item.id) ? 'Collapse' : 'Expand'} ${item.title}`"
+              class="cursor-pointer hover:text-primary hover:bg-gray-500/20 size-16 rounded-full transition-all duration-200"
+              @click.prevent="toggleExpand(item.id)"
+            >
+              <Icon
+                name="svg:single-arrow-down"
+                class="h-6 w-10 leading-24 align-[0.34em] transition-all duration-200"
+                :class="[isExpanded(item.id) ? '-rotate-180' : '']"
+                aria-hidden="true"
+              />
+            </button>
+          </div>
+        </NuxtLinkLocale>
 
         <!-- Nested child -->
         <Transition
