@@ -8,7 +8,10 @@ function toggle() {
 </script>
 
 <template>
-  <div class="bg-abg-base md:min-w-220" :class="{ 'absolute inset-x-0 z-2': show }">
+  <div
+    class="bg-abg-base md:min-w-220"
+    :class="{ 'absolute inset-x-0 z-2': show }"
+  >
     <!-- Icon trigger -->
     <slot
       name="trigger"
@@ -23,13 +26,16 @@ function toggle() {
       type="text"
       name="search"
       placeholder="검색어를 입력하세요."
-      class="outline-none bg-abg-base rounded-full leading-20 h-44 px-16 py-12 abd-base-1 w-full"
+      class="bg-abg-base abd-base-1 h-44 w-full rounded-full px-16 py-12 leading-20 outline-none"
       @click="show = true"
       @blur="show = false"
     >
 
     <!-- Results -->
-    <div v-if="show" class="absolute mt-4 abd-base-1 shadow-md w-full h-400 bg-abg-base z-2 bd-radius-20 p-16">
+    <div
+      v-if="show"
+      class="abd-base-1 bg-abg-base bd-radius-20 absolute z-2 mt-4 h-400 w-full p-16 shadow-md"
+    >
       <pre>{{ $slots.trigger }}</pre>
     </div>
   </div>

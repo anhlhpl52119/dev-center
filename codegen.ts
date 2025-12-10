@@ -5,7 +5,11 @@ const config: CodegenConfig = {
   documents: ['./graphql/queries/*.gql'],
   generates: {
     './graphql/generated/codegen-typescript.ts': {
-      plugins: ['typescript', 'typescript-operations', 'typescript-generic-sdk'],
+      plugins: [
+        'typescript',
+        'typescript-operations',
+        'typescript-generic-sdk',
+      ],
       config: {
         skipTypename: true, // https://the-guild.dev/graphql/codegen/plugins/typescript/typescript#skiptypename
         extractAllFieldsToTypes: true,

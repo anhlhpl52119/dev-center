@@ -28,17 +28,16 @@ export function useRoutesContent() {
     normalizeRoutePath(route.path, locale.value),
   );
 
-  const { data, pending, error, refresh } = useAsyncData(route.path, () => GetPageByPath({
-    locale: locale.value,
-    path: normalizedPath.value,
-  }));
+  const { data, pending, error, refresh } = useAsyncData(route.path, () =>
+    GetPageByPath({
+      locale: locale.value,
+      path: normalizedPath.value,
+    }));
 
   const content = computed(
     () => data.value?.pages?.singleByPath?.content ?? '',
   );
-  const title = computed(
-    () => data.value?.pages?.singleByPath?.title ?? '',
-  );
+  const title = computed(() => data.value?.pages?.singleByPath?.title ?? '');
   const updatedAt = computed(
     () => data.value?.pages?.singleByPath?.updatedAt ?? '',
   );

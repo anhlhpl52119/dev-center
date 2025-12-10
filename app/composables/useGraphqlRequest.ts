@@ -48,7 +48,7 @@ export function useGraphqlRequest() {
       throw new Error('DocumentNode must contain single query or mutation');
     }
 
-    const definition = doc.definitions[0] || {} as DefinitionNode;
+    const definition = doc.definitions[0] || ({} as DefinitionNode);
 
     // Validate document contains OperationDefinition
     if (definition.kind !== 'OperationDefinition') {
@@ -57,7 +57,9 @@ export function useGraphqlRequest() {
 
     // Handle subscription separately
     if (definition.operation === 'subscription') {
-      throw new Error('Subscription requests through SDK interface are not supported');
+      throw new Error(
+        'Subscription requests through SDK interface are not supported',
+      );
     }
 
     try {

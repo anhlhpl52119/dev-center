@@ -20,16 +20,19 @@ export default defineNuxtModule({
       isGenerating = true;
 
       try {
-        console.log(`🔄 [graphql-codegen] Running codegen for (${reason.toUpperCase()}) steps...`);
+        console.log(
+          `🔄 [graphql-codegen] Running codegen for (${reason.toUpperCase()}) steps...`,
+        );
         const startTime = Date.now();
 
         await execAsync(options.codegenCommand, {
           cwd: nuxt.options.rootDir,
         });
 
-        console.log(`🚀 [graphql-codegen] Generated Completed in ${Date.now() - startTime}ms`);
+        console.log(
+          `🚀 [graphql-codegen] Generated Completed in ${Date.now() - startTime}ms`,
+        );
       }
-
       catch (error: any) {
         console.error('‼️ [graphql-codegen] Module error:', error.message);
       }

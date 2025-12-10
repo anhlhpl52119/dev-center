@@ -1,4 +1,8 @@
-query LeftNavigationBarTree($path: String, $mode: PageTreeMode!, $locale: String!) {
+query LeftNavigationBarTree(
+  $path: String
+  $mode: PageTreeMode!
+  $locale: String!
+) {
   pages {
     tree(path: $path, mode: $mode, locale: $locale) {
       id

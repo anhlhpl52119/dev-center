@@ -57,7 +57,7 @@ const tocItems = computed(() => {
       </button>
     </div>
 
-    <ul class="text-quiet mt-6 text-13 leading-22">
+    <ul class="text-quiet text-13 mt-6 leading-22">
       <li
         v-for="item in tocItems"
         :key="item.anchor"

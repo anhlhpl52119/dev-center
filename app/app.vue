@@ -13,7 +13,8 @@ useSeoMeta({
   title: 'Vulcanus developer center guide',
   ogTitle: 'Stove Vulcanus Developer center',
   description: 'This is developer center for vulcanus documentation',
-  ogDescription: 'Center for Developer of vulcanus documentation for integration',
+  ogDescription:
+    'Center for Developer of vulcanus documentation for integration',
 });
 </script>
 

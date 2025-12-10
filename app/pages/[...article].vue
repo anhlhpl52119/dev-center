@@ -12,7 +12,7 @@ const { content, title, updatedAt } = useRoutesContent();
     :content="content"
     :heading="title"
     :updatedAt="updatedAt"
-    class="mt-10 flex-1 min-w-716 max-w-900"
+    class="mt-10 max-w-900 min-w-716 flex-1"
   />
   <MarkdownTOC
     :content="content"

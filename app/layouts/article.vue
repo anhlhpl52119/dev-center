@@ -6,13 +6,16 @@ import { PageTreeMode } from '~~/graphql';
 const { LeftNavigationBarTree } = useGraphqlRequest();
 
 const { locale } = useI18n();
-const { data: lnbData } = await useAsyncData('lnb', () => LeftNavigationBarTree({
-  locale: locale.value,
-  mode: PageTreeMode.Like,
-  path: '/web/etc',
-}));
+const { data: lnbData } = await useAsyncData('lnb', () =>
+  LeftNavigationBarTree({
+    locale: locale.value,
+    mode: PageTreeMode.Like,
+    path: '/web/etc',
+  }));
 
-function convertToTree(models: LeftNavigationBarTreeQuery_pages_PageQuery_tree_PageTreeItem[]): LeftNavigationBarTreeQuery_pages_PageQuery_tree_PageTreeItem[] {
+function convertToTree(
+  models: LeftNavigationBarTreeQuery_pages_PageQuery_tree_PageTreeItem[],
+): LeftNavigationBarTreeQuery_pages_PageQuery_tree_PageTreeItem[] {
   // Create a map for quick lookup by id
   const map = new Map<number, LNBModel>();
   const result: LNBModel[] = [];
@@ -68,7 +71,10 @@ function convertToTree(models: LeftNavigationBarTreeQuery_pages_PageQuery_tree_P
 }
 
 const lnb = computed<LNBModel[]>(() => {
-  const tree = lnbData.value?.pages?.tree as LeftNavigationBarTreeQuery_pages_PageQuery_tree_PageTreeItem[] || [];
+  const tree
+    = (lnbData.value?.pages
+      ?.tree as LeftNavigationBarTreeQuery_pages_PageQuery_tree_PageTreeItem[])
+    || [];
   return convertToTree(tree.filter(item => item.depth > 1));
 });
 </script>
