@@ -5,11 +5,14 @@ export interface LNBModel
   extends LeftNavigationBarTreeQuery_pages_PageQuery_tree_PageTreeItem {
   children?: LNBModel[];
 }
-
 const props = defineProps<{
-  items?: LNBModel[];
+  items: LNBModel[];
   level?: number;
 }>();
+
+const localeRoute = useLocaleRoute();
+const { locale } = useI18n();
+const routeBaseName = useRouteBaseName();
 
 const expandedItems = ref<Set<number>>(new Set());
 const navRef = useTemplateRef('navRef');
@@ -23,6 +26,30 @@ function toggleExpand(id: number) {
   else {
     expandedItems.value.add(id);
   }
+}
+
+function findParentIds(nodes: LNBModel[], targetId: number) {
+  for (const node of nodes) {
+    // 1. Nếu tìm thấy ID trùng khớp
+    if (node.id === targetId) {
+      return [node.id];
+    }
+
+    // 2. Nếu node này có con, tiếp tục tìm đệ quy trong children
+    if (node.children && node.children.length > 0) {
+      const foundPath: number[] = findParentIds(node.children, targetId);
+
+      // 3. Nếu tìm thấy trong children (foundPath không phải null)
+      if (foundPath) {
+        // Thêm id của cha hiện tại vào phía sau mảng kết quả
+        foundPath.push(node.id);
+        return foundPath;
+      }
+    }
+  }
+
+  // 4. Nếu đi hết vòng lặp mà không thấy
+  return [];
 }
 
 function findMatchingPath(
@@ -81,7 +108,24 @@ function handleKeydown(event: KeyboardEvent, id: number) {
 }
 
 (function init() {
-  const parentIds = findMatchingPath(props.items, route.path);
+  const getIdByPath = (items: LNBModel[]) => {
+    for (const i of items) {
+      if (localePath(`/${i.path}`) === decodeURIComponent(route.path)) {
+        return i.id;
+      }
+      else if (i.children?.length) {
+        return getIdByPath(i.children);
+      }
+    }
+
+    return null;
+  };
+
+  const id = getIdByPath(props.items);
+  if (isNullish(id)) {
+    return;
+  }
+  const parentIds = findParentIds(props.items, id);
   if (parentIds) {
     parentIds.forEach(id => expandedItems.value.add(id));
   }
