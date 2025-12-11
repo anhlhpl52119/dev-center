@@ -31,7 +31,12 @@
   ],
 
   // Spell check
-  "cSpell.words": ["bubbliz", "vulcanus", "oklch"],
+  "cSpell.words": [
+    "bubbliz",
+    "Nuxt",
+    "oklch",
+    "vulcanus"
+  ],
 
   "search.exclude": {
     "**/node_modules": true,

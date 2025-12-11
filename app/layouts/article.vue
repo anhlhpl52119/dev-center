@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { LeftNavigationBarTreeQuery_pages_PageQuery_tree_PageTreeItem } from '~~/graphql';
-import type { LNBModel } from '~/components/AppLeftNavigationBar.vue';
+import type { LNBModel } from '~/components/left-navigation-bar/AppLeftNavigationBar.vue';
 import { PageTreeMode } from '~~/graphql';
 
 const { LeftNavigationBarTree } = useGraphqlRequest();
