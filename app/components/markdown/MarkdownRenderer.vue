@@ -7,7 +7,7 @@ import MarkdownIt from 'markdown-it';
 import Anchor from 'markdown-it-anchor';
 import replaceLink from 'markdown-it-replace-link';
 import AdmonitionPlugin from '@/lib/markdown-it-plugins/admonition';
-import markdownItShiki from '@/plugins/markdown-it-shiki';
+import ShikiCodeHighlightPlugin from '@/lib/markdown-it-plugins/shiki-code-highlight';
 
 const props = defineProps<{
   content?: string;
@@ -59,7 +59,7 @@ const md = new MarkdownIt({
   .use(tasklist)
   .use(demo)
   .use(alert)
-  .use(markdownItShiki);
+  .use(ShikiCodeHighlightPlugin);
 
 const renderedContent = computed(() => {
   if (!props.content) {
