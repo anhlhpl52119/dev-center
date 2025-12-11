@@ -16,6 +16,6 @@ const { content, title, updatedAt } = useRoutesContent();
   />
   <MarkdownTOC
     :content="content"
-    class="sticky top-0 ml-40 hidden h-screen w-204 shrink-0 overflow-y-auto pt-32 lg:block"
+    class="sticky top-64 ml-40 hidden h-[calc(100vh-256px)] w-204 shrink-0 overflow-y-auto pt-32 xl:block"
   />
 </template>

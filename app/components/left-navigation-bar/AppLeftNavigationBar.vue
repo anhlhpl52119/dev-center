@@ -134,7 +134,6 @@ function handleKeydown(event: KeyboardEvent, id: number) {
 
 <template>
   <nav ref="navRef" :aria-label="level ? undefined : 'Main navigation'">
-    {{ expandedItems }}
     <ul class="space-y-2">
       <li
         v-for="item in items"
