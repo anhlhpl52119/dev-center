@@ -2,18 +2,18 @@
 import { alert } from '@mdit/plugin-alert';
 import { demo } from '@mdit/plugin-demo';
 import { tasklist } from '@mdit/plugin-tasklist';
-// import markdownItShiki from '@/plugins/markdown-it-shiki';
-import Shiki from '@shikijs/markdown-it';
 import DOMPurify from 'dompurify';
 import MarkdownIt from 'markdown-it';
 import Anchor from 'markdown-it-anchor';
 import replaceLink from 'markdown-it-replace-link';
 import AdmonitionPlugin from '@/lib/markdown-it-plugins/admonition';
+import markdownItShiki from '@/plugins/markdown-it-shiki';
 
 const props = defineProps<{
   content?: string;
 }>();
 const { locale } = useI18n();
+const { highlightCodeBlocks } = useShikiHighlight();
 const routes = useRoute();
 const { apiBaseUrl, siteUrl } = useRuntimeConfig().public;
 const md = new MarkdownIt({
@@ -59,14 +59,7 @@ const md = new MarkdownIt({
   .use(tasklist)
   .use(demo)
   .use(alert)
-  // .use(markdownItShiki);
-  .use(await Shiki({
-    themes: {
-      light: 'vitesse-light',
-      dark: 'vitesse-dark',
-    },
-    fallbackLanguage: 'bash',
-  }));
+  .use(markdownItShiki);
 
 const renderedContent = computed(() => {
   if (!props.content) {
@@ -79,6 +72,19 @@ const renderedContent = computed(() => {
   }
 
   return html;
+});
+
+// TODO: improve later
+onMounted(() => {
+  nextTick(() => {
+    highlightCodeBlocks();
+  });
+});
+
+watch(() => props.content, () => {
+  nextTick(() => {
+    highlightCodeBlocks();
+  });
 });
 </script>
 
