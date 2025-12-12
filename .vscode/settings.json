@@ -33,8 +33,13 @@
   // Spell check
   "cSpell.words": [
     "bubbliz",
+    "dompurify",
+    "linkify",
+    "mdit",
     "Nuxt",
     "oklch",
+    "Shiki",
+    "tasklist",
     "vulcanus"
   ],
 

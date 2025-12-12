@@ -10,10 +10,6 @@ const props = defineProps<{
   level?: number;
 }>();
 
-const localeRoute = useLocaleRoute();
-const { locale } = useI18n();
-const routeBaseName = useRouteBaseName();
-
 const expandedItems = ref<Set<number>>(new Set());
 const navRef = useTemplateRef('navRef');
 const route = useRoute();
@@ -28,59 +24,42 @@ function toggleExpand(id: number) {
   }
 }
 
-function findParentIds(nodes: LNBModel[], targetId: number) {
-  for (const node of nodes) {
-    // 1. Nếu tìm thấy ID trùng khớp
-    if (node.id === targetId) {
-      return [node.id];
-    }
-
-    // 2. Nếu node này có con, tiếp tục tìm đệ quy trong children
-    if (node.children && node.children.length > 0) {
-      const foundPath: number[] = findParentIds(node.children, targetId);
-
-      // 3. Nếu tìm thấy trong children (foundPath không phải null)
-      if (foundPath) {
-        // Thêm id của cha hiện tại vào phía sau mảng kết quả
-        foundPath.push(node.id);
-        return foundPath;
-      }
-    }
-  }
-
-  // 4. Nếu đi hết vòng lặp mà không thấy
-  return [];
-}
-
-function findMatchingPath(
-  items: LNBModel[] | undefined,
-  currentPath: string,
-  parentIds: number[] = [],
-): number[] | null {
-  if (!items)
-    return null;
-
-  for (const item of items) {
-    const itemPath = localePath(`/${item.path}`);
-    if (itemPath === currentPath) {
-      return parentIds;
-    }
-    if (item.children?.length) {
-      const result = findMatchingPath(item.children, currentPath, [
-        ...parentIds,
-        item.id,
-      ]);
-      if (result)
-        return result;
-    }
-  }
-  return null;
-}
-
 function getFocusableElements() {
   if (!navRef.value)
     return [];
   return Array.from(navRef.value.querySelectorAll('a')) as HTMLElement[];
+}
+
+function findParent(nodes: LNBModel[], id: number): number[] {
+  // TODO: refactor
+  const flattenTree = (nodes: LNBModel[]): LNBModel[] => {
+    const flatArray: LNBModel[] = [];
+
+    nodes.forEach((node) => {
+      flatArray.push(node);
+      if (node.children && node.children.length > 0) {
+        flatArray.push(...flattenTree(node.children));
+      }
+    });
+
+    return flatArray;
+  };
+  const flats = flattenTree(nodes);
+  const rs: number[] = [];
+  const loopFn = (loopId: number) => {
+    for (const i of flats) {
+      if (i.id !== loopId) {
+        continue;
+      }
+      if (!i.parent) {
+        return;
+      }
+      rs.push(i.parent);
+      loopFn(i.parent);
+    }
+  };
+  loopFn(id);
+  return rs;
 }
 
 function handleKeydown(event: KeyboardEvent, id: number) {
@@ -108,16 +87,18 @@ function handleKeydown(event: KeyboardEvent, id: number) {
 }
 
 (function init() {
-  const getIdByPath = (items: LNBModel[]) => {
+  const getIdByPath = (items: LNBModel[]): number | null => {
     for (const i of items) {
       if (localePath(`/${i.path}`) === decodeURIComponent(route.path)) {
         return i.id;
       }
-      else if (i.children?.length) {
-        return getIdByPath(i.children);
+      if (i.children?.length) {
+        const childId = getIdByPath(i.children);
+        if (childId) {
+          return childId;
+        }
       }
     }
-
     return null;
   };
 
@@ -125,7 +106,7 @@ function handleKeydown(event: KeyboardEvent, id: number) {
   if (isNullish(id)) {
     return;
   }
-  const parentIds = findParentIds(props.items, id);
+  const parentIds = findParent(props.items, id);
   if (parentIds) {
     parentIds.forEach(id => expandedItems.value.add(id));
   }
