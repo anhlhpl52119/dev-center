@@ -7,15 +7,15 @@ const { content, title, updatedAt } = useRoutesContent();
 </script>
 
 <template>
-  <AppArticle
+  <AppContent
     description="desc"
     :content="content"
     :heading="title"
     :updatedAt="updatedAt"
-    class="mt-10 max-w-900 min-w-716 flex-1"
+    class="mt-10 flex-1 w-full lg:max-w-716 mx-16 lg:ml-104 lg:mr-40"
   />
   <MarkdownTOC
     :content="content"
-    class="sticky top-64 ml-40 hidden h-[calc(100vh-256px)] w-204 shrink-0 overflow-y-auto pt-32 xl:block"
+    class="sticky top-64 hidden h-screen w-204 shrink-0 overflow-y-auto pt-32 xl:block"
   />
 </template>

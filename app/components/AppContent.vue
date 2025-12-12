@@ -25,7 +25,7 @@ defineProps<{
     <MarkdownRenderer
       :content="content"
       itemprop="articleBody"
-      class="bg-abg-base bd-radius-32 mt-40 min-h-2000 max-w-full overflow-x-auto p-30 shadow-sm"
+      class="bg-abg-base bd-radius-32 mt-40 min-h-2000 overflow-x-auto p-30 shadow-sm"
     />
 
     <p
