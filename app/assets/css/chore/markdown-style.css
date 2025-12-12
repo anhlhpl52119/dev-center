@@ -1,0 +1,81 @@
+.markdown-body {
+  @apply text-14 text-quiet -tracking-[0.03em];
+  h1 {
+    @apply text-raised text-32 leading-44 font-bold;
+    @apply mb-8;
+  }
+  h2 {
+    @apply text-raised text-20 leading-30 font-bold;
+    @apply mb-8;
+  }
+  p {
+    @apply leading-24 font-normal;
+    @apply mt-8 mb-40;
+  }
+
+  strong {
+    @apply text-raised leading-24 font-bold;
+  }
+  ul {
+    @apply pl-20;
+    @apply mt-8 mb-40;
+    li {
+      @apply mb-4 list-disc;
+    }
+  }
+
+  ol {
+    @apply pl-20;
+    @apply mt-8 mb-40;
+    li {
+      @apply mb-4 list-decimal;
+    }
+  }
+
+  a {
+    @apply text-primary/90 border-b border-transparent font-medium transition-colors duration-300;
+    @apply mx-4;
+    &:hover {
+      @apply border-primary text-primary;
+    }
+    &:focus-visible {
+      @apply outline-primary;
+    }
+  }
+
+  code {
+    @apply text-13 font-mono leading-20;
+    &:not(pre code) {
+      @apply text-red-500 py-2 px-4 bg-abg-dimmed rounded-lg;
+      @apply border abd-base-1;
+    }
+  }
+
+  pre {
+    @apply m-0 mt-8 mb-40 overflow-x-auto rounded-lg p-16;
+    @apply border border-gray-200 dark:border-gray-700;
+  }
+
+  table {
+    @apply w-full border-collapse mt-8 mb-40;
+    @apply border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden;
+  }
+
+  th {
+    @apply bg-gray-50 dark:bg-gray-800 text-raised font-semibold;
+    @apply px-12 py-8 text-left border-b border-gray-200 dark:border-gray-700;
+  }
+
+  td {
+    @apply px-12 py-8 border-b border-gray-100 dark:border-gray-800;
+    @apply text-quiet;
+  }
+
+  tr:last-child td {
+    @apply border-b-0;
+  }
+
+  tr:hover {
+    @apply bg-gray-200 dark:bg-gray-900/50;
+  }
+}
