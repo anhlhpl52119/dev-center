@@ -2,7 +2,7 @@
 
 /* Scroll bar */
 *::-webkit-scrollbar-track-piece {
-  border-radius: 2em;
+  /* border-radius: 2em; */
   background-color: #f8f8f8;
 }
 

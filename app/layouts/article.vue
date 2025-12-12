@@ -83,9 +83,7 @@ const lnb = computed<LNBModel[]>(() => {
   <AppHeader class="bg-abg-base sticky top-0 z-99" />
 
   <main class="relative mx-auto flex max-w-1336 justify-center">
-    <div
-      class="sticky top-64 mr-104 hidden h-[calc(100vh-256px)] w-272 shrink-0 overflow-y-auto p-24 pt-32 md:block"
-    >
+    <div class="sticky top-64 mr-104 hidden w-272 h-screen overflow-auto shrink-0 p-24 pt-32 md:block scrollbar-gutter-stable">
       <button
         class="mb-24"
         aria-label="Navigation bar"

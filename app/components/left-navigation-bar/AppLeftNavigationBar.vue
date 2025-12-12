@@ -11,24 +11,8 @@ const props = defineProps<{
 }>();
 
 const expandedItems = ref<Set<number>>(new Set());
-const navRef = useTemplateRef('navRef');
 const route = useRoute();
 const localePath = useLocalePath();
-
-function toggleExpand(id: number) {
-  if (expandedItems.value.has(id)) {
-    expandedItems.value.delete(id);
-  }
-  else {
-    expandedItems.value.add(id);
-  }
-}
-
-function getFocusableElements() {
-  if (!navRef.value)
-    return [];
-  return Array.from(navRef.value.querySelectorAll('a')) as HTMLElement[];
-}
 
 function findParent(nodes: LNBModel[], id: number): number[] {
   // TODO: refactor
@@ -62,30 +46,6 @@ function findParent(nodes: LNBModel[], id: number): number[] {
   return rs;
 }
 
-function handleKeydown(event: KeyboardEvent, id: number) {
-  if (event.key === 'Enter' || event.key === ' ') {
-    event.preventDefault();
-    toggleExpand(id);
-    return;
-  }
-
-  if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
-    event.preventDefault();
-    const elements = getFocusableElements();
-    const currentIndex = elements.indexOf(event.target as HTMLElement);
-
-    if (currentIndex === -1)
-      return;
-
-    const nextIndex
-      = event.key === 'ArrowDown'
-        ? (currentIndex + 1) % elements.length
-        : (currentIndex - 1 + elements.length) % elements.length;
-
-    elements[nextIndex]?.focus();
-  }
-}
-
 (function init() {
   const getIdByPath = (items: LNBModel[]): number | null => {
     for (const i of items) {
@@ -114,7 +74,7 @@ function handleKeydown(event: KeyboardEvent, id: number) {
 </script>
 
 <template>
-  <nav ref="navRef" :aria-label="level ? undefined : 'Main navigation'">
+  <nav :aria-label="level ? undefined : 'Main navigation'">
     <ul class="space-y-2">
       <li
         v-for="item in items"

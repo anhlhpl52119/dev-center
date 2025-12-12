@@ -17,3 +17,7 @@
 @utility bd-radius-* {
   border-radius: calc(var(--spacing) * --value(integer));
 }
+
+@utility scrollbar-gutter-stable {
+  scrollbar-gutter: stable;
+}
