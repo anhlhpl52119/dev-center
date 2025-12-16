@@ -38,6 +38,7 @@ export function useRoutesContent() {
     () => data.value?.pages?.singleByPath?.content ?? '',
   );
   const title = computed(() => data.value?.pages?.singleByPath?.title ?? '');
+  const description = computed(() => data.value?.pages?.singleByPath?.description ?? '');
   const updatedAt = computed(
     () => data.value?.pages?.singleByPath?.updatedAt ?? '',
   );
@@ -46,6 +47,7 @@ export function useRoutesContent() {
     content,
     title,
     updatedAt,
+    description,
     pending,
     error,
     refresh: () => {},

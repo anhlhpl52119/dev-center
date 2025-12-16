@@ -5,6 +5,7 @@ query GetPageByPath($path: String!, $locale: String!) {
       title
       content
       updatedAt
+      description
     }
   }
 }

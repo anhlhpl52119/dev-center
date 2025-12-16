@@ -3,16 +3,16 @@ definePageMeta({
   layout: 'article',
 });
 
-const { content, title, updatedAt } = useRoutesContent();
+const { content, title, description, updatedAt } = useRoutesContent();
 </script>
 
 <template>
   <AppContent
-    description="desc"
+    :description="description"
     :content="content"
     :heading="title"
     :updatedAt="updatedAt"
-    class="mt-10 flex-1 w-full lg:max-w-716 mx-16 lg:ml-104 lg:mr-40"
+    class="mt-40 flex-1 w-full lg:max-w-716 mx-16 lg:ml-104 lg:mr-40"
   />
   <MarkdownTOC
     :content="content"
