@@ -6,7 +6,7 @@ import { PageTreeMode } from '~~/graphql';
 const { LeftNavigationBarTree } = useGraphqlRequest();
 
 const { locale } = useI18n();
-const { data: lnbData } = await useAsyncData('lnb', () =>
+const { data: lnbData, execute } = await useAsyncData('lnb', () =>
   LeftNavigationBarTree({
     locale: locale.value,
     mode: PageTreeMode.Like,
@@ -89,6 +89,7 @@ const lnb = computed<LNBModel[]>(() => {
         aria-label="Navigation bar"
         aria-describedby="List of navigation page tree"
         aria-pressed="false"
+        @click="execute()"
       >
         <Icon name="svg:menu" class="size-40" />
       </button>

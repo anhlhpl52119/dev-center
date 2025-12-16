@@ -25,7 +25,10 @@ const md = new MarkdownIt({
   xhtmlOut: true,
 })
   .use(AdmonitionPlugin)
-  .use(Anchor)
+  .use(Anchor, {
+    // permalink: Anchor.permalink.headerLink(),
+    slugify: (s: string) => encodeURIComponent(s.trim().toLowerCase().replace(/\s+/g, '-')),
+  })
   .use(replaceLink, {
     replaceLink: (link: string) => {
       if (link.startsWith('http://') || link.startsWith('https://')) {

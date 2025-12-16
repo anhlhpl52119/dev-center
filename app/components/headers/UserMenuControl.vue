@@ -21,14 +21,14 @@ const isAuthentication = false;
     <Icon name="svg:locale" class="size-20" />
   </button>
 
-  <button
+  <!-- <button
     aria-label="User login"
     aria-describedby="Info logged user"
     aria-pressed="false"
     class="clickable hover:bg-abg-dimmed ml-16 hidden items-center justify-center rounded-full p-6 md:inline-flex"
   >
     <Icon name="svg:locale" class="size-20" />
-  </button>
+  </button> -->
 
   <ClientOnly>
     <div

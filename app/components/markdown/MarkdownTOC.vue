@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import MarkdownIt from 'markdown-it';
+import Anchor from 'markdown-it-anchor';
 
 const props = defineProps<{
   content?: string;
@@ -11,7 +12,11 @@ interface TocItem {
   anchor: string;
 }
 
-const md = new MarkdownIt();
+const md = new MarkdownIt().use(Anchor, {
+  slugify: (s: string) => encodeURIComponent(s.trim().toLowerCase().replace(/\s+/g, '-')),
+});
+
+const activeAnchors = ref<string[]>([]);
 
 const tocItems = computed(() => {
   if (!props.content)
@@ -30,13 +35,44 @@ const tocItems = computed(() => {
           '$1',
         );
 
-        const anchor = slugify(title);
+        const anchor = encodeURIComponent(title.trim().toLowerCase().replace(/\s+/g, '-'));
         items.push({ level, title, anchor });
       }
     }
   });
 
   return items;
+});
+
+function scrollToHeading(anchor: string) {
+  nextTick(() => {
+    const element = document.getElementById(anchor);
+    if (element) {
+      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+      window.scrollTo({ top: elementPosition - 100, behavior: 'smooth' });
+    }
+  });
+}
+
+function updateActiveAnchors() {
+  const headings = tocItems.value.map(item => document.getElementById(item.anchor)).filter(Boolean);
+  const viewportHeight = window.innerHeight;
+
+  activeAnchors.value = headings
+    .filter((heading) => {
+      const rect = heading!.getBoundingClientRect();
+      return rect.top <= viewportHeight && rect.bottom >= 0;
+    })
+    .map(heading => heading!.id);
+}
+
+onMounted(() => {
+  window.addEventListener('scroll', updateActiveAnchors);
+  updateActiveAnchors();
+});
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', updateActiveAnchors);
 });
 </script>
 
@@ -62,24 +98,28 @@ const tocItems = computed(() => {
         v-for="item in tocItems"
         :key="item.anchor"
         :class="{
-          'mt-8 font-medium': item.level <= 2,
-          'pl-4 font-normal': item.level > 2,
+          'mt-8': item.level <= 2,
+          'pl-4': item.level > 2,
         }"
       >
         <template v-if="item.level <= 2">
           <NuxtLink
-            class="hover:text-primary cursor-pointer"
             :to="`#${item.anchor}`"
+            class="hover:text-primary cursor-pointer block py-2 pl-4 transition-all duration-300"
+            :class="{ 'text-primary': activeAnchors.includes(item.anchor) }"
+            @click="scrollToHeading(item.anchor)"
           >
             {{ item.title }}
           </NuxtLink>
         </template>
 
         <template v-else>
-          <div class="border-l-abd-base hover:border-l-primary border-l-1 py-4">
+          <div class="border-l-abd-base hover:border-l-primary border-l-1 py-4 transition-all duration-300">
             <NuxtLink
-              class="hover:text-primary cursor-pointer pl-16"
               :to="`#${item.anchor}`"
+              class="hover:text-primary cursor-pointer pl-16 block py-1 ml-4 transition-all duration-300"
+              :class="{ 'text-primary': activeAnchors.includes(item.anchor) }"
+              @click="scrollToHeading(item.anchor)"
             >
               {{ item.title }}
             </NuxtLink>
