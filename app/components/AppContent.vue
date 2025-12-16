@@ -9,7 +9,7 @@ defineProps<{
 
 <template>
   <article itemscope itemtype="http://schema.org/Article">
-    <header>
+    <header class="min-h-72">
       <h1 itemprop="headline" class="text-32 mb-4 leading-44 font-bold">
         {{ heading }}
       </h1>
