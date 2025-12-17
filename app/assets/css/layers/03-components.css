@@ -3,3 +3,4 @@
 .clickable {
   @apply cursor-pointer transition-colors duration-200;
 }
+

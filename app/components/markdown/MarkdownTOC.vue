@@ -77,7 +77,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <aside>
+  <nav>
     <div class="flex items-center justify-between leading-24">
       <span class="text-15 font-bold">{{ $t('common.vulcanus_guide') }}</span>
       <button
@@ -127,5 +127,5 @@ onUnmounted(() => {
         </template>
       </li>
     </ul>
-  </aside>
+  </nav>
 </template>

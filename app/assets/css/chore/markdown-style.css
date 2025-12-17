@@ -17,15 +17,15 @@
     @apply mb-8;
   }
   h4 {
-    @apply text-raised text-16 font-medium;
+    @apply text-raised text-16 font-semibold;
     @apply mb-8;
   }
   h5 {
-    @apply text-raised font-medium;
+    @apply text-raised text-15 font-semibold;
     @apply mb-8;
   }
   h6 {
-    @apply text-raised font-medium;
+    @apply text-raised text-15 font-medium;
     @apply mb-8;
   }
 
@@ -85,7 +85,7 @@
 
   /* Table */
   table {
-    @apply w-full border-separate mt-8 border-spacing-0 mb-40;
+    @apply w-full border-separate border-spacing-0;
     @apply border text-left border-abd-base rounded-xl overflow-hidden;
 
     thead {

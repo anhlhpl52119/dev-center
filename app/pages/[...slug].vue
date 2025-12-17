@@ -86,9 +86,13 @@ const { content, title, description, updatedAt } = useRoutesContent();
 </script>
 
 <template>
-  <main class="w-full max-w-1500 mx-auto px-8">
+  <main class="max-w-1400 mx-auto px-8">
     <div class="flex">
-      <AppLeftNavigationBar :items="lnb" class="sticky top-64 hidden min-w-272 h-screen overflow-auto p-24 pt-32 md:block scrollbar-gutter-stable">
+      <!-- LNB -->
+      <AppLeftNavigationBar
+        :items="lnb"
+        class="sticky top-64 hidden w-272 h-screen overflow-auto p-24 pt-32 md:block scrollbar-gutter-stable"
+      >
         <template #trigger>
           <button
             class="mb-24"
@@ -101,18 +105,13 @@ const { content, title, description, updatedAt } = useRoutesContent();
         </template>
       </AppLeftNavigationBar>
 
-      <!-- content -->
+      <!-- Content -->
       <AppContent
         :description="description"
         :content="content"
         :heading="title"
         :updatedAt="updatedAt"
-        class="mt-40 flex-1 w-full mx-16 lg:ml-40 xl:ml-104 lg:mr-40"
-      />
-
-      <MarkdownTOC
-        :content="content"
-        class="sticky top-64 hidden h-screen w-204 shrink-0 overflow-y-auto pt-32 xl:block"
+        class="flex-1 overflow-hidden"
       />
     </div>
   </main>

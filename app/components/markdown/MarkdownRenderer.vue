@@ -8,10 +8,15 @@ import Anchor from 'markdown-it-anchor';
 import replaceLink from 'markdown-it-replace-link';
 import AdmonitionPlugin from '@/lib/markdown-it-plugins/admonition';
 import ShikiCodeHighlightPlugin from '@/lib/markdown-it-plugins/shiki-code-highlight';
+import tableWrapperPlugin from '@/lib/markdown-it-plugins/table';
 
 const props = defineProps<{
   content?: string;
+  description?: string;
+  heading?: string;
+  updatedAt: string;
 }>();
+
 const { locale } = useI18n();
 const { highlightCodeBlocks } = useShikiHighlight();
 const routes = useRoute();
@@ -25,6 +30,7 @@ const md = new MarkdownIt({
   xhtmlOut: true,
 })
   .use(AdmonitionPlugin)
+  .use(tableWrapperPlugin)
   .use(Anchor, {
     // permalink: Anchor.permalink.headerLink(),
     slugify: (s: string) => encodeURIComponent(s.trim().toLowerCase().replace(/\s+/g, '-')),
@@ -92,10 +98,40 @@ watch(() => props.content, () => {
 </script>
 
 <template>
-  <div v-if="!renderedContent" />
-  <div
-    v-else
-    class="markdown-body"
-    v-html="renderedContent"
-  />
+  <article
+    itemscope
+    itemtype="http://schema.org/Article"
+  >
+    <header class="min-h-72">
+      <h1 itemprop="headline" class="text-32 mb-4 leading-44 font-bold">
+        {{ heading }}
+      </h1>
+      <p
+        v-if="description"
+        itemprop="description"
+        class="text-13 text-quiet leading-22 tracking-[-0.0025rem]"
+      >
+        {{ description }}
+      </p>
+    </header>
+
+    <div
+      class="grid bg-abg-base bd-radius-32 mx-20 mt-40 p-30 shadow-lg"
+      itemprop="articleBody"
+    >
+      <div
+        v-if="renderedContent"
+        class="markdown-body overflow-hidden"
+        v-html="renderedContent"
+      />
+    </div>
+
+    <p
+      v-if="updatedAt"
+      itemprop="lastUpdatedAt"
+      class="text-quiet text-13 mt-20 text-right"
+    >
+      {{ $t('common.last_update_at', { at: updatedAt }) }}
+    </p>
+  </article>
 </template>
