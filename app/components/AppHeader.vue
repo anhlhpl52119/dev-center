@@ -4,7 +4,7 @@ const { screenSmallerOrEq } = useBreakpoints();
 
 <template>
   <header>
-    <nav class="mx-auto h-64 max-w-1600 px-16 lg:px-40">
+    <nav class="mx-auto h-full max-w-1600 px-16 lg:px-40">
       <div class="relative flex size-full items-center justify-end-safe">
         <!-- Logo -->
         <NuxtLink to="/" class="mr-auto leading-30 whitespace-nowrap">

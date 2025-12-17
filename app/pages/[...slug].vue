@@ -1,21 +1,119 @@
 <script lang="ts" setup>
+import type { LeftNavigationBarTreeQuery_pages_PageQuery_tree_PageTreeItem } from '~~/graphql';
+import type { LNBModel } from '~/components/left-navigation-bar/AppLeftNavigationBar.vue';
+import { PageTreeMode } from '~~/graphql';
+
 definePageMeta({
   layout: 'article',
+});
+
+const { LeftNavigationBarTree } = useGraphqlRequest();
+
+const { locale } = useI18n();
+const { data: lnbData } = await useAsyncData('lnb', () =>
+  LeftNavigationBarTree({
+    locale: locale.value,
+    mode: PageTreeMode.Like,
+    path: '/web/etc',
+  }));
+
+function convertToTree(
+  models: LeftNavigationBarTreeQuery_pages_PageQuery_tree_PageTreeItem[],
+): LeftNavigationBarTreeQuery_pages_PageQuery_tree_PageTreeItem[] {
+  // Create a map for quick lookup by id
+  const map = new Map<number, LNBModel>();
+  const result: LNBModel[] = [];
+
+  // First pass: Create Tree nodes from Model objects
+  models.forEach((model) => {
+    const node: LNBModel = {
+      ...model,
+      children: [],
+    };
+    map.set(model.id, node);
+  });
+
+  // Second pass: Build the tree structure
+  models.forEach((model) => {
+    const node = map.get(model.id);
+    if (!node)
+      return;
+
+    if (model.parent === null || model.parent === undefined) {
+      // Root level nodes
+      result.push(node);
+    }
+    else {
+      // Child nodes - add to parent's children
+      const parentNode = map.get(model.parent);
+      if (parentNode) {
+        if (!parentNode.children) {
+          parentNode.children = [];
+        }
+        parentNode.children.push(node);
+      }
+      else {
+        // If parent not found, treat as root
+        result.push(node);
+      }
+    }
+  });
+
+  // Clean up empty children arrays (optional)
+  const cleanEmptyChildren = (node: LNBModel) => {
+    if (node.children && node.children.length === 0) {
+      delete node.children;
+    }
+    else if (node.children) {
+      node.children.forEach(cleanEmptyChildren);
+    }
+  };
+
+  result.forEach(cleanEmptyChildren);
+
+  return result;
+}
+
+const lnb = computed<LNBModel[]>(() => {
+  const tree
+    = (lnbData.value?.pages
+      ?.tree as LeftNavigationBarTreeQuery_pages_PageQuery_tree_PageTreeItem[])
+    || [];
+  return convertToTree(tree.filter(item => item.depth > 1));
 });
 
 const { content, title, description, updatedAt } = useRoutesContent();
 </script>
 
 <template>
-  <AppContent
-    :description="description"
-    :content="content"
-    :heading="title"
-    :updatedAt="updatedAt"
-    class="mt-40 flex-1 w-full lg:max-w-716 mx-16 lg:ml-104 lg:mr-40"
-  />
-  <MarkdownTOC
-    :content="content"
-    class="sticky top-64 hidden h-screen w-204 shrink-0 overflow-y-auto pt-32 xl:block"
-  />
+  <main class="w-full max-w-1500 mx-auto px-8">
+    <div class="flex">
+      <AppLeftNavigationBar :items="lnb" class="sticky top-64 hidden min-w-272 h-screen overflow-auto p-24 pt-32 md:block scrollbar-gutter-stable">
+        <template #trigger>
+          <button
+            class="mb-24"
+            aria-label="Navigation bar"
+            aria-describedby="List of navigation page tree"
+            aria-pressed="false"
+          >
+            <Icon name="svg:menu" class="size-40" />
+          </button>
+        </template>
+      </AppLeftNavigationBar>
+
+      <!-- content -->
+      <AppContent
+        :description="description"
+        :content="content"
+        :heading="title"
+        :updatedAt="updatedAt"
+        class="mt-40 flex-1 w-full mx-16 lg:ml-40 xl:ml-104 lg:mr-40"
+      />
+
+      <MarkdownTOC
+        :content="content"
+        class="sticky top-64 hidden h-screen w-204 shrink-0 overflow-y-auto pt-32 xl:block"
+      />
+    </div>
+  </main>
 </template>

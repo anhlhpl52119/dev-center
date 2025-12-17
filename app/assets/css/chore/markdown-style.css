@@ -91,7 +91,7 @@
     thead {
       tr {
         th {
-          @apply bg-primary/5 text-raised font-semibold;
+          @apply bg-primary/5 text-raised font-medium;
           @apply px-12 py-8 border-b border-abd-base;
         }
       }

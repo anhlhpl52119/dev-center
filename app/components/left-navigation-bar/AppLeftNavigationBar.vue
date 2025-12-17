@@ -74,18 +74,22 @@ function findParent(nodes: LNBModel[], id: number): number[] {
 </script>
 
 <template>
-  <nav :aria-label="level ? undefined : 'Main navigation'">
-    <ul class="space-y-2">
-      <li
-        v-for="item in items"
-        :key="item.id"
-      >
-        <FolderLink
-          isRoot
-          :item="item"
-          :expandIds="expandedItems"
-        />
-      </li>
-    </ul>
-  </nav>
+  <aside>
+    <slot name="trigger" />
+
+    <nav :aria-label="level ? undefined : 'Main navigation'">
+      <ul class="space-y-2">
+        <li
+          v-for="item in items"
+          :key="item.id"
+        >
+          <FolderLink
+            isRoot
+            :item="item"
+            :expandIds="expandedItems"
+          />
+        </li>
+      </ul>
+    </nav>
+  </aside>
 </template>
