@@ -3,10 +3,6 @@ import type { LeftNavigationBarTreeQuery_pages_PageQuery_tree_PageTreeItem } fro
 import type { LNBModel } from '~/components/left-navigation-bar/AppLeftNavigationBar.vue';
 import { PageTreeMode } from '~~/graphql';
 
-definePageMeta({
-  layout: 'article',
-});
-
 const { LeftNavigationBarTree } = useGraphqlRequest();
 
 const { locale } = useI18n();

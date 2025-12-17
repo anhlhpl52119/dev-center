@@ -1,22 +1,17 @@
 /**
  * Source code comes from https://github.com/docarys/markdown-it-admonition
  */
-// import type Renderer from 'markdown-it/lib/renderer';
-// import type { ParentType } from 'markdown-it/lib/rules_block/state_block';
-// import type StateBlock from 'markdown-it/lib/rules_block/state_block';
-// import type Token from 'markdown-it/lib/token';
-type Token = any;
-type StateBlock = any;
-type ParentType = any;
-type Renderer = any;
-type markdownit = any;
+import type MarkdownIt from 'markdown-it';
+import type { Renderer, StateBlock, Token } from 'markdown-it/index.js';
+import type { ParentType } from 'markdown-it/lib/rules_block/state_block.mjs';
+
 const prefix = 's';
 
 export interface AdmonitionPluginOps {
   marker: string;
 }
 
-function AdmonitionPlugin(md: markdownit, options: AdmonitionPluginOps): void {
+function AdmonitionPlugin(md: MarkdownIt, options: AdmonitionPluginOps): void {
   options = options || {};
 
   const markers: number = 3;
@@ -34,16 +29,16 @@ function AdmonitionPlugin(md: markdownit, options: AdmonitionPluginOps): void {
     _env: any,
     self: Renderer,
   ) => {
-    const token: Token = tokens[idx];
+    const token: Token = tokens[idx]!;
 
-    if (token.type === 'admonition_open') {
+    if (token.type === 'admonition_open' && tokens[idx]) {
       tokens[idx].attrPush([
         'class',
         `${prefix}-admonition ${prefix}-admonition-${token.info}`,
       ]);
       tokens[idx].attrSet('data-line', String(tokens[idx].map![0]));
     }
-    else if (token.type === 'admonition_title_open') {
+    else if (token.type === 'admonition_title_open' && tokens[idx]) {
       tokens[idx].attrPush(['class', `${prefix}-admonition-title`]);
     }
 
@@ -54,7 +49,7 @@ function AdmonitionPlugin(md: markdownit, options: AdmonitionPluginOps): void {
     const array = params.trim().split(/\s+/, 2);
 
     title = '';
-    type = array[0];
+    type = array[0]!;
     if (array.length > 1) {
       title = params.substring(type.length + 2);
     }
@@ -77,8 +72,8 @@ function AdmonitionPlugin(md: markdownit, options: AdmonitionPluginOps): void {
       let nextLine;
       let token;
       let autoClosed: boolean = false;
-      let start: number = state.bMarks[startLine] + state.tShift[startLine];
-      let max: number = state.eMarks[startLine];
+      let start: number = state.bMarks[startLine]! + state.tShift[startLine]!;
+      let max: number = state.eMarks[startLine]!;
 
       // Check out the first character quickly,
       // this should filter out most of non-containers
@@ -124,10 +119,10 @@ function AdmonitionPlugin(md: markdownit, options: AdmonitionPluginOps): void {
           break;
         }
 
-        start = state.bMarks[nextLine] + state.tShift[nextLine];
-        max = state.eMarks[nextLine];
+        start = state.bMarks[nextLine]! + state.tShift[nextLine]!;
+        max = state.eMarks[nextLine]!;
 
-        if (start < max && state.sCount[nextLine] < state.blkIndent) {
+        if (start < max && state.sCount[nextLine]! < state.blkIndent) {
           // non-empty line with negative indent should stop the list:
           // - ```
           //  test
@@ -138,7 +133,7 @@ function AdmonitionPlugin(md: markdownit, options: AdmonitionPluginOps): void {
           continue;
         }
 
-        if (state.sCount[nextLine] - state.blkIndent >= 4) {
+        if (state.sCount[nextLine]! - state.blkIndent >= 4) {
           // closing fence should be indented less than 4 spaces
           continue;
         }
