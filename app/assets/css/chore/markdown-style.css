@@ -1,5 +1,9 @@
 .markdown-body {
+  /* Base korean typography text */
+  /* TODO: Add others languages typography base style (eg: leading,....) */
   @apply text-14 text-quiet -tracking-[0.03em];
+  
+  /* Heading */
   h1 {
     @apply text-raised text-32 leading-44 font-bold;
     @apply mb-8;
@@ -8,6 +12,24 @@
     @apply text-raised text-20 leading-30 font-bold;
     @apply mb-8;
   }
+  h3 {
+    @apply text-raised text-18 font-bold;
+    @apply mb-8;
+  }
+  h4 {
+    @apply text-raised text-16 font-medium;
+    @apply mb-8;
+  }
+  h5 {
+    @apply text-raised font-medium;
+    @apply mb-8;
+  }
+  h6 {
+    @apply text-raised font-medium;
+    @apply mb-8;
+  }
+
+  /* Paragraph */
   p {
     @apply leading-24 font-normal;
     @apply mt-8 mb-40;
@@ -16,6 +38,8 @@
   strong {
     @apply text-raised leading-24 font-bold;
   }
+
+  /* List ul, li */
   ul {
     @apply pl-20;
     @apply mt-8 mb-40;
@@ -32,6 +56,7 @@
     }
   }
 
+  /* Anchor */
   a {
     @apply text-primary/90 border-b border-transparent font-medium transition-colors duration-300;
     @apply mx-4;
@@ -43,6 +68,7 @@
     }
   }
 
+  /* Standalone code */
   code {
     @apply text-13 font-mono leading-20;
     &:not(pre code) {
@@ -51,31 +77,40 @@
     }
   }
 
+  /* Block code */
   pre {
     @apply m-0 mt-8 mb-40 overflow-x-auto rounded-lg p-16;
-    @apply border border-gray-200 dark:border-gray-700;
+    @apply border border-abd-base;
   }
 
+  /* Table */
   table {
-    @apply w-full border-collapse mt-8 mb-40;
-    @apply border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden;
-  }
+    @apply w-full border-separate mt-8 border-spacing-0 mb-40;
+    @apply border text-left border-abd-base rounded-xl overflow-hidden;
 
-  th {
-    @apply bg-gray-50 dark:bg-gray-800 text-raised font-semibold;
-    @apply px-12 py-8 text-left border-b border-gray-200 dark:border-gray-700;
-  }
+    thead {
+      tr {
+        th {
+          @apply bg-primary/5 text-raised font-semibold;
+          @apply px-12 py-8 border-b border-abd-base;
+        }
+      }
+    }
 
-  td {
-    @apply px-12 py-8 border-b border-gray-100 dark:border-gray-800;
-    @apply text-quiet;
-  }
+    tr {
+      td {
+        @apply px-12 py-8 border-b border-abd-base;
+      }
 
-  tr:last-child td {
-    @apply border-b-0;
-  }
+      &:hover {
+        @apply bg-gray-400/5;
+      }
 
-  tr:hover {
-    @apply bg-gray-200 dark:bg-gray-900/50;
+      &:last-child {
+        & td {
+          @apply border-b-0;
+        }
+      }
+    }
   }
 }
