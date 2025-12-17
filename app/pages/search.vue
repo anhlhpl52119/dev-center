@@ -1,7 +1,5 @@
 <script lang="ts" setup>
-definePageMeta({
-  name: 'search',
-});
+defineI18nRoute(false);
 
 const getPagesBySearchQuery = {};
 

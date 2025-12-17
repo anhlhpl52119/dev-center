@@ -1,10 +1,8 @@
 <script lang="ts" setup>
 defineProps<{
-  content: string;
-  updatedAt: string;
-  description: string;
-  heading: string;
+  path: string;
 }>();
+const { content, title, description, updatedAt } = useRoutesContent();
 </script>
 
 <template>
@@ -12,14 +10,14 @@ defineProps<{
     <MarkdownRenderer
       :content="content"
       :description="description"
-      :heading="heading"
+      :heading="title"
       :updatedAt="updatedAt"
       class="flex-1"
     />
-
-    <MarkdownTOC
+    <pre>{{ $route.params.locale }}</pre>
+    <!-- <MarkdownTOC
       :content="content"
       class="w-204"
-    />
+    /> -->
   </div>
 </template>

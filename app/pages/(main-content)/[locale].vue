@@ -4,8 +4,8 @@ import type { LNBModel } from '~/components/left-navigation-bar/AppLeftNavigatio
 import { PageTreeMode } from '~~/graphql';
 
 const { LeftNavigationBarTree } = useGraphqlRequest();
-
 const { locale } = useI18n();
+
 const { data: lnbData } = await useAsyncData('lnb', () =>
   LeftNavigationBarTree({
     locale: locale.value,
@@ -77,8 +77,6 @@ const lnb = computed<LNBModel[]>(() => {
     || [];
   return convertToTree(tree.filter(item => item.depth > 1));
 });
-
-const { content, title, description, updatedAt } = useRoutesContent();
 </script>
 
 <template>
@@ -102,13 +100,7 @@ const { content, title, description, updatedAt } = useRoutesContent();
       </AppLeftNavigationBar>
 
       <!-- Content -->
-      <AppContent
-        :description="description"
-        :content="content"
-        :heading="title"
-        :updatedAt="updatedAt"
-        class="flex-1 overflow-hidden"
-      />
+      <NuxtPage :path="$route.path.replace(locale, '')" class="flex-1 overflow-hidden" />
     </div>
   </main>
 </template>
