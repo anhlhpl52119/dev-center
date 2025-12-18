@@ -4,6 +4,7 @@ import Anchor from 'markdown-it-anchor';
 
 const props = defineProps<{
   content?: string;
+  title?: string;
 }>();
 
 interface TocItem {
@@ -79,7 +80,7 @@ onUnmounted(() => {
 <template>
   <nav>
     <div class="flex items-center justify-between leading-24">
-      <span class="text-15 font-bold">{{ $t('common.vulcanus_guide') }}</span>
+      <span class="text-15 font-bold">{{ title }}</span>
       <button
         aria-label="title of content"
         aria-describedby="Content Heading list"

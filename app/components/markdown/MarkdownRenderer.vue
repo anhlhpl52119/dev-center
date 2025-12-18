@@ -116,7 +116,7 @@ watch(() => props.content, () => {
     </header>
 
     <div
-      class="grid bg-abg-base bd-radius-32 mx-20 mt-40 p-30 shadow-lg"
+      class="grid bg-abg-base bd-radius-32 mt-40 p-30 shadow-lg"
       itemprop="articleBody"
     >
       <div

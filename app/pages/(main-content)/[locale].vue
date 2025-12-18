@@ -5,12 +5,13 @@ import { PageTreeMode } from '~~/graphql';
 
 const { LeftNavigationBarTree } = useGraphqlRequest();
 const { locale } = useI18n();
+const route = useRoute();
 
-const { data: lnbData } = await useAsyncData('lnb', () =>
+const { data: lnbData, execute } = await useAsyncData('lnb', () =>
   LeftNavigationBarTree({
     locale: locale.value,
     mode: PageTreeMode.Like,
-    path: '/web/etc',
+    path: singleSlash(route.path.replace(locale.value, '')),
   }));
 
 function convertToTree(
@@ -80,12 +81,12 @@ const lnb = computed<LNBModel[]>(() => {
 </script>
 
 <template>
-  <main class="max-w-1320 mx-auto px-8">
+  <main class="max-w-1320 mx-auto">
     <div class="flex">
       <!-- LNB -->
       <AppLeftNavigationBar
         :items="lnb"
-        class="sticky top-64 hidden w-272 h-screen overflow-auto p-24 pt-32 md:block scrollbar-gutter-stable"
+        class="sticky top-64 hidden w-272 h-[calc(100vh-6.4rem)] overflow-auto p-24 pt-32 md:block scrollbar-gutter-stable"
       >
         <template #trigger>
           <button
@@ -93,6 +94,7 @@ const lnb = computed<LNBModel[]>(() => {
             aria-label="Navigation bar"
             aria-describedby="List of navigation page tree"
             aria-pressed="false"
+            @click="execute()"
           >
             <Icon name="svg:menu" class="size-40" />
           </button>
@@ -100,7 +102,7 @@ const lnb = computed<LNBModel[]>(() => {
       </AppLeftNavigationBar>
 
       <!-- Content -->
-      <NuxtPage class="flex-1 overflow-hidden" />
+      <NuxtPage class="flex-1" />
     </div>
   </main>
 </template>
