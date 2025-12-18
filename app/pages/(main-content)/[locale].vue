@@ -80,7 +80,7 @@ const lnb = computed<LNBModel[]>(() => {
 </script>
 
 <template>
-  <main class="max-w-1400 mx-auto px-8">
+  <main class="max-w-1320 mx-auto px-8">
     <div class="flex">
       <!-- LNB -->
       <AppLeftNavigationBar
@@ -100,7 +100,7 @@ const lnb = computed<LNBModel[]>(() => {
       </AppLeftNavigationBar>
 
       <!-- Content -->
-      <NuxtPage :path="$route.path.replace(locale, '')" class="flex-1 overflow-hidden" />
+      <NuxtPage class="flex-1 overflow-hidden" />
     </div>
   </main>
 </template>

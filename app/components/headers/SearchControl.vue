@@ -5,6 +5,15 @@ const searchTxt = ref('');
 function toggle() {
   show.value = !show.value;
 }
+const localePath = useLocalePath();
+function handleSearch(keyword: string) {
+  if (!keyword) {
+    return;
+  }
+  navigateTo(localePath({ name: 'search', query: { q: keyword } }));
+  searchTxt.value = '';
+  show.value = false;
+}
 </script>
 
 <template>
@@ -27,6 +36,7 @@ function toggle() {
       name="search"
       placeholder="검색어를 입력하세요."
       class="bg-abg-base abd-base-1 h-44 w-full rounded-full px-16 py-12 leading-20 outline-none"
+      @keyup.enter="handleSearch(searchTxt)"
       @click="show = true"
       @blur="show = false"
     >

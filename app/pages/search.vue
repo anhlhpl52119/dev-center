@@ -1,30 +1,24 @@
 <script lang="ts" setup>
-defineI18nRoute(false);
-
-const getPagesBySearchQuery = {};
+definePageMeta({
+  name: 'search',
+});
 
 const { locale } = useI18n();
 const route = useRoute();
 const search = ref(route.query?.search?.toString()?.trim() ?? '');
 const localePath = useLocalePath();
-const { data, execute } = useAPI<any>('graphql', {
-  method: 'POST',
-  body: {
-    query: getPagesBySearchQuery,
-    variables: {
-      query: search,
-      locale,
-      page: 0,
-      size: 10,
-      category: '',
-      inCategory: ['web'],
-    },
-  },
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  watch: false,
-});
+
+const { SearchPagesByKeyword } = useGraphqlRequest();
+
+const { data, execute } = await useAsyncData('search', () =>
+  SearchPagesByKeyword({
+    locale: locale.value,
+    query: search.value,
+    page: 0,
+    size: 10,
+    category: '',
+    inCategory: ['web'],
+  }));
 
 function highlightMatchKeyword(fullText: string) {
   const trimmedSearchInput = search.value?.trim();
@@ -48,7 +42,7 @@ function highlightMatchKeyword(fullText: string) {
 }
 
 const searchContentV2 = computed(() => {
-  const rs: any[] = data.value?.data?.pages?.search?.results?.web ?? [];
+  const rs: any[] = data.value?.pages?.search?.results?.web ?? [];
   return rs.map(i => ({
     title: i.title,
     matched: highlightMatchKeyword(i.content),
@@ -67,34 +61,34 @@ async function onSearch() {
 
 <template>
   <main>
-    <div class="mt-20 text-center">
-      <h1 class="text-title font-bold">
+    <div class="mt-80 text-center">
+      <h1 class="text-42 font-bold">
         🔍 검색 결과
       </h1>
       <input
         v-model="search"
         type="text"
-        class="border-abd-base bg-abg-base mt-6 w-150 rounded-full border py-4 pr-18 pl-5"
+        class="border-abd-base bg-abg-base mt-24 w-600 rounded-full border py-16 pr-72 pl-20"
         placeholder="검색어를 입력하세요."
         @keyup.enter="onSearch"
       >
     </div>
 
-    <div class="mx-auto mt-10 grid max-w-330 gap-4">
+    <div class="mx-auto px-8 mt-40 grid max-w-1320 gap-16">
       <template v-for="(item, index) in searchContentV2" :key="index">
         <div
-          class="bg-abg-base outline-abd-base rounded-4xl p-7.5 transition hover:shadow-sm hover:outline"
+          class="bg-abg-base outline-abd-base bd-radius-32 p-30 transition hover:shadow-sm hover:outline"
           @click="navigateTo({ path: $localePath(`/${item.path}`) })"
         >
-          <h2 class="text-2xl font-bold">
+          <h2 class="text-20 mb-8 font-bold">
             {{ item.title }}
           </h2>
-          <p class="text-tcl-dimmed" v-html="item.matched" />
+          <p class="text-quiet" v-html="item.matched" />
         </div>
       </template>
     </div>
 
-    <div class="mb-17 flex py-8">
+    <div class="mb-66 flex py-8">
       <AppPagination class="mx-auto block" />
     </div>
   </main>

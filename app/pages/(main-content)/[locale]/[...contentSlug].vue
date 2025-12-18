@@ -1,7 +1,4 @@
 <script lang="ts" setup>
-defineProps<{
-  path: string;
-}>();
 const { content, title, description, updatedAt } = useRoutesContent();
 </script>
 
