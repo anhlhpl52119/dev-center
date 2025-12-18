@@ -1,18 +1,22 @@
 <script lang="ts" setup>
 const show = ref(false);
-const searchTxt = ref('');
+const inputKeyword = ref('');
+const ipRef = useTemplateRef('ipRef');
 
 function toggle() {
   show.value = !show.value;
 }
+
 const localePath = useLocalePath();
-function handleSearch(keyword: string) {
+
+async function handleSearch(keyword: string) {
   if (!keyword) {
     return;
   }
-  navigateTo(localePath({ name: 'search', query: { q: keyword } }));
-  searchTxt.value = '';
+  await navigateTo(localePath({ name: 'search', query: { keyword } }));
+  inputKeyword.value = '';
   show.value = false;
+  ipRef.value?.blur();
 }
 </script>
 
@@ -31,12 +35,13 @@ function handleSearch(keyword: string) {
     <!-- Search bar -->
     <input
       v-if="!$slots.trigger || show"
-      v-model="searchTxt"
+      ref="ipRef"
+      v-model="inputKeyword"
       type="text"
       name="search"
       placeholder="검색어를 입력하세요."
       class="bg-abg-base abd-base-1 h-44 w-full rounded-full px-16 py-12 leading-20 outline-none"
-      @keyup.enter="handleSearch(searchTxt)"
+      @keyup.enter="handleSearch(inputKeyword)"
       @click="show = true"
       @blur="show = false"
     >
@@ -45,8 +50,6 @@ function handleSearch(keyword: string) {
     <div
       v-if="show"
       class="abd-base-1 bg-abg-base bd-radius-20 absolute z-2 mt-4 h-400 w-full p-16 shadow-md"
-    >
-      <pre>{{ $slots.trigger }}</pre>
-    </div>
+    />
   </div>
 </template>

@@ -5,15 +5,20 @@ definePageMeta({
 
 const { locale } = useI18n();
 const route = useRoute();
-const search = ref(route.query?.search?.toString()?.trim() ?? '');
-const localePath = useLocalePath();
+const inputKeyword = ref<string>(route.query?.keyword?.toString() ?? '');
+const ipRef = useTemplateRef('ipRef');
+
+watch(() => route.query.keyword, (v) => {
+  inputKeyword.value = v?.toString() || '';
+  onSearch(inputKeyword.value);
+});
 
 const { SearchPagesByKeyword } = useGraphqlRequest();
 
 const { data, execute } = await useAsyncData('search', () =>
   SearchPagesByKeyword({
     locale: locale.value,
-    query: search.value,
+    query: inputKeyword.value || '',
     page: 0,
     size: 10,
     category: '',
@@ -21,7 +26,7 @@ const { data, execute } = await useAsyncData('search', () =>
   }));
 
 function highlightMatchKeyword(fullText: string) {
-  const trimmedSearchInput = search.value?.trim();
+  const trimmedSearchInput = inputKeyword.value?.trim();
 
   // If search input is empty, return the original string
   if (!trimmedSearchInput) {
@@ -50,12 +55,10 @@ const searchContentV2 = computed(() => {
   }));
 });
 
-async function onSearch() {
-  await navigateTo({
-    path: localePath('/search'),
-    query: { search: search.value },
-  });
+async function onSearch(keyword: string) {
+  await navigateTo({ query: { keyword } });
   execute();
+  ipRef.value?.blur(); // TODO: add debounce improve UX
 }
 </script>
 
@@ -66,11 +69,12 @@ async function onSearch() {
         🔍 검색 결과
       </h1>
       <input
-        v-model="search"
+        ref="ipRef"
+        v-model="inputKeyword"
         type="text"
         class="border-abd-base bg-abg-base mt-24 w-600 rounded-full border py-16 pr-72 pl-20"
         placeholder="검색어를 입력하세요."
-        @keyup.enter="onSearch"
+        @keyup.enter="onSearch(inputKeyword)"
       >
     </div>
 

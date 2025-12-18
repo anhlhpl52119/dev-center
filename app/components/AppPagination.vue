@@ -16,7 +16,7 @@ const displayedPages = Array.from({ length: 10 }).map((_, index) => index + 1);
 
 <template>
   <nav aria-label="Page search navigation">
-    <ul class="pagination">
+    <ul class="pagination flex">
       <li class="page-item">
         <NuxtLink
           v-if="displayFirstAndLastButton"
@@ -29,7 +29,7 @@ const displayedPages = Array.from({ length: 10 }).map((_, index) => index + 1);
           aria-label="First page"
           @click="moveFirstPage"
         >
-          <Icon name="svg:double-arrow-left" class="size-3" />
+          <Icon name="svg:double-arrow-left" class="size-12" />
         </NuxtLink>
       </li>
 
@@ -45,7 +45,7 @@ const displayedPages = Array.from({ length: 10 }).map((_, index) => index + 1);
           aria-label="Prev"
           @click="onClickPrev"
         >
-          <Icon name="svg:single-arrow-left" class="size-3" />
+          <Icon name="svg:single-arrow-left" class="size-12" />
         </NuxtLink>
       </li>
 
@@ -81,7 +81,7 @@ const displayedPages = Array.from({ length: 10 }).map((_, index) => index + 1);
           aria-label="Next"
           @click="onClickNext"
         >
-          <Icon name="svg:single-arrow-right" class="size-3" />
+          <Icon name="svg:single-arrow-right" class="size-12" />
         </NuxtLink>
       </li>
 
@@ -98,7 +98,7 @@ const displayedPages = Array.from({ length: 10 }).map((_, index) => index + 1);
           @click="moveLastPage"
         >
           <i class="ic-v2-control-double-arrow-right-line ic-control" />
-          <Icon name="svg:double-arrow-right" class="size-3" />
+          <Icon name="svg:double-arrow-right" class="size-12" />
         </NuxtLink>
       </li>
     </ul>
