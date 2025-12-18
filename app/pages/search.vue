@@ -7,7 +7,8 @@ const { locale } = useI18n();
 const route = useRoute();
 const inputKeyword = ref<string>(route.query?.keyword?.toString() ?? '');
 const ipRef = useTemplateRef('ipRef');
-
+const size = 10;
+const page = ref(1);
 watch(() => route.query.keyword, (v) => {
   inputKeyword.value = v?.toString() || '';
   onSearch(inputKeyword.value);
