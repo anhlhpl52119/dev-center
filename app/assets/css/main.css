@@ -1,0 +1,25 @@
+@import './font-face.css';
+
+@layer theme, base, components, utilities;
+@import './layers/01-theme.css' layer(theme);
+@import './layers/02-base.css' layer(base);
+@import './layers/03-components.css' layer(components);
+@import 'tailwindcss/utilities.css' layer(utilities);
+
+@import './layers/04-utilities.css';
+
+@layer base {
+  html {
+    font-size: 62.5%;
+    font-family: var(--ff-han-sans-neo);
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply text-14 min-h-screen bg-fixed text-base;
+
+    background-repeat: no-repeat;
+    background-color: var(--clr-background-underlay);
+    background-image: var(--clr-background-gradient);
+  }
+}

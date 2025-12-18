@@ -1,0 +1,54 @@
+@import 'tailwindcss/theme.css';
+
+:root {
+  --ff-han-sans-neo:
+    'Spoqa Han Sans Neo', -apple-system, 'system-ui', 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji';
+
+  --clr-surface: hsla(0, 0%, 100%, 1);
+  --clr-primary: hsla(226, 100%, 59%, 1);
+  --clr-inverse: var(--clr-surface);
+
+  --clr-text-dimmed: hsla(0, 0%, 70%, 1);
+  --clr-text-muted: hsla(0, 0%, 70%, 1);
+  --clr-text-quiet: hsla(0, 0%, 40%, 1);
+  --clr-text-base: hsla(0, 0%, 20%, 1);
+  --clr-text-raised: hsla(0, 0%, 12%, 1);
+  --clr-text-elevated: hsla(0, 0%, 10%, 1);
+
+  --clr-border-base: hsla(0, 0%, 0%, 0.1);
+  --clr-border-active: --alpha(var(--clr-primary) / 10%);
+
+  --clr-box-shadow-base: hsla(228, 23%, 25%, 0.1);
+
+  --clr-background-dimmed: hsla(0, 0%, 0%, 0.04);
+  --clr-background-base: var(--clr-surface);
+  --clr-background-raised: hsla(214, 100%, 76%, 1);
+  --clr-background-active: --alpha(var(--clr-primary) / 6%);
+
+  --clr-background-underlay: hsla(216, 100%, 99%, 1);
+  --clr-background-gradient: linear-gradient(180deg, hsla(214, 100%, 76%, 0.2) 0%, hsla(0, 0%, 100%, 0) 45.9%);
+}
+
+/*
+  `inline`: https://tailwindcss.com/docs/colors#referencing-other-variables
+*/
+@theme inline {
+  --spacing: 0.1rem; /* 1 tw unit = 0.1rem = 1px */
+  --color-surface: var(--clr-surface);
+  --color-primary: var(--clr-primary);
+  --color-inverse: var(--clr-inverse);
+  --color-dimmed: var(--clr-text-dimmed);
+  --color-muted: var(--clr-text-muted);
+  --color-quiet: var(--clr-text-quiet);
+  --color-base: var(--clr-text-base);
+  --color-raised: var(--clr-text-raised);
+  --color-elevated: var(--clr-text-elevated);
+  /* Border */
+  --color-abd-base: var(--clr-border-base);
+  --color-abd-active: var(--clr-border-active);
+  /* Background */
+  --color-abg-dimmed: var(--clr-background-dimmed);
+  --color-abg-base: var(--clr-background-base);
+  --color-abg-active: var(--clr-background-active);
+}

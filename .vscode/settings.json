@@ -1,0 +1,54 @@
+{
+  // Tailwind extension: https://github.com/tailwindlabs/tailwindcss-intellisense?tab=readme-ov-file#recommended-vs-code-settings
+  "editor.quickSuggestions": {
+    "strings": "on"
+  },
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  "tailwindCSS.rootFontSize": 10,
+  "tailwindCSS.classAttributes": ["class", "ui"],
+  "css.customData": [".vscode/tailwind.json"],
+  "tailwindCSS.experimental.configFile": "app/assets/css/main.css", // https://github.com/tailwindlabs/tailwindcss-intellisense?tab=readme-ov-file#tailwind-css-v4x-css-entrypoints
+
+  // I18n
+  "i18n-ally.localesPaths": ["i18n/locales"],
+  "i18n-ally.keystyle": "nested",
+  "i18n-ally.sourceLanguage": "en",
+
+  // Lint
+  "eslint.validate": [
+    // https://github.com/antfu/eslint-config?tab=readme-ov-file#ide-support-auto-fix-on-save
+    "javascript",
+    "typescript",
+    "vue",
+    "html",
+    "markdown",
+    "json",
+    "jsonc",
+    "css",
+    "scss"
+  ],
+
+  // Spell check
+  "cSpell.words": [
+    "bubbliz",
+    "dompurify",
+    "linkify",
+    "mdit",
+    "Nuxt",
+    "oklch",
+    "Shiki",
+    "tasklist",
+    "vulcanus"
+  ],
+
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/.nuxt": true,
+    "**/.output": true,
+    "**/.git": true,
+    "**/.cursor": true,
+    "app/assets/fonts": true
+  }
+}

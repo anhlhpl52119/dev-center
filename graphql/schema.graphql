@@ -1,0 +1,1436 @@
+directive @auth(
+  requires: [String]
+) on ARGUMENT_DEFINITION | FIELD_DEFINITION | QUERY
+
+directive @cacheControl(
+  maxAge: Int
+  scope: CacheControlScope
+) on FIELD_DEFINITION | INTERFACE | OBJECT
+
+"""
+Controls the rate of traffic.
+"""
+directive @rateLimit(
+  """
+  Number of seconds before limit is reset.
+  """
+  duration: Int! = 60
+
+  """
+  Number of occurrences allowed over duration.
+  """
+  limit: Int! = 60
+) on FIELD_DEFINITION | OBJECT
+
+"""
+Mutations for Analytics
+"""
+type AnalyticsMutation {
+  """
+  Update a list of Analytics providers and their configuration
+  """
+  updateProviders(
+    """
+    List of providers
+    """
+    providers: [AnalyticsProviderInput]!
+  ): DefaultResponse
+}
+
+"""
+Analytics Provider
+"""
+type AnalyticsProvider {
+  """
+  Configuration values for this provider
+  """
+  config: [KeyValuePair]
+
+  """
+  Short description of the provider
+  """
+  description: String
+
+  """
+  Is the provider available for use
+  """
+  isAvailable: Boolean
+
+  """
+  Is the provider active
+  """
+  isEnabled: Boolean!
+
+  """
+  Unique identifier for this provider
+  """
+  key: String!
+
+  """
+  Path to the provider logo
+  """
+  logo: String
+
+  """
+  List of configuration properties, formatted as stringified JSON objects
+  """
+  props: [String]
+
+  """
+  Name of the provider
+  """
+  title: String!
+
+  """
+  Website of the provider
+  """
+  website: String
+}
+
+"""
+Analytics Configuration Input
+"""
+input AnalyticsProviderInput {
+  """
+  Configuration values for this provider
+  """
+  config: [KeyValuePairInput]
+
+  """
+  Is the provider active
+  """
+  isEnabled: Boolean!
+
+  """
+  Unique identifier of the provider
+  """
+  key: String!
+}
+
+"""
+Queries for Analytics
+"""
+type AnalyticsQuery {
+  """
+  Fetch list of Analytics providers and their configuration
+  """
+  providers(
+    """
+    Return only active providers
+    """
+    isEnabled: Boolean
+  ): [AnalyticsProvider]
+}
+
+type AssetFolder {
+  id: Int!
+  name: String
+  slug: String!
+}
+
+type AssetItem {
+  author: User
+  createdAt: Date!
+  ext: String!
+  fileSize: Int!
+  filename: String!
+  folder: AssetFolder
+  id: Int!
+  kind: AssetKind!
+  metadata: String
+  mime: String!
+  updatedAt: Date!
+}
+
+enum AssetKind {
+  ALL
+  BINARY
+  IMAGE
+}
+
+type AssetMutation {
+  createFolder(
+    name: String
+    parentFolderId: Int!
+    slug: String!
+  ): DefaultResponse
+  deleteAsset(id: Int!): DefaultResponse
+  flushTempUploads: DefaultResponse
+  renameAsset(filename: String!, id: Int!): DefaultResponse
+}
+
+type AssetQuery {
+  folders(parentFolderId: Int!): [AssetFolder]
+  list(folderId: Int!, kind: AssetKind!): [AssetItem]
+}
+
+type AuthenticationActiveStrategy {
+  autoEnrollGroups: [Int]!
+  config: [KeyValuePair]
+  displayName: String!
+  domainWhitelist: [String]!
+  isEnabled: Boolean!
+  key: String!
+  order: Int!
+  selfRegistration: Boolean!
+  strategy: AuthenticationStrategy!
+}
+
+type AuthenticationApiKey {
+  createdAt: Date!
+  expiration: Date!
+  id: Int!
+  isRevoked: Boolean!
+  keyShort: String!
+  name: String!
+  updatedAt: Date!
+}
+
+type AuthenticationCreateApiKeyResponse {
+  key: String
+  responseResult: ResponseStatus
+}
+
+type AuthenticationLoginResponse {
+  continuationToken: String
+  jwt: String
+  mustChangePwd: Boolean
+  mustProvideTFA: Boolean
+  mustSetupTFA: Boolean
+  redirect: String
+  responseResult: ResponseStatus
+  tfaQRImage: String
+}
+
+type AuthenticationMutation {
+  createApiKey(
+    expiration: String!
+    fullAccess: Boolean!
+    group: Int
+    name: String!
+  ): AuthenticationCreateApiKeyResponse
+  forgotPassword(email: String!): DefaultResponse
+  login(
+    password: String!
+    strategy: String!
+    username: String!
+  ): AuthenticationLoginResponse
+  loginChangePassword(
+    continuationToken: String!
+    newPassword: String!
+  ): AuthenticationLoginResponse
+  loginTFA(
+    continuationToken: String!
+    securityCode: String!
+    setup: Boolean
+  ): AuthenticationLoginResponse
+  regenerateCertificates: DefaultResponse
+  register(
+    email: String!
+    name: String!
+    password: String!
+  ): AuthenticationRegisterResponse
+  resetGuestUser: DefaultResponse
+  revokeApiKey(id: Int!): DefaultResponse
+  setApiState(enabled: Boolean!): DefaultResponse
+  updateStrategies(strategies: [AuthenticationStrategyInput]!): DefaultResponse
+}
+
+type AuthenticationQuery {
+  activeStrategies(enabledOnly: Boolean): [AuthenticationActiveStrategy]
+  apiKeys: [AuthenticationApiKey]
+  apiState: Boolean!
+  strategies: [AuthenticationStrategy]
+}
+
+type AuthenticationRegisterResponse {
+  jwt: String
+  responseResult: ResponseStatus
+}
+
+type AuthenticationStrategy {
+  color: String
+  description: String
+  icon: String
+  isAvailable: Boolean
+  key: String!
+  logo: String
+  props: [KeyValuePair]
+  title: String!
+  useForm: Boolean!
+  usernameType: String
+  website: String
+}
+
+input AuthenticationStrategyInput {
+  autoEnrollGroups: [Int]!
+  config: [KeyValuePairInput]
+  displayName: String!
+  domainWhitelist: [String]!
+  isEnabled: Boolean!
+  key: String!
+  order: Int!
+  selfRegistration: Boolean!
+  strategyKey: String!
+}
+
+enum CacheControlScope {
+  PRIVATE
+  PUBLIC
+}
+
+type CommentCreateResponse {
+  id: Int
+  responseResult: ResponseStatus
+}
+
+type CommentMutation {
+  create(
+    content: String!
+    guestEmail: String
+    guestName: String
+    pageId: Int!
+    replyTo: Int
+  ): CommentCreateResponse
+  delete(id: Int!): DefaultResponse
+  update(content: String!, id: Int!): CommentUpdateResponse
+  updateProviders(providers: [CommentProviderInput]): DefaultResponse
+}
+
+type CommentPost {
+  authorEmail: String!
+  authorIP: String!
+  authorId: Int!
+  authorName: String!
+  content: String!
+  createdAt: Date!
+  id: Int!
+  render: String!
+  updatedAt: Date!
+}
+
+type CommentProvider {
+  config: [KeyValuePair]
+  description: String
+  isAvailable: Boolean
+  isEnabled: Boolean!
+  key: String!
+  logo: String
+  title: String!
+  website: String
+}
+
+input CommentProviderInput {
+  config: [KeyValuePairInput]
+  isEnabled: Boolean!
+  key: String!
+}
+
+type CommentQuery {
+  list(locale: String!, path: String!): [CommentPost]!
+  providers: [CommentProvider]
+  single(id: Int!): CommentPost
+}
+
+type CommentUpdateResponse {
+  render: String
+  responseResult: ResponseStatus
+}
+
+type ContributeContributor {
+  avatar: String
+  id: String!
+  joined: Date!
+  name: String!
+  source: String!
+  twitter: String
+  website: String
+}
+
+type ContributeQuery {
+  contributors: [ContributeContributor]
+}
+
+scalar Date
+
+"""
+Generic Mutation Response
+"""
+type DefaultResponse {
+  responseResult: ResponseStatus
+}
+
+type Group {
+  createdAt: Date!
+  id: Int!
+  isSystem: Boolean!
+  name: String!
+  pageRules: [PageRule]
+  permissions: [String]!
+  redirectOnLogin: String
+  updatedAt: Date!
+  users: [UserMinimal]
+}
+
+type GroupMinimal {
+  createdAt: Date!
+  id: Int!
+  isSystem: Boolean!
+  name: String!
+  updatedAt: Date!
+  userCount: Int
+}
+
+type GroupMutation {
+  assignUser(groupId: Int!, userId: Int!): DefaultResponse
+  create(name: String!): GroupResponse
+  delete(id: Int!): DefaultResponse
+  unassignUser(groupId: Int!, userId: Int!): DefaultResponse
+  update(
+    id: Int!
+    name: String!
+    pageRules: [PageRuleInput]!
+    permissions: [String]!
+    redirectOnLogin: String!
+  ): DefaultResponse
+}
+
+type GroupQuery {
+  list(filter: String, orderBy: String): [GroupMinimal]
+  single(id: Int!): Group
+}
+
+type GroupResponse {
+  group: Group
+  responseResult: ResponseStatus!
+}
+
+"""
+===============================================
+PAGES
+===============================================
+"""
+scalar JSON
+
+"""
+Generic Key Value Pair
+"""
+type KeyValuePair {
+  key: String!
+  value: String!
+}
+
+"""
+General Key Value Pair Input
+"""
+input KeyValuePairInput {
+  key: String!
+  value: String!
+}
+
+type LocalizationConfig {
+  autoUpdate: Boolean!
+  locale: String!
+  namespaces: [String]!
+  namespacing: Boolean!
+}
+
+type LocalizationLocale {
+  availability: Int!
+  code: String!
+  createdAt: Date!
+  installDate: Date
+  isInstalled: Boolean!
+  isRTL: Boolean!
+  name: String!
+  nativeName: String!
+  updatedAt: Date!
+}
+
+type LocalizationMutation {
+  downloadLocale(locale: String!): DefaultResponse
+  updateLocale(
+    autoUpdate: Boolean!
+    locale: String!
+    namespaces: [String]!
+    namespacing: Boolean!
+  ): DefaultResponse
+}
+
+type LocalizationQuery {
+  config: LocalizationConfig
+  locales: [LocalizationLocale]
+  translations(locale: String!, namespace: String!): [Translation]
+}
+
+type Logger {
+  config: [KeyValuePair]
+  description: String
+  isEnabled: Boolean!
+  key: String!
+  level: String
+  logo: String
+  title: String!
+  website: String
+}
+
+input LoggerInput {
+  config: [KeyValuePairInput]
+  isEnabled: Boolean!
+  key: String!
+  level: String!
+}
+
+type LoggerTrailLine {
+  level: String!
+  output: String!
+  timestamp: Date!
+}
+
+type LoggingMutation {
+  updateLoggers(loggers: [LoggerInput]): DefaultResponse
+}
+
+type LoggingQuery {
+  loggers(filter: String, orderBy: String): [Logger]
+}
+
+type MailConfig {
+  dkimDomainName: String
+  dkimKeySelector: String
+  dkimPrivateKey: String
+  host: String
+  name: String
+  pass: String
+  port: Int
+  secure: Boolean
+  senderEmail: String
+  senderName: String
+  useDKIM: Boolean
+  user: String
+  verifySSL: Boolean
+}
+
+type MailMutation {
+  sendTest(recipientEmail: String!): DefaultResponse
+  updateConfig(
+    dkimDomainName: String!
+    dkimKeySelector: String!
+    dkimPrivateKey: String!
+    host: String!
+    name: String!
+    pass: String!
+    port: Int!
+    secure: Boolean!
+    senderEmail: String!
+    senderName: String!
+    useDKIM: Boolean!
+    user: String!
+    verifySSL: Boolean!
+  ): DefaultResponse
+}
+
+type MailQuery {
+  config: MailConfig
+}
+
+"""
+Mutations (Create, Update, Delete)
+"""
+type Mutation {
+  analytics: AnalyticsMutation
+  assets: AssetMutation
+  authentication: AuthenticationMutation
+  comments: CommentMutation
+  groups: GroupMutation
+  localization: LocalizationMutation
+  logging: LoggingMutation
+  mail: MailMutation
+  navigation: NavigationMutation
+  pages: PageMutation
+  rendering: RenderingMutation
+  search: SearchMutation
+  site: SiteMutation
+  storage: StorageMutation
+  system: SystemMutation
+  theming: ThemingMutation
+  users: UserMutation
+}
+
+type NavigationConfig {
+  mode: NavigationMode!
+}
+
+type NavigationItem {
+  icon: String
+  id: String!
+  kind: String!
+  label: String
+  target: String
+  targetType: String
+  visibilityGroups: [Int]
+  visibilityMode: String
+}
+
+input NavigationItemInput {
+  icon: String
+  id: String!
+  kind: String!
+  label: String
+  target: String
+  targetType: String
+  visibilityGroups: [Int]
+  visibilityMode: String
+}
+
+enum NavigationMode {
+  MIXED
+  NONE
+  STATIC
+  TREE
+}
+
+type NavigationMutation {
+  updateConfig(mode: NavigationMode!): DefaultResponse
+  updateTree(tree: [NavigationTreeInput]!): DefaultResponse
+}
+
+type NavigationQuery {
+  config: NavigationConfig!
+  tree: [NavigationTree]!
+}
+
+type NavigationTree {
+  items: [NavigationItem]!
+  locale: String!
+}
+
+input NavigationTreeInput {
+  items: [NavigationItemInput]!
+  locale: String!
+}
+
+type Page {
+  authorEmail: String!
+  authorId: Int!
+  authorName: String!
+  content: String!
+  contentType: String!
+  createdAt: Date!
+  creatorEmail: String!
+  creatorId: Int!
+  creatorName: String!
+  description: String!
+  editor: String!
+  hash: String!
+  id: Int!
+  isPrivate: Boolean!
+  isPublished: Boolean!
+  locale: String!
+  path: String!
+  privateNS: String
+  publishEndDate: Date!
+  publishStartDate: Date!
+  render: String
+  scriptCss: String
+  scriptJs: String
+  tags: [PageTag]!
+  title: String!
+  toc: String
+  updatedAt: Date!
+}
+
+type PageConflictLatest {
+  authorId: String!
+  authorName: String!
+  content: String!
+  createdAt: Date!
+  description: String!
+  id: Int!
+  isPublished: Boolean!
+  locale: String!
+  path: String!
+  tags: [String]
+  title: String!
+  updatedAt: Date!
+}
+
+type PageHistory {
+  actionType: String!
+  authorId: Int!
+  authorName: String!
+  valueAfter: String
+  valueBefore: String
+  version: String
+  versionDate: Date!
+  versionId: Int!
+}
+
+type PageHistoryResult {
+  total: Int!
+  trail: [PageHistory]
+}
+
+type PageLinkItem {
+  id: Int!
+  links: [String]!
+  path: String!
+  title: String!
+}
+
+type PageListItem {
+  category: String
+  content: String
+  contentType: String!
+  createdAt: Date!
+  description: String
+  id: Int!
+  images: JSON
+  isPrivate: Boolean!
+  isPublished: Boolean!
+  locale: String!
+  path: String!
+  privateNS: String
+  tags: [String]
+  title: String
+  updatedAt: Date!
+}
+
+type PageMenuItem {
+  category: String
+  contentType: String!
+  description: String
+  id: Int!
+  images: JSON
+  isPrivate: Boolean!
+  isPublished: Boolean!
+  locale: String!
+  path: String!
+  privateNS: String
+  tags: [String]
+  title: String
+}
+
+type PageMigrationResponse {
+  count: Int
+  responseResult: ResponseStatus!
+}
+
+type PageMutation {
+  convert(editor: String!, id: Int!): DefaultResponse
+  create(
+    content: String!
+    description: String!
+    editor: String!
+    isPrivate: Boolean!
+    isPublished: Boolean!
+    locale: String!
+    path: String!
+    publishEndDate: Date
+    publishStartDate: Date
+    scriptCss: String
+    scriptJs: String
+    tags: [String]!
+    title: String!
+
+    """
+    @Temporary disabled
+    """
+    version: String
+  ): PageResponse
+  delete(id: Int!): DefaultResponse
+  deleteTag(id: Int!): DefaultResponse
+  flushCache: DefaultResponse
+  migrateToLocale(
+    sourceLocale: String!
+    targetLocale: String!
+  ): PageMigrationResponse
+  move(
+    destinationLocale: String!
+    destinationPath: String!
+    id: Int!
+  ): DefaultResponse
+  purgeHistory(olderThan: String!): DefaultResponse
+  rebuildTree: DefaultResponse
+  removeHistory(pageId: Int!, versionId: Int!): DefaultResponse
+  render(id: Int!): DefaultResponse
+  restore(pageId: Int!, versionId: Int!): DefaultResponse
+  sort(id: [Int]!, sortNo: [Int]!): PageResponse
+  update(
+    content: String
+    description: String
+    editor: String
+    id: Int!
+    isPrivate: Boolean
+    isPublished: Boolean
+    locale: String
+    path: String
+    publishEndDate: Date
+    publishStartDate: Date
+    scriptCss: String
+    scriptJs: String
+    tags: [String]
+    title: String
+    version: String
+  ): PageResponse
+  updateTag(id: Int!, tag: String!, title: String!): DefaultResponse
+}
+
+enum PageOrderBy {
+  CREATED
+  ID
+  PATH
+  TITLE
+  UPDATED
+}
+
+enum PageOrderByDirection {
+  ASC
+  DESC
+}
+
+type PageQuery {
+  checkConflicts(checkoutDate: Date!, id: Int!): Boolean!
+  conflictLatest(id: Int!): PageConflictLatest!
+  history(
+    getLatest: Boolean
+    id: Int!
+    offsetPage: Int
+    offsetSize: Int
+  ): PageHistoryResult
+  links(locale: String!): [PageLinkItem]
+  list(
+    authorId: Int
+    creatorId: Int
+    limit: Int
+    locale: String
+    orderBy: PageOrderBy
+    orderByDirection: PageOrderByDirection
+    tags: [String!]
+  ): [PageListItem!]!
+  menu(
+    limit: Int
+    locale: String
+    orderBy: PageOrderBy
+    orderByDirection: PageOrderByDirection
+    tags: [String!]!
+  ): [PageMenuItem!]!
+  search(
+    category: String
+    inCategory: [String]
+    locale: String
+    offsetPage: Int
+    offsetSize: Int
+    page: Int
+    path: String
+    query: String!
+    size: Int
+  ): PageSearchResponse!
+  searchTags(query: String!): [String]!
+  single(id: Int!): Page
+  singleByPath(locale: String!, path: String!): Page
+  tags: [PageTag]!
+  tree(
+    depth: Int
+    includeAncestors: Boolean
+    locale: String!
+    mode: PageTreeMode!
+    parent: Int
+    path: String
+  ): [PageTreeItem]
+  version(pageId: Int!, versionId: Int!): PageVersion
+}
+
+type PageResponse {
+  page: Page
+  responseResult: ResponseStatus!
+}
+
+type PageRule {
+  deny: Boolean!
+  id: String!
+  locales: [String]!
+  match: PageRuleMatch!
+  path: String!
+  roles: [String]!
+}
+
+input PageRuleInput {
+  deny: Boolean!
+  id: String!
+  locales: [String]!
+  match: PageRuleMatch!
+  path: String!
+  roles: [String]!
+}
+
+enum PageRuleMatch {
+  END
+  EXACT
+  REGEX
+  START
+  TAG
+}
+
+type PageSearchResponse {
+  description: JSON!
+  results: JSON!
+  stats: JSON!
+  suggestions: [String]!
+  totalHits: Int!
+}
+
+type PageSearchResult {
+  description: String!
+  id: String!
+  locale: String!
+  path: String!
+  title: String!
+}
+
+type PageTag {
+  createdAt: Date!
+  id: Int!
+  tag: String!
+  title: String
+  updatedAt: Date!
+}
+
+type PageTreeItem {
+  depth: Int!
+  id: Int!
+  isFolder: Boolean!
+  isPrivate: Boolean!
+  locale: String!
+  pageId: Int
+  parent: Int
+  path: String!
+  privateNS: String
+  sortNo: Int!
+  title: String!
+}
+
+enum PageTreeMode {
+  ALL
+  FOLDERS
+  HIERARCHY
+  LIKE
+  PAGES
+}
+
+type PageVersion {
+  action: String!
+  authorId: String!
+  authorName: String!
+  content: String!
+  contentType: String!
+  createdAt: Date!
+  description: String!
+  editor: String!
+  isPrivate: Boolean!
+  isPublished: Boolean!
+  locale: String!
+  pageId: Int!
+  path: String!
+  publishEndDate: Date!
+  publishStartDate: Date!
+  tags: [String]!
+  title: String!
+  version: String
+  versionDate: Date!
+  versionId: Int!
+}
+
+"""
+Query (Read)
+"""
+type Query {
+  analytics: AnalyticsQuery
+  assets: AssetQuery
+  authentication: AuthenticationQuery
+  comments: CommentQuery
+  contribute: ContributeQuery
+  groups: GroupQuery
+  localization: LocalizationQuery
+  logging: LoggingQuery
+  mail: MailQuery
+  navigation: NavigationQuery
+  pages: PageQuery
+  rendering: RenderingQuery
+  search: SearchQuery
+  site: SiteQuery
+  storage: StorageQuery
+  system: SystemQuery
+  theming: ThemingQuery
+  users: UserQuery
+}
+
+type Renderer {
+  config: [KeyValuePair]
+  dependsOn: String
+  description: String
+  icon: String
+  input: String
+  isEnabled: Boolean!
+  key: String!
+  output: String
+  title: String!
+}
+
+input RendererInput {
+  config: [KeyValuePairInput]
+  isEnabled: Boolean!
+  key: String!
+}
+
+type RenderingMutation {
+  updateRenderers(renderers: [RendererInput]): DefaultResponse
+}
+
+type RenderingQuery {
+  renderers(filter: String, orderBy: String): [Renderer]
+}
+
+"""
+Mutation Status
+"""
+type ResponseStatus {
+  errorCode: Int!
+  message: String
+  slug: String!
+  succeeded: Boolean!
+}
+
+type SearchEngine {
+  config: [KeyValuePair]
+  description: String
+  isAvailable: Boolean
+  isEnabled: Boolean!
+  key: String!
+  logo: String
+  title: String!
+  website: String
+}
+
+input SearchEngineInput {
+  config: [KeyValuePairInput]
+  isEnabled: Boolean!
+  key: String!
+}
+
+type SearchMutation {
+  rebuildIndex: DefaultResponse
+  updateSearchEngines(engines: [SearchEngineInput]): DefaultResponse
+}
+
+type SearchQuery {
+  searchEngines(filter: String, orderBy: String): [SearchEngine]
+}
+
+type SiteConfig {
+  analyticsId: String
+  analyticsService: String
+  authAutoLogin: Boolean
+  authEnforce2FA: Boolean
+  authHideLocal: Boolean
+  authJwtAudience: String
+  authJwtExpiration: String
+  authJwtRenewablePeriod: String
+  authLoginBgUrl: String
+  company: String
+  contentLicense: String
+  description: String
+  editFab: Boolean
+  editMenuBar: Boolean
+  editMenuBtn: Boolean
+  editMenuExternalBtn: Boolean
+  editMenuExternalIcon: String
+  editMenuExternalName: String
+  editMenuExternalUrl: String
+  featurePageComments: Boolean
+  featurePageRatings: Boolean
+  featurePersonalWikis: Boolean
+  footerOverride: String
+  host: String
+  logoUrl: String
+  pageExtensions: String
+  robots: [String]
+  securityCSP: Boolean
+  securityCSPDirectives: String
+  securityHSTS: Boolean
+  securityHSTSDuration: Int
+  securityIframe: Boolean
+  securityOpenRedirect: Boolean
+  securityReferrerPolicy: Boolean
+  securitySRI: Boolean
+  securityTrustProxy: Boolean
+  title: String
+  uploadForceDownload: Boolean
+  uploadMaxFileSize: Int
+  uploadMaxFiles: Int
+  uploadScanSVG: Boolean
+}
+
+type SiteMutation {
+  updateConfig(
+    analyticsId: String
+    analyticsService: String
+    authAutoLogin: Boolean
+    authEnforce2FA: Boolean
+    authHideLocal: Boolean
+    authJwtAudience: String
+    authJwtExpiration: String
+    authJwtRenewablePeriod: String
+    authLoginBgUrl: String
+    company: String
+    contentLicense: String
+    description: String
+    editFab: Boolean
+    editMenuBar: Boolean
+    editMenuBtn: Boolean
+    editMenuExternalBtn: Boolean
+    editMenuExternalIcon: String
+    editMenuExternalName: String
+    editMenuExternalUrl: String
+    featurePageComments: Boolean
+    featurePageRatings: Boolean
+    featurePersonalWikis: Boolean
+    footerOverride: String
+    host: String
+    logoUrl: String
+    pageExtensions: String
+    robots: [String]
+    securityCSP: Boolean
+    securityCSPDirectives: String
+    securityHSTS: Boolean
+    securityHSTSDuration: Int
+    securityIframe: Boolean
+    securityOpenRedirect: Boolean
+    securityReferrerPolicy: Boolean
+    securitySRI: Boolean
+    securityTrustProxy: Boolean
+    title: String
+    uploadForceDownload: Boolean
+    uploadMaxFileSize: Int
+    uploadMaxFiles: Int
+    uploadScanSVG: Boolean
+  ): DefaultResponse
+}
+
+type SiteQuery {
+  config: SiteConfig
+}
+
+type StorageMutation {
+  executeAction(handler: String!, targetKey: String!): DefaultResponse
+  updateTargets(targets: [StorageTargetInput]!): DefaultResponse
+}
+
+type StorageQuery {
+  status: [StorageStatus]
+  targets: [StorageTarget]
+}
+
+type StorageStatus {
+  key: String!
+  lastAttempt: String!
+  message: String!
+  status: String!
+  title: String!
+}
+
+type StorageTarget {
+  actions: [StorageTargetAction]
+  config: [KeyValuePair]
+  description: String
+  hasSchedule: Boolean!
+  isAvailable: Boolean!
+  isEnabled: Boolean!
+  key: String!
+  logo: String
+  mode: String
+  supportedModes: [String]
+  syncInterval: String
+  syncIntervalDefault: String
+  title: String!
+  website: String
+}
+
+type StorageTargetAction {
+  handler: String!
+  hint: String!
+  label: String!
+}
+
+input StorageTargetInput {
+  config: [KeyValuePairInput]
+  isEnabled: Boolean!
+  key: String!
+  mode: String!
+  syncInterval: String
+}
+
+"""
+Subscriptions (Push, Real-time)
+"""
+type Subscription {
+  loggingLiveTrail: LoggerTrailLine
+}
+
+type SystemExportStatus {
+  message: String
+  progress: Int
+  startedAt: Date
+  status: String
+}
+
+type SystemExtension {
+  description: String!
+  isCompatible: Boolean!
+  isInstalled: Boolean!
+  key: String!
+  title: String!
+}
+
+type SystemFlag {
+  key: String!
+  value: Boolean!
+}
+
+input SystemFlagInput {
+  key: String!
+  value: Boolean!
+}
+
+enum SystemImportUsersGroupMode {
+  MULTI
+  NONE
+  SINGLE
+}
+
+type SystemImportUsersResponse {
+  failed: [SystemImportUsersResponseFailed]
+  groupsCount: Int
+  responseResult: ResponseStatus
+  usersCount: Int
+}
+
+type SystemImportUsersResponseFailed {
+  email: String
+  error: String
+  provider: String
+}
+
+type SystemInfo {
+  configFile: String
+  cpuCores: Int
+  currentVersion: String
+  dbHost: String
+  dbType: String
+  dbVersion: String
+  groupsTotal: Int
+  hostname: String
+  httpPort: Int
+  httpRedirection: Boolean
+  httpsPort: Int
+  latestVersion: String
+  latestVersionReleaseDate: Date
+  nodeVersion: String
+  operatingSystem: String
+  pagesTotal: Int
+  platform: String
+  ramTotal: String
+  sslDomain: String
+  sslExpirationDate: Date
+  sslProvider: String
+  sslStatus: String
+  sslSubscriberEmail: String
+  tagsTotal: Int
+  telemetry: Boolean
+  telemetryClientId: String
+  upgradeCapable: Boolean
+  usersTotal: Int
+  workingDirectory: String
+}
+
+type SystemMutation {
+  export(entities: [String]!, path: String!): DefaultResponse
+  importUsersFromV1(
+    groupMode: SystemImportUsersGroupMode!
+    mongoDbConnString: String!
+  ): SystemImportUsersResponse
+  performUpgrade: DefaultResponse
+  renewHTTPSCertificate: DefaultResponse
+  resetTelemetryClientId: DefaultResponse
+  setHTTPSRedirection(enabled: Boolean!): DefaultResponse
+  setTelemetry(enabled: Boolean!): DefaultResponse
+  updateFlags(flags: [SystemFlagInput]!): DefaultResponse
+}
+
+type SystemQuery {
+  exportStatus: SystemExportStatus
+  extensions: [SystemExtension]
+  flags: [SystemFlag]
+  info: SystemInfo
+}
+
+type ThemingConfig {
+  darkMode: Boolean!
+  iconset: String!
+  injectBody: String
+  injectCSS: String
+  injectHead: String
+  theme: String!
+  tocPosition: String
+}
+
+type ThemingMutation {
+  setConfig(
+    darkMode: Boolean!
+    iconset: String!
+    injectBody: String
+    injectCSS: String
+    injectHead: String
+    theme: String!
+    tocPosition: String
+  ): DefaultResponse
+}
+
+type ThemingQuery {
+  config: ThemingConfig
+  themes: [ThemingTheme]
+}
+
+type ThemingTheme {
+  author: String
+  key: String
+  title: String
+}
+
+type Translation {
+  key: String!
+  value: String!
+}
+
+"""
+The `Upload` scalar type represents a file upload.
+"""
+scalar Upload
+
+type User {
+  appearance: String!
+  createdAt: Date!
+  dateFormat: String!
+  email: String!
+  groups: [Group]!
+  id: Int!
+  isActive: Boolean!
+  isSystem: Boolean!
+  isVerified: Boolean!
+  jobTitle: String!
+  lastLoginAt: Date
+  location: String!
+  name: String!
+  providerId: String
+  providerIs2FACapable: Boolean
+  providerKey: String!
+  providerName: String
+  tfaIsActive: Boolean!
+  timezone: String!
+  updatedAt: Date!
+}
+
+type UserLastLogin {
+  id: Int!
+  lastLoginAt: Date!
+  name: String!
+}
+
+type UserMinimal {
+  createdAt: Date!
+  email: String!
+  id: Int!
+  isActive: Boolean!
+  isSystem: Boolean!
+  lastLoginAt: Date
+  name: String!
+  providerKey: String!
+}
+
+type UserMutation {
+  activate(id: Int!): DefaultResponse
+  changePassword(current: String!, new: String!): UserTokenResponse
+  create(
+    email: String!
+    groups: [Int]!
+    mustChangePassword: Boolean
+    name: String!
+    passwordRaw: String
+    providerKey: String!
+    sendWelcomeEmail: Boolean
+  ): UserResponse
+  deactivate(id: Int!): DefaultResponse
+  delete(id: Int!, replaceId: Int!): DefaultResponse
+  disableTFA(id: Int!): DefaultResponse
+  enableTFA(id: Int!): DefaultResponse
+  resetPassword(id: Int!): DefaultResponse
+  update(
+    appearance: String
+    dateFormat: String
+    email: String
+    groups: [Int]
+    id: Int!
+    jobTitle: String
+    location: String
+    name: String
+    newPassword: String
+    timezone: String
+  ): DefaultResponse
+  updateProfile(
+    appearance: String!
+    dateFormat: String!
+    jobTitle: String!
+    location: String!
+    name: String!
+    timezone: String!
+  ): UserTokenResponse
+  verify(id: Int!): DefaultResponse
+}
+
+type UserProfile {
+  appearance: String!
+  createdAt: Date!
+  dateFormat: String!
+  email: String!
+  groups: [String]!
+  id: Int!
+  isSystem: Boolean!
+  isVerified: Boolean!
+  jobTitle: String!
+  lastLoginAt: Date
+  location: String!
+  name: String!
+  pagesTotal: Int!
+  providerKey: String
+  providerName: String
+  timezone: String!
+  updatedAt: Date!
+}
+
+type UserQuery {
+  lastLogins: [UserLastLogin]
+  list(filter: String, orderBy: String): [UserMinimal]
+  profile: UserProfile
+  search(query: String!): [UserMinimal]
+  single(id: Int!): User
+}
+
+type UserResponse {
+  responseResult: ResponseStatus!
+  user: User
+}
+
+type UserTokenResponse {
+  jwt: String
+  responseResult: ResponseStatus!
+}

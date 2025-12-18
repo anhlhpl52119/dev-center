@@ -1,0 +1,4 @@
+# schema: https://developers-vulcanus-api-dev.onstove.com/graphql
+# schema: http://localhost:80/graphql/graphql
+schema: ./graphql/schema.graphql
+documents: './graphql/*.{graphql,js,ts,gql}'

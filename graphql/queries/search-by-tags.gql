@@ -1,0 +1,10 @@
+query SearchByTags($tags: [String!]!) {
+  pages {
+    menu(tags: $tags) {
+      id
+      path
+      title
+      category
+    }
+  }
+}

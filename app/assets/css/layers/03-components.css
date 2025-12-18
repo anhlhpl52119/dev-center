@@ -1,0 +1,6 @@
+@import '../chore/markdown-style.css';
+@import '../chore/vue-transition.css';
+.clickable {
+  @apply cursor-pointer transition-colors duration-200;
+}
+
