@@ -73,7 +73,7 @@ async function onSearch(keyword: string) {
         ref="ipRef"
         v-model="inputKeyword"
         type="text"
-        class="border-abd-base bg-abg-base mt-24 w-600 rounded-full border py-16 pr-72 pl-20"
+        class="border-abd-base bg-abg-base mt-24 w-full md:w-600 rounded-full border py-16 pr-72 pl-20"
         placeholder="검색어를 입력하세요."
         @keyup.enter="onSearch(inputKeyword)"
       >
@@ -88,7 +88,7 @@ async function onSearch(keyword: string) {
           <h2 class="text-20 mb-8 font-bold">
             {{ item.title }}
           </h2>
-          <p class="text-quiet" v-html="item.matched" />
+          <p class="text-quiet line-clamp-2 break-all" v-html="item.matched" />
         </div>
       </template>
     </div>

@@ -107,7 +107,7 @@ onUnmounted(() => {
         <template v-if="item.level <= 2">
           <NuxtLink
             :to="`#${item.anchor}`"
-            class="hover:text-primary cursor-pointer block transition-all duration-300"
+            class="hover:text-primary font-medium cursor-pointer block transition-all duration-300"
             :class="{ 'text-primary': activeAnchors.includes(item.anchor) }"
             @click="scrollToHeading(item.anchor)"
           >
@@ -119,7 +119,7 @@ onUnmounted(() => {
           <div class="border-l-abd-base hover:border-l-primary border-l-1 py-4 transition-all duration-300">
             <NuxtLink
               :to="`#${item.anchor}`"
-              class="hover:text-primary cursor-pointer pl-16 block transition-all duration-300"
+              class="hover:text-primary font-normal cursor-pointer pl-16 block transition-all duration-300"
               :class="{ 'text-primary': activeAnchors.includes(item.anchor) }"
               @click="scrollToHeading(item.anchor)"
             >
