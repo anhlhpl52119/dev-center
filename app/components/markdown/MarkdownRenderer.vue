@@ -126,11 +126,11 @@ const renderedContent = computed(() => {
 let globalObserver = null;
 
 function initTableShadows() {
-  // 1. Khởi tạo Observer
+  // init sentinel dom observer
   globalObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       const sentinel = entry.target;
-      // Tìm shadow tương ứng trong cùng một wrapper
+      // find related sentinel wrapper
       const wrapper = sentinel.closest('[data-table-wrapper]');
       if (!wrapper)
         return;
@@ -141,24 +141,20 @@ function initTableShadows() {
         : wrapper.querySelector('.shadow-r');
 
       if (shadow) {
-        // isIntersecting = true nghĩa là sentinel đang hiển thị (sát mép) -> ẩn shadow
-        // isIntersecting = false nghĩa là sentinel bị khuất (có thể cuộn) -> hiện shadow
+        // 1: end of block => hidden shadow
+        // 0: scrollable
         shadow.style.opacity = entry.isIntersecting ? '0' : '1';
       }
     });
-  }, {
-    // Quan trọng: root là null sẽ quan sát dựa trên viewport,
-    // nhưng vì ta để sentinel bên trong overflow-x-auto,
-    // ta cần chỉ định root là container cha của nó.
   });
 
-  // 2. Đăng ký tất cả các bảng hiện có
+  // regis each table each sentinel observer
   const wrappers = document.querySelectorAll('[data-table-wrapper]');
   wrappers.forEach((wrapper) => {
     const container = wrapper.querySelector('.scroll-container');
     const sentinels = wrapper.querySelectorAll('.sentinel-l, .sentinel-r');
 
-    // Tạo observer riêng cho từng container để check sự giao thoa nội bộ
+    // ass sentinel observer for specific container
     const containerObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         const isLeft = entry.target.classList.contains('sentinel-l');
@@ -167,7 +163,7 @@ function initTableShadows() {
           shadow.style.opacity = entry.isIntersecting ? '0' : '1';
       });
     }, {
-      root: container, // Cực kỳ quan trọng để xử lý lỗi nhiều table
+      root: container,
       threshold: 0.9,
     });
 
