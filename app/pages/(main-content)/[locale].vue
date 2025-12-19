@@ -86,7 +86,7 @@ const lnb = computed<LNBModel[]>(() => {
       <!-- LNB -->
       <AppLeftNavigationBar
         :items="lnb"
-        class="sticky top-64 hidden w-272 h-[calc(100vh-6.4rem)] overflow-auto p-24 pt-32 md:block scrollbar-gutter-stable"
+        class="sticky max-h-[calc(100vh-6.4rem)] top-64 self-start hidden w-272 overflow-auto p-24 pt-32 md:block scrollbar-gutter-stable"
       >
         <template #trigger>
           <button
