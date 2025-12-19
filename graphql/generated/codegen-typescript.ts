@@ -1,5 +1,6 @@
-import { DocumentNode } from 'graphql';
+import type { DocumentNode } from 'graphql';
 import gql from 'graphql-tag';
+
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -8,37 +9,36 @@ export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Mayb
 export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
 export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 /** All built-in and custom scalars, mapped to their actual values */
-export type Scalars = {
-  ID: { input: string; output: string; }
-  String: { input: string; output: string; }
-  Boolean: { input: boolean; output: boolean; }
-  Int: { input: number; output: number; }
-  Float: { input: number; output: number; }
-  Date: { input: any; output: any; }
+export interface Scalars {
+  ID: { input: string; output: string };
+  String: { input: string; output: string };
+  Boolean: { input: boolean; output: boolean };
+  Int: { input: number; output: number };
+  Float: { input: number; output: number };
+  Date: { input: any; output: any };
   /**
    * ===============================================
    * PAGES
    * ===============================================
    */
-  JSON: { input: any; output: any; }
+  JSON: { input: any; output: any };
   /** The `Upload` scalar type represents a file upload. */
-  Upload: { input: any; output: any; }
-};
+  Upload: { input: any; output: any };
+}
 
 /** Mutations for Analytics */
-export type AnalyticsMutation = {
+export interface AnalyticsMutation {
   /** Update a list of Analytics providers and their configuration */
   updateProviders?: Maybe<DefaultResponse>;
-};
-
+}
 
 /** Mutations for Analytics */
-export type AnalyticsMutationUpdateProvidersArgs = {
+export interface AnalyticsMutationUpdateProvidersArgs {
   providers: Array<InputMaybe<AnalyticsProviderInput>>;
-};
+}
 
 /** Analytics Provider */
-export type AnalyticsProvider = {
+export interface AnalyticsProvider {
   /** Configuration values for this provider */
   config?: Maybe<Array<Maybe<KeyValuePair>>>;
   /** Short description of the provider */
@@ -57,37 +57,36 @@ export type AnalyticsProvider = {
   title: Scalars['String']['output'];
   /** Website of the provider */
   website?: Maybe<Scalars['String']['output']>;
-};
+}
 
 /** Analytics Configuration Input */
-export type AnalyticsProviderInput = {
+export interface AnalyticsProviderInput {
   /** Configuration values for this provider */
   config?: InputMaybe<Array<InputMaybe<KeyValuePairInput>>>;
   /** Is the provider active */
   isEnabled: Scalars['Boolean']['input'];
   /** Unique identifier of the provider */
   key: Scalars['String']['input'];
-};
+}
 
 /** Queries for Analytics */
-export type AnalyticsQuery = {
+export interface AnalyticsQuery {
   /** Fetch list of Analytics providers and their configuration */
   providers?: Maybe<Array<Maybe<AnalyticsProvider>>>;
-};
-
+}
 
 /** Queries for Analytics */
-export type AnalyticsQueryProvidersArgs = {
+export interface AnalyticsQueryProvidersArgs {
   isEnabled?: InputMaybe<Scalars['Boolean']['input']>;
-};
+}
 
-export type AssetFolder = {
+export interface AssetFolder {
   id: Scalars['Int']['output'];
   name?: Maybe<Scalars['String']['output']>;
   slug: Scalars['String']['output'];
-};
+}
 
-export type AssetItem = {
+export interface AssetItem {
   author?: Maybe<User>;
   createdAt: Scalars['Date']['output'];
   ext: Scalars['String']['output'];
@@ -99,56 +98,51 @@ export type AssetItem = {
   metadata?: Maybe<Scalars['String']['output']>;
   mime: Scalars['String']['output'];
   updatedAt: Scalars['Date']['output'];
-};
+}
 
 export enum AssetKind {
   All = 'ALL',
   Binary = 'BINARY',
-  Image = 'IMAGE'
+  Image = 'IMAGE',
 }
 
-export type AssetMutation = {
+export interface AssetMutation {
   createFolder?: Maybe<DefaultResponse>;
   deleteAsset?: Maybe<DefaultResponse>;
   flushTempUploads?: Maybe<DefaultResponse>;
   renameAsset?: Maybe<DefaultResponse>;
-};
+}
 
-
-export type AssetMutationCreateFolderArgs = {
+export interface AssetMutationCreateFolderArgs {
   name?: InputMaybe<Scalars['String']['input']>;
   parentFolderId: Scalars['Int']['input'];
   slug: Scalars['String']['input'];
-};
+}
 
-
-export type AssetMutationDeleteAssetArgs = {
+export interface AssetMutationDeleteAssetArgs {
   id: Scalars['Int']['input'];
-};
+}
 
-
-export type AssetMutationRenameAssetArgs = {
+export interface AssetMutationRenameAssetArgs {
   filename: Scalars['String']['input'];
   id: Scalars['Int']['input'];
-};
+}
 
-export type AssetQuery = {
+export interface AssetQuery {
   folders?: Maybe<Array<Maybe<AssetFolder>>>;
   list?: Maybe<Array<Maybe<AssetItem>>>;
-};
+}
 
-
-export type AssetQueryFoldersArgs = {
+export interface AssetQueryFoldersArgs {
   parentFolderId: Scalars['Int']['input'];
-};
+}
 
-
-export type AssetQueryListArgs = {
+export interface AssetQueryListArgs {
   folderId: Scalars['Int']['input'];
   kind: AssetKind;
-};
+}
 
-export type AuthenticationActiveStrategy = {
+export interface AuthenticationActiveStrategy {
   autoEnrollGroups: Array<Maybe<Scalars['Int']['output']>>;
   config?: Maybe<Array<Maybe<KeyValuePair>>>;
   displayName: Scalars['String']['output'];
@@ -158,9 +152,9 @@ export type AuthenticationActiveStrategy = {
   order: Scalars['Int']['output'];
   selfRegistration: Scalars['Boolean']['output'];
   strategy: AuthenticationStrategy;
-};
+}
 
-export type AuthenticationApiKey = {
+export interface AuthenticationApiKey {
   createdAt: Scalars['Date']['output'];
   expiration: Scalars['Date']['output'];
   id: Scalars['Int']['output'];
@@ -168,14 +162,14 @@ export type AuthenticationApiKey = {
   keyShort: Scalars['String']['output'];
   name: Scalars['String']['output'];
   updatedAt: Scalars['Date']['output'];
-};
+}
 
-export type AuthenticationCreateApiKeyResponse = {
+export interface AuthenticationCreateApiKeyResponse {
   key?: Maybe<Scalars['String']['output']>;
   responseResult?: Maybe<ResponseStatus>;
-};
+}
 
-export type AuthenticationLoginResponse = {
+export interface AuthenticationLoginResponse {
   continuationToken?: Maybe<Scalars['String']['output']>;
   jwt?: Maybe<Scalars['String']['output']>;
   mustChangePwd?: Maybe<Scalars['Boolean']['output']>;
@@ -184,9 +178,9 @@ export type AuthenticationLoginResponse = {
   redirect?: Maybe<Scalars['String']['output']>;
   responseResult?: Maybe<ResponseStatus>;
   tfaQRImage?: Maybe<Scalars['String']['output']>;
-};
+}
 
-export type AuthenticationMutation = {
+export interface AuthenticationMutation {
   createApiKey?: Maybe<AuthenticationCreateApiKeyResponse>;
   forgotPassword?: Maybe<DefaultResponse>;
   login?: Maybe<AuthenticationLoginResponse>;
@@ -198,81 +192,71 @@ export type AuthenticationMutation = {
   revokeApiKey?: Maybe<DefaultResponse>;
   setApiState?: Maybe<DefaultResponse>;
   updateStrategies?: Maybe<DefaultResponse>;
-};
+}
 
-
-export type AuthenticationMutationCreateApiKeyArgs = {
+export interface AuthenticationMutationCreateApiKeyArgs {
   expiration: Scalars['String']['input'];
   fullAccess: Scalars['Boolean']['input'];
   group?: InputMaybe<Scalars['Int']['input']>;
   name: Scalars['String']['input'];
-};
+}
 
-
-export type AuthenticationMutationForgotPasswordArgs = {
+export interface AuthenticationMutationForgotPasswordArgs {
   email: Scalars['String']['input'];
-};
+}
 
-
-export type AuthenticationMutationLoginArgs = {
+export interface AuthenticationMutationLoginArgs {
   password: Scalars['String']['input'];
   strategy: Scalars['String']['input'];
   username: Scalars['String']['input'];
-};
+}
 
-
-export type AuthenticationMutationLoginChangePasswordArgs = {
+export interface AuthenticationMutationLoginChangePasswordArgs {
   continuationToken: Scalars['String']['input'];
   newPassword: Scalars['String']['input'];
-};
+}
 
-
-export type AuthenticationMutationLoginTfaArgs = {
+export interface AuthenticationMutationLoginTfaArgs {
   continuationToken: Scalars['String']['input'];
   securityCode: Scalars['String']['input'];
   setup?: InputMaybe<Scalars['Boolean']['input']>;
-};
+}
 
-
-export type AuthenticationMutationRegisterArgs = {
+export interface AuthenticationMutationRegisterArgs {
   email: Scalars['String']['input'];
   name: Scalars['String']['input'];
   password: Scalars['String']['input'];
-};
+}
 
-
-export type AuthenticationMutationRevokeApiKeyArgs = {
+export interface AuthenticationMutationRevokeApiKeyArgs {
   id: Scalars['Int']['input'];
-};
+}
 
-
-export type AuthenticationMutationSetApiStateArgs = {
+export interface AuthenticationMutationSetApiStateArgs {
   enabled: Scalars['Boolean']['input'];
-};
+}
 
-
-export type AuthenticationMutationUpdateStrategiesArgs = {
+export interface AuthenticationMutationUpdateStrategiesArgs {
   strategies: Array<InputMaybe<AuthenticationStrategyInput>>;
-};
+}
 
-export type AuthenticationQuery = {
+export interface AuthenticationQuery {
   activeStrategies?: Maybe<Array<Maybe<AuthenticationActiveStrategy>>>;
   apiKeys?: Maybe<Array<Maybe<AuthenticationApiKey>>>;
   apiState: Scalars['Boolean']['output'];
   strategies?: Maybe<Array<Maybe<AuthenticationStrategy>>>;
-};
+}
 
-
-export type AuthenticationQueryActiveStrategiesArgs = {
+export interface AuthenticationQueryActiveStrategiesArgs {
   enabledOnly?: InputMaybe<Scalars['Boolean']['input']>;
-};
+}
 
-export type AuthenticationRegisterResponse = {
+export interface AuthenticationRegisterResponse {
   jwt?: Maybe<Scalars['String']['output']>;
   responseResult?: Maybe<ResponseStatus>;
-};
+}
 
-export type AuthenticationStrategy = {
+export interface AuthenticationStrategy {
   color?: Maybe<Scalars['String']['output']>;
   description?: Maybe<Scalars['String']['output']>;
   icon?: Maybe<Scalars['String']['output']>;
@@ -284,9 +268,9 @@ export type AuthenticationStrategy = {
   useForm: Scalars['Boolean']['output'];
   usernameType?: Maybe<Scalars['String']['output']>;
   website?: Maybe<Scalars['String']['output']>;
-};
+}
 
-export type AuthenticationStrategyInput = {
+export interface AuthenticationStrategyInput {
   autoEnrollGroups: Array<InputMaybe<Scalars['Int']['input']>>;
   config?: InputMaybe<Array<InputMaybe<KeyValuePairInput>>>;
   displayName: Scalars['String']['input'];
@@ -296,51 +280,47 @@ export type AuthenticationStrategyInput = {
   order: Scalars['Int']['input'];
   selfRegistration: Scalars['Boolean']['input'];
   strategyKey: Scalars['String']['input'];
-};
+}
 
 export enum CacheControlScope {
   Private = 'PRIVATE',
-  Public = 'PUBLIC'
+  Public = 'PUBLIC',
 }
 
-export type CommentCreateResponse = {
+export interface CommentCreateResponse {
   id?: Maybe<Scalars['Int']['output']>;
   responseResult?: Maybe<ResponseStatus>;
-};
+}
 
-export type CommentMutation = {
+export interface CommentMutation {
   create?: Maybe<CommentCreateResponse>;
   delete?: Maybe<DefaultResponse>;
   update?: Maybe<CommentUpdateResponse>;
   updateProviders?: Maybe<DefaultResponse>;
-};
+}
 
-
-export type CommentMutationCreateArgs = {
+export interface CommentMutationCreateArgs {
   content: Scalars['String']['input'];
   guestEmail?: InputMaybe<Scalars['String']['input']>;
   guestName?: InputMaybe<Scalars['String']['input']>;
   pageId: Scalars['Int']['input'];
   replyTo?: InputMaybe<Scalars['Int']['input']>;
-};
+}
 
-
-export type CommentMutationDeleteArgs = {
+export interface CommentMutationDeleteArgs {
   id: Scalars['Int']['input'];
-};
+}
 
-
-export type CommentMutationUpdateArgs = {
+export interface CommentMutationUpdateArgs {
   content: Scalars['String']['input'];
   id: Scalars['Int']['input'];
-};
+}
 
-
-export type CommentMutationUpdateProvidersArgs = {
+export interface CommentMutationUpdateProvidersArgs {
   providers?: InputMaybe<Array<InputMaybe<CommentProviderInput>>>;
-};
+}
 
-export type CommentPost = {
+export interface CommentPost {
   authorEmail: Scalars['String']['output'];
   authorIP: Scalars['String']['output'];
   authorId: Scalars['Int']['output'];
@@ -350,9 +330,9 @@ export type CommentPost = {
   id: Scalars['Int']['output'];
   render: Scalars['String']['output'];
   updatedAt: Scalars['Date']['output'];
-};
+}
 
-export type CommentProvider = {
+export interface CommentProvider {
   config?: Maybe<Array<Maybe<KeyValuePair>>>;
   description?: Maybe<Scalars['String']['output']>;
   isAvailable?: Maybe<Scalars['Boolean']['output']>;
@@ -361,37 +341,35 @@ export type CommentProvider = {
   logo?: Maybe<Scalars['String']['output']>;
   title: Scalars['String']['output'];
   website?: Maybe<Scalars['String']['output']>;
-};
+}
 
-export type CommentProviderInput = {
+export interface CommentProviderInput {
   config?: InputMaybe<Array<InputMaybe<KeyValuePairInput>>>;
   isEnabled: Scalars['Boolean']['input'];
   key: Scalars['String']['input'];
-};
+}
 
-export type CommentQuery = {
+export interface CommentQuery {
   list: Array<Maybe<CommentPost>>;
   providers?: Maybe<Array<Maybe<CommentProvider>>>;
   single?: Maybe<CommentPost>;
-};
+}
 
-
-export type CommentQueryListArgs = {
+export interface CommentQueryListArgs {
   locale: Scalars['String']['input'];
   path: Scalars['String']['input'];
-};
+}
 
-
-export type CommentQuerySingleArgs = {
+export interface CommentQuerySingleArgs {
   id: Scalars['Int']['input'];
-};
+}
 
-export type CommentUpdateResponse = {
+export interface CommentUpdateResponse {
   render?: Maybe<Scalars['String']['output']>;
   responseResult?: Maybe<ResponseStatus>;
-};
+}
 
-export type ContributeContributor = {
+export interface ContributeContributor {
   avatar?: Maybe<Scalars['String']['output']>;
   id: Scalars['String']['output'];
   joined: Scalars['Date']['output'];
@@ -399,18 +377,18 @@ export type ContributeContributor = {
   source: Scalars['String']['output'];
   twitter?: Maybe<Scalars['String']['output']>;
   website?: Maybe<Scalars['String']['output']>;
-};
+}
 
-export type ContributeQuery = {
+export interface ContributeQuery {
   contributors?: Maybe<Array<Maybe<ContributeContributor>>>;
-};
+}
 
 /** Generic Mutation Response */
-export type DefaultResponse = {
+export interface DefaultResponse {
   responseResult?: Maybe<ResponseStatus>;
-};
+}
 
-export type Group = {
+export interface Group {
   createdAt: Scalars['Date']['output'];
   id: Scalars['Int']['output'];
   isSystem: Scalars['Boolean']['output'];
@@ -420,97 +398,90 @@ export type Group = {
   redirectOnLogin?: Maybe<Scalars['String']['output']>;
   updatedAt: Scalars['Date']['output'];
   users?: Maybe<Array<Maybe<UserMinimal>>>;
-};
+}
 
-export type GroupMinimal = {
+export interface GroupMinimal {
   createdAt: Scalars['Date']['output'];
   id: Scalars['Int']['output'];
   isSystem: Scalars['Boolean']['output'];
   name: Scalars['String']['output'];
   updatedAt: Scalars['Date']['output'];
   userCount?: Maybe<Scalars['Int']['output']>;
-};
+}
 
-export type GroupMutation = {
+export interface GroupMutation {
   assignUser?: Maybe<DefaultResponse>;
   create?: Maybe<GroupResponse>;
   delete?: Maybe<DefaultResponse>;
   unassignUser?: Maybe<DefaultResponse>;
   update?: Maybe<DefaultResponse>;
-};
+}
 
-
-export type GroupMutationAssignUserArgs = {
+export interface GroupMutationAssignUserArgs {
   groupId: Scalars['Int']['input'];
   userId: Scalars['Int']['input'];
-};
+}
 
-
-export type GroupMutationCreateArgs = {
+export interface GroupMutationCreateArgs {
   name: Scalars['String']['input'];
-};
+}
 
-
-export type GroupMutationDeleteArgs = {
+export interface GroupMutationDeleteArgs {
   id: Scalars['Int']['input'];
-};
+}
 
-
-export type GroupMutationUnassignUserArgs = {
+export interface GroupMutationUnassignUserArgs {
   groupId: Scalars['Int']['input'];
   userId: Scalars['Int']['input'];
-};
+}
 
-
-export type GroupMutationUpdateArgs = {
+export interface GroupMutationUpdateArgs {
   id: Scalars['Int']['input'];
   name: Scalars['String']['input'];
   pageRules: Array<InputMaybe<PageRuleInput>>;
   permissions: Array<InputMaybe<Scalars['String']['input']>>;
   redirectOnLogin: Scalars['String']['input'];
-};
+}
 
-export type GroupQuery = {
+export interface GroupQuery {
   list?: Maybe<Array<Maybe<GroupMinimal>>>;
   single?: Maybe<Group>;
-};
+}
 
-
-export type GroupQueryListArgs = {
+export interface GroupQueryListArgs {
   filter?: InputMaybe<Scalars['String']['input']>;
   orderBy?: InputMaybe<Scalars['String']['input']>;
-};
+}
 
-
-export type GroupQuerySingleArgs = {
+export interface GroupQuerySingleArgs {
   id: Scalars['Int']['input'];
-};
+}
 
-export type GroupResponse = {
+export interface GroupResponse {
   group?: Maybe<Group>;
   responseResult: ResponseStatus;
-};
+}
 
 /** Generic Key Value Pair */
-export type KeyValuePair = {
+export interface KeyValuePair {
   key: Scalars['String']['output'];
   value: Scalars['String']['output'];
-};
+}
 
 /** General Key Value Pair Input */
-export type KeyValuePairInput = {
+export interface KeyValuePairInput {
   key: Scalars['String']['input'];
   value: Scalars['String']['input'];
-};
+}
 
-export type LocalizationConfig = {
+export interface LocalizationConfig {
   autoUpdate: Scalars['Boolean']['output'];
   locale: Scalars['String']['output'];
   namespaces: Array<Maybe<Scalars['String']['output']>>;
   namespacing: Scalars['Boolean']['output'];
-};
+}
 
-export type LocalizationLocale = {
+export interface LocalizationLocale {
   availability: Scalars['Int']['output'];
   code: Scalars['String']['output'];
   createdAt: Scalars['Date']['output'];
@@ -520,39 +491,36 @@ export type LocalizationLocale = {
   name: Scalars['String']['output'];
   nativeName: Scalars['String']['output'];
   updatedAt: Scalars['Date']['output'];
-};
+}
 
-export type LocalizationMutation = {
+export interface LocalizationMutation {
   downloadLocale?: Maybe<DefaultResponse>;
   updateLocale?: Maybe<DefaultResponse>;
-};
+}
 
-
-export type LocalizationMutationDownloadLocaleArgs = {
+export interface LocalizationMutationDownloadLocaleArgs {
   locale: Scalars['String']['input'];
-};
+}
 
-
-export type LocalizationMutationUpdateLocaleArgs = {
+export interface LocalizationMutationUpdateLocaleArgs {
   autoUpdate: Scalars['Boolean']['input'];
   locale: Scalars['String']['input'];
   namespaces: Array<InputMaybe<Scalars['String']['input']>>;
   namespacing: Scalars['Boolean']['input'];
-};
+}
 
-export type LocalizationQuery = {
+export interface LocalizationQuery {
   config?: Maybe<LocalizationConfig>;
   locales?: Maybe<Array<Maybe<LocalizationLocale>>>;
   translations?: Maybe<Array<Maybe<Translation>>>;
-};
+}
 
-
-export type LocalizationQueryTranslationsArgs = {
+export interface LocalizationQueryTranslationsArgs {
   locale: Scalars['String']['input'];
   namespace: Scalars['String']['input'];
-};
+}
 
-export type Logger = {
+export interface Logger {
   config?: Maybe<Array<Maybe<KeyValuePair>>>;
   description?: Maybe<Scalars['String']['output']>;
   isEnabled: Scalars['Boolean']['output'];
@@ -561,41 +529,39 @@ export type Logger = {
   logo?: Maybe<Scalars['String']['output']>;
   title: Scalars['String']['output'];
   website?: Maybe<Scalars['String']['output']>;
-};
+}
 
-export type LoggerInput = {
+export interface LoggerInput {
   config?: InputMaybe<Array<InputMaybe<KeyValuePairInput>>>;
   isEnabled: Scalars['Boolean']['input'];
   key: Scalars['String']['input'];
   level: Scalars['String']['input'];
-};
+}
 
-export type LoggerTrailLine = {
+export interface LoggerTrailLine {
   level: Scalars['String']['output'];
   output: Scalars['String']['output'];
   timestamp: Scalars['Date']['output'];
-};
+}
 
-export type LoggingMutation = {
+export interface LoggingMutation {
   updateLoggers?: Maybe<DefaultResponse>;
-};
+}
 
-
-export type LoggingMutationUpdateLoggersArgs = {
+export interface LoggingMutationUpdateLoggersArgs {
   loggers?: InputMaybe<Array<InputMaybe<LoggerInput>>>;
-};
+}
 
-export type LoggingQuery = {
+export interface LoggingQuery {
   loggers?: Maybe<Array<Maybe<Logger>>>;
-};
+}
 
-
-export type LoggingQueryLoggersArgs = {
+export interface LoggingQueryLoggersArgs {
   filter?: InputMaybe<Scalars['String']['input']>;
   orderBy?: InputMaybe<Scalars['String']['input']>;
-};
+}
 
-export type MailConfig = {
+export interface MailConfig {
   dkimDomainName?: Maybe<Scalars['String']['output']>;
   dkimKeySelector?: Maybe<Scalars['String']['output']>;
   dkimPrivateKey?: Maybe<Scalars['String']['output']>;
@@ -609,20 +575,18 @@ export type MailConfig = {
   useDKIM?: Maybe<Scalars['Boolean']['output']>;
   user?: Maybe<Scalars['String']['output']>;
   verifySSL?: Maybe<Scalars['Boolean']['output']>;
-};
+}
 
-export type MailMutation = {
+export interface MailMutation {
   sendTest?: Maybe<DefaultResponse>;
   updateConfig?: Maybe<DefaultResponse>;
-};
+}
 
-
-export type MailMutationSendTestArgs = {
+export interface MailMutationSendTestArgs {
   recipientEmail: Scalars['String']['input'];
-};
+}
 
-
-export type MailMutationUpdateConfigArgs = {
+export interface MailMutationUpdateConfigArgs {
   dkimDomainName: Scalars['String']['input'];
   dkimKeySelector: Scalars['String']['input'];
   dkimPrivateKey: Scalars['String']['input'];
@@ -636,14 +600,14 @@ export type MailMutationUpdateConfigArgs = {
   useDKIM: Scalars['Boolean']['input'];
   user: Scalars['String']['input'];
   verifySSL: Scalars['Boolean']['input'];
-};
+}
 
-export type MailQuery = {
+export interface MailQuery {
   config?: Maybe<MailConfig>;
-};
+}
 
 /** Mutations (Create, Update, Delete) */
-export type Mutation = {
+export interface Mutation {
   analytics?: Maybe<AnalyticsMutation>;
   assets?: Maybe<AssetMutation>;
   authentication?: Maybe<AuthenticationMutation>;
@@ -661,13 +625,13 @@ export type Mutation = {
   system?: Maybe<SystemMutation>;
   theming?: Maybe<ThemingMutation>;
   users?: Maybe<UserMutation>;
-};
+}
 
-export type NavigationConfig = {
+export interface NavigationConfig {
   mode: NavigationMode;
-};
+}
 
-export type NavigationItem = {
+export interface NavigationItem {
   icon?: Maybe<Scalars['String']['output']>;
   id: Scalars['String']['output'];
   kind: Scalars['String']['output'];
@@ -676,9 +640,9 @@ export type NavigationItem = {
   targetType?: Maybe<Scalars['String']['output']>;
   visibilityGroups?: Maybe<Array<Maybe<Scalars['Int']['output']>>>;
   visibilityMode?: Maybe<Scalars['String']['output']>;
-};
+}
 
-export type NavigationItemInput = {
+export interface NavigationItemInput {
   icon?: InputMaybe<Scalars['String']['input']>;
   id: Scalars['String']['input'];
   kind: Scalars['String']['input'];
@@ -687,46 +651,44 @@ export type NavigationItemInput = {
   targetType?: InputMaybe<Scalars['String']['input']>;
   visibilityGroups?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
   visibilityMode?: InputMaybe<Scalars['String']['input']>;
-};
+}
 
 export enum NavigationMode {
   Mixed = 'MIXED',
   None = 'NONE',
   Static = 'STATIC',
-  Tree = 'TREE'
+  Tree = 'TREE',
 }
 
-export type NavigationMutation = {
+export interface NavigationMutation {
   updateConfig?: Maybe<DefaultResponse>;
   updateTree?: Maybe<DefaultResponse>;
-};
+}
 
-
-export type NavigationMutationUpdateConfigArgs = {
+export interface NavigationMutationUpdateConfigArgs {
   mode: NavigationMode;
-};
+}
 
-
-export type NavigationMutationUpdateTreeArgs = {
+export interface NavigationMutationUpdateTreeArgs {
   tree: Array<InputMaybe<NavigationTreeInput>>;
-};
+}
 
-export type NavigationQuery = {
+export interface NavigationQuery {
   config: NavigationConfig;
   tree: Array<Maybe<NavigationTree>>;
-};
+}
 
-export type NavigationTree = {
+export interface NavigationTree {
   items: Array<Maybe<NavigationItem>>;
   locale: Scalars['String']['output'];
-};
+}
 
-export type NavigationTreeInput = {
+export interface NavigationTreeInput {
   items: Array<InputMaybe<NavigationItemInput>>;
   locale: Scalars['String']['input'];
-};
+}
 
-export type Page = {
+export interface Page {
   authorEmail: Scalars['String']['output'];
   authorId: Scalars['Int']['output'];
   authorName: Scalars['String']['output'];
@@ -754,9 +716,9 @@ export type Page = {
   title: Scalars['String']['output'];
   toc?: Maybe<Scalars['String']['output']>;
   updatedAt: Scalars['Date']['output'];
-};
+}
 
-export type PageConflictLatest = {
+export interface PageConflictLatest {
   authorId: Scalars['String']['output'];
   authorName: Scalars['String']['output'];
   content: Scalars['String']['output'];
@@ -769,9 +731,9 @@ export type PageConflictLatest = {
   tags?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   title: Scalars['String']['output'];
   updatedAt: Scalars['Date']['output'];
-};
+}
 
-export type PageHistory = {
+export interface PageHistory {
   actionType: Scalars['String']['output'];
   authorId: Scalars['Int']['output'];
   authorName: Scalars['String']['output'];
@@ -780,21 +742,21 @@ export type PageHistory = {
   version?: Maybe<Scalars['String']['output']>;
   versionDate: Scalars['Date']['output'];
   versionId: Scalars['Int']['output'];
-};
+}
 
-export type PageHistoryResult = {
+export interface PageHistoryResult {
   total: Scalars['Int']['output'];
   trail?: Maybe<Array<Maybe<PageHistory>>>;
-};
+}
 
-export type PageLinkItem = {
+export interface PageLinkItem {
   id: Scalars['Int']['output'];
   links: Array<Maybe<Scalars['String']['output']>>;
   path: Scalars['String']['output'];
   title: Scalars['String']['output'];
-};
+}
 
-export type PageListItem = {
+export interface PageListItem {
   category?: Maybe<Scalars['String']['output']>;
   content?: Maybe<Scalars['String']['output']>;
   contentType: Scalars['String']['output'];
@@ -810,9 +772,9 @@ export type PageListItem = {
   tags?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   title?: Maybe<Scalars['String']['output']>;
   updatedAt: Scalars['Date']['output'];
-};
+}
 
-export type PageMenuItem = {
+export interface PageMenuItem {
   category?: Maybe<Scalars['String']['output']>;
   contentType: Scalars['String']['output'];
   description?: Maybe<Scalars['String']['output']>;
@@ -825,14 +787,14 @@ export type PageMenuItem = {
   privateNS?: Maybe<Scalars['String']['output']>;
   tags?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   title?: Maybe<Scalars['String']['output']>;
-};
+}
 
-export type PageMigrationResponse = {
+export interface PageMigrationResponse {
   count?: Maybe<Scalars['Int']['output']>;
   responseResult: ResponseStatus;
-};
+}
 
-export type PageMutation = {
+export interface PageMutation {
   convert?: Maybe<DefaultResponse>;
   create?: Maybe<PageResponse>;
   delete?: Maybe<DefaultResponse>;
@@ -848,16 +810,14 @@ export type PageMutation = {
   sort?: Maybe<PageResponse>;
   update?: Maybe<PageResponse>;
   updateTag?: Maybe<DefaultResponse>;
-};
+}
 
-
-export type PageMutationConvertArgs = {
+export interface PageMutationConvertArgs {
   editor: Scalars['String']['input'];
   id: Scalars['Int']['input'];
-};
+}
 
-
-export type PageMutationCreateArgs = {
+export interface PageMutationCreateArgs {
   content: Scalars['String']['input'];
   description: Scalars['String']['input'];
   editor: Scalars['String']['input'];
@@ -872,61 +832,51 @@ export type PageMutationCreateArgs = {
   tags: Array<InputMaybe<Scalars['String']['input']>>;
   title: Scalars['String']['input'];
   version?: InputMaybe<Scalars['String']['input']>;
-};
+}
 
-
-export type PageMutationDeleteArgs = {
+export interface PageMutationDeleteArgs {
   id: Scalars['Int']['input'];
-};
+}
 
-
-export type PageMutationDeleteTagArgs = {
+export interface PageMutationDeleteTagArgs {
   id: Scalars['Int']['input'];
-};
+}
 
-
-export type PageMutationMigrateToLocaleArgs = {
+export interface PageMutationMigrateToLocaleArgs {
   sourceLocale: Scalars['String']['input'];
   targetLocale: Scalars['String']['input'];
-};
+}
 
-
-export type PageMutationMoveArgs = {
+export interface PageMutationMoveArgs {
   destinationLocale: Scalars['String']['input'];
   destinationPath: Scalars['String']['input'];
   id: Scalars['Int']['input'];
-};
+}
 
-
-export type PageMutationPurgeHistoryArgs = {
+export interface PageMutationPurgeHistoryArgs {
   olderThan: Scalars['String']['input'];
-};
+}
 
-
-export type PageMutationRemoveHistoryArgs = {
+export interface PageMutationRemoveHistoryArgs {
   pageId: Scalars['Int']['input'];
   versionId: Scalars['Int']['input'];
-};
+}
 
-
-export type PageMutationRenderArgs = {
+export interface PageMutationRenderArgs {
   id: Scalars['Int']['input'];
-};
+}
 
-
-export type PageMutationRestoreArgs = {
+export interface PageMutationRestoreArgs {
   pageId: Scalars['Int']['input'];
   versionId: Scalars['Int']['input'];
-};
+}
 
-
-export type PageMutationSortArgs = {
+export interface PageMutationSortArgs {
   id: Array<InputMaybe<Scalars['Int']['input']>>;
   sortNo: Array<InputMaybe<Scalars['Int']['input']>>;
-};
+}
 
-
-export type PageMutationUpdateArgs = {
+export interface PageMutationUpdateArgs {
   content?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
   editor?: InputMaybe<Scalars['String']['input']>;
@@ -942,29 +892,28 @@ export type PageMutationUpdateArgs = {
   tags?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   title?: InputMaybe<Scalars['String']['input']>;
   version?: InputMaybe<Scalars['String']['input']>;
-};
+}
 
-
-export type PageMutationUpdateTagArgs = {
+export interface PageMutationUpdateTagArgs {
   id: Scalars['Int']['input'];
   tag: Scalars['String']['input'];
   title: Scalars['String']['input'];
-};
+}
 
 export enum PageOrderBy {
   Created = 'CREATED',
   Id = 'ID',
   Path = 'PATH',
   Title = 'TITLE',
-  Updated = 'UPDATED'
+  Updated = 'UPDATED',
 }
 
 export enum PageOrderByDirection {
   Asc = 'ASC',
-  Desc = 'DESC'
+  Desc = 'DESC',
 }
 
-export type PageQuery = {
+export interface PageQuery {
   checkConflicts: Scalars['Boolean']['output'];
   conflictLatest: PageConflictLatest;
   history?: Maybe<PageHistoryResult>;
@@ -978,34 +927,29 @@ export type PageQuery = {
   tags: Array<Maybe<PageTag>>;
   tree?: Maybe<Array<Maybe<PageTreeItem>>>;
   version?: Maybe<PageVersion>;
-};
+}
 
-
-export type PageQueryCheckConflictsArgs = {
+export interface PageQueryCheckConflictsArgs {
   checkoutDate: Scalars['Date']['input'];
   id: Scalars['Int']['input'];
-};
+}
 
-
-export type PageQueryConflictLatestArgs = {
+export interface PageQueryConflictLatestArgs {
   id: Scalars['Int']['input'];
-};
+}
 
-
-export type PageQueryHistoryArgs = {
+export interface PageQueryHistoryArgs {
   getLatest?: InputMaybe<Scalars['Boolean']['input']>;
   id: Scalars['Int']['input'];
   offsetPage?: InputMaybe<Scalars['Int']['input']>;
   offsetSize?: InputMaybe<Scalars['Int']['input']>;
-};
+}
 
-
-export type PageQueryLinksArgs = {
+export interface PageQueryLinksArgs {
   locale: Scalars['String']['input'];
-};
+}
 
-
-export type PageQueryListArgs = {
+export interface PageQueryListArgs {
   authorId?: InputMaybe<Scalars['Int']['input']>;
   creatorId?: InputMaybe<Scalars['Int']['input']>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -1013,19 +957,17 @@ export type PageQueryListArgs = {
   orderBy?: InputMaybe<PageOrderBy>;
   orderByDirection?: InputMaybe<PageOrderByDirection>;
   tags?: InputMaybe<Array<Scalars['String']['input']>>;
-};
+}
 
-
-export type PageQueryMenuArgs = {
+export interface PageQueryMenuArgs {
   limit?: InputMaybe<Scalars['Int']['input']>;
   locale?: InputMaybe<Scalars['String']['input']>;
   orderBy?: InputMaybe<PageOrderBy>;
   orderByDirection?: InputMaybe<PageOrderByDirection>;
   tags: Array<Scalars['String']['input']>;
-};
+}
 
-
-export type PageQuerySearchArgs = {
+export interface PageQuerySearchArgs {
   category?: InputMaybe<Scalars['String']['input']>;
   inCategory?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   locale?: InputMaybe<Scalars['String']['input']>;
@@ -1035,96 +977,91 @@ export type PageQuerySearchArgs = {
   path?: InputMaybe<Scalars['String']['input']>;
   query: Scalars['String']['input'];
   size?: InputMaybe<Scalars['Int']['input']>;
-};
+}
 
-
-export type PageQuerySearchTagsArgs = {
+export interface PageQuerySearchTagsArgs {
   query: Scalars['String']['input'];
-};
+}
 
-
-export type PageQuerySingleArgs = {
+export interface PageQuerySingleArgs {
   id: Scalars['Int']['input'];
-};
+}
 
-
-export type PageQuerySingleByPathArgs = {
+export interface PageQuerySingleByPathArgs {
   locale: Scalars['String']['input'];
   path: Scalars['String']['input'];
-};
+}
 
-
-export type PageQueryTreeArgs = {
+export interface PageQueryTreeArgs {
   depth?: InputMaybe<Scalars['Int']['input']>;
   includeAncestors?: InputMaybe<Scalars['Boolean']['input']>;
   locale: Scalars['String']['input'];
   mode: PageTreeMode;
   parent?: InputMaybe<Scalars['Int']['input']>;
   path?: InputMaybe<Scalars['String']['input']>;
-};
+}
 
-
-export type PageQueryVersionArgs = {
+export interface PageQueryVersionArgs {
   pageId: Scalars['Int']['input'];
   versionId: Scalars['Int']['input'];
-};
+}
 
-export type PageResponse = {
+export interface PageResponse {
   page?: Maybe<Page>;
   responseResult: ResponseStatus;
-};
+}
 
-export type PageRule = {
+export interface PageRule {
   deny: Scalars['Boolean']['output'];
   id: Scalars['String']['output'];
   locales: Array<Maybe<Scalars['String']['output']>>;
   match: PageRuleMatch;
   path: Scalars['String']['output'];
   roles: Array<Maybe<Scalars['String']['output']>>;
-};
+}
 
-export type PageRuleInput = {
+export interface PageRuleInput {
   deny: Scalars['Boolean']['input'];
   id: Scalars['String']['input'];
   locales: Array<InputMaybe<Scalars['String']['input']>>;
   match: PageRuleMatch;
   path: Scalars['String']['input'];
   roles: Array<InputMaybe<Scalars['String']['input']>>;
-};
+}
 
 export enum PageRuleMatch {
   End = 'END',
   Exact = 'EXACT',
   Regex = 'REGEX',
   Start = 'START',
-  Tag = 'TAG'
+  Tag = 'TAG',
 }
 
-export type PageSearchResponse = {
+export interface PageSearchResponse {
   description: Scalars['JSON']['output'];
   results: Scalars['JSON']['output'];
   stats: Scalars['JSON']['output'];
   suggestions: Array<Maybe<Scalars['String']['output']>>;
   totalHits: Scalars['Int']['output'];
-};
+}
 
-export type PageSearchResult = {
+export interface PageSearchResult {
   description: Scalars['String']['output'];
   id: Scalars['String']['output'];
   locale: Scalars['String']['output'];
   path: Scalars['String']['output'];
   title: Scalars['String']['output'];
-};
+}
 
-export type PageTag = {
+export interface PageTag {
   createdAt: Scalars['Date']['output'];
   id: Scalars['Int']['output'];
   tag: Scalars['String']['output'];
   title?: Maybe<Scalars['String']['output']>;
   updatedAt: Scalars['Date']['output'];
-};
+}
 
-export type PageTreeItem = {
+export interface PageTreeItem {
   depth: Scalars['Int']['output'];
   id: Scalars['Int']['output'];
   isFolder: Scalars['Boolean']['output'];
@@ -1136,17 +1073,17 @@ export type PageTreeItem = {
   privateNS?: Maybe<Scalars['String']['output']>;
   sortNo: Scalars['Int']['output'];
   title: Scalars['String']['output'];
-};
+}
 
 export enum PageTreeMode {
   All = 'ALL',
   Folders = 'FOLDERS',
   Hierarchy = 'HIERARCHY',
   Like = 'LIKE',
-  Pages = 'PAGES'
+  Pages = 'PAGES',
 }
 
-export type PageVersion = {
+export interface PageVersion {
   action: Scalars['String']['output'];
   authorId: Scalars['String']['output'];
   authorName: Scalars['String']['output'];
@@ -1167,10 +1104,10 @@ export type PageVersion = {
   version?: Maybe<Scalars['String']['output']>;
   versionDate: Scalars['Date']['output'];
   versionId: Scalars['Int']['output'];
-};
+}
 
 /** Query (Read) */
-export type Query = {
+export interface Query {
   analytics?: Maybe<AnalyticsQuery>;
   assets?: Maybe<AssetQuery>;
   authentication?: Maybe<AuthenticationQuery>;
@@ -1189,9 +1126,9 @@ export type Query = {
   system?: Maybe<SystemQuery>;
   theming?: Maybe<ThemingQuery>;
   users?: Maybe<UserQuery>;
-};
+}
 
-export type Renderer = {
+export interface Renderer {
   config?: Maybe<Array<Maybe<KeyValuePair>>>;
   dependsOn?: Maybe<Scalars['String']['output']>;
   description?: Maybe<Scalars['String']['output']>;
@@ -1201,42 +1138,40 @@ export type Renderer = {
   key: Scalars['String']['output'];
   output?: Maybe<Scalars['String']['output']>;
   title: Scalars['String']['output'];
-};
+}
 
-export type RendererInput = {
+export interface RendererInput {
   config?: InputMaybe<Array<InputMaybe<KeyValuePairInput>>>;
   isEnabled: Scalars['Boolean']['input'];
   key: Scalars['String']['input'];
-};
+}
 
-export type RenderingMutation = {
+export interface RenderingMutation {
   updateRenderers?: Maybe<DefaultResponse>;
-};
+}
 
-
-export type RenderingMutationUpdateRenderersArgs = {
+export interface RenderingMutationUpdateRenderersArgs {
   renderers?: InputMaybe<Array<InputMaybe<RendererInput>>>;
-};
+}
 
-export type RenderingQuery = {
+export interface RenderingQuery {
   renderers?: Maybe<Array<Maybe<Renderer>>>;
-};
+}
 
-
-export type RenderingQueryRenderersArgs = {
+export interface RenderingQueryRenderersArgs {
   filter?: InputMaybe<Scalars['String']['input']>;
   orderBy?: InputMaybe<Scalars['String']['input']>;
-};
+}
 
 /** Mutation Status */
-export type ResponseStatus = {
+export interface ResponseStatus {
   errorCode: Scalars['Int']['output'];
   message?: Maybe<Scalars['String']['output']>;
   slug: Scalars['String']['output'];
   succeeded: Scalars['Boolean']['output'];
-};
+}
 
-export type SearchEngine = {
+export interface SearchEngine {
   config?: Maybe<Array<Maybe<KeyValuePair>>>;
   description?: Maybe<Scalars['String']['output']>;
   isAvailable?: Maybe<Scalars['Boolean']['output']>;
@@ -1245,35 +1180,33 @@ export type SearchEngine = {
   logo?: Maybe<Scalars['String']['output']>;
   title: Scalars['String']['output'];
   website?: Maybe<Scalars['String']['output']>;
-};
+}
 
-export type SearchEngineInput = {
+export interface SearchEngineInput {
   config?: InputMaybe<Array<InputMaybe<KeyValuePairInput>>>;
   isEnabled: Scalars['Boolean']['input'];
   key: Scalars['String']['input'];
-};
+}
 
-export type SearchMutation = {
+export interface SearchMutation {
   rebuildIndex?: Maybe<DefaultResponse>;
   updateSearchEngines?: Maybe<DefaultResponse>;
-};
+}
 
-
-export type SearchMutationUpdateSearchEnginesArgs = {
+export interface SearchMutationUpdateSearchEnginesArgs {
   engines?: InputMaybe<Array<InputMaybe<SearchEngineInput>>>;
-};
+}
 
-export type SearchQuery = {
+export interface SearchQuery {
   searchEngines?: Maybe<Array<Maybe<SearchEngine>>>;
-};
+}
 
-
-export type SearchQuerySearchEnginesArgs = {
+export interface SearchQuerySearchEnginesArgs {
   filter?: InputMaybe<Scalars['String']['input']>;
   orderBy?: InputMaybe<Scalars['String']['input']>;
-};
+}
 
-export type SiteConfig = {
+export interface SiteConfig {
   analyticsId?: Maybe<Scalars['String']['output']>;
   analyticsService?: Maybe<Scalars['String']['output']>;
   authAutoLogin?: Maybe<Scalars['Boolean']['output']>;
@@ -1315,14 +1248,13 @@ export type SiteConfig = {
   uploadMaxFileSize?: Maybe<Scalars['Int']['output']>;
   uploadMaxFiles?: Maybe<Scalars['Int']['output']>;
   uploadScanSVG?: Maybe<Scalars['Boolean']['output']>;
-};
+}
 
-export type SiteMutation = {
+export interface SiteMutation {
   updateConfig?: Maybe<DefaultResponse>;
-};
+}
 
-
-export type SiteMutationUpdateConfigArgs = {
+export interface SiteMutationUpdateConfigArgs {
   analyticsId?: InputMaybe<Scalars['String']['input']>;
   analyticsService?: InputMaybe<Scalars['String']['input']>;
   authAutoLogin?: InputMaybe<Scalars['Boolean']['input']>;
@@ -1364,42 +1296,40 @@ export type SiteMutationUpdateConfigArgs = {
   uploadMaxFileSize?: InputMaybe<Scalars['Int']['input']>;
   uploadMaxFiles?: InputMaybe<Scalars['Int']['input']>;
   uploadScanSVG?: InputMaybe<Scalars['Boolean']['input']>;
-};
+}
 
-export type SiteQuery = {
+export interface SiteQuery {
   config?: Maybe<SiteConfig>;
-};
+}
 
-export type StorageMutation = {
+export interface StorageMutation {
   executeAction?: Maybe<DefaultResponse>;
   updateTargets?: Maybe<DefaultResponse>;
-};
+}
 
-
-export type StorageMutationExecuteActionArgs = {
+export interface StorageMutationExecuteActionArgs {
   handler: Scalars['String']['input'];
   targetKey: Scalars['String']['input'];
-};
+}
 
-
-export type StorageMutationUpdateTargetsArgs = {
+export interface StorageMutationUpdateTargetsArgs {
   targets: Array<InputMaybe<StorageTargetInput>>;
-};
+}
 
-export type StorageQuery = {
+export interface StorageQuery {
   status?: Maybe<Array<Maybe<StorageStatus>>>;
   targets?: Maybe<Array<Maybe<StorageTarget>>>;
-};
+}
 
-export type StorageStatus = {
+export interface StorageStatus {
   key: Scalars['String']['output'];
   lastAttempt: Scalars['String']['output'];
   message: Scalars['String']['output'];
   status: Scalars['String']['output'];
   title: Scalars['String']['output'];
-};
+}
 
-export type StorageTarget = {
+export interface StorageTarget {
   actions?: Maybe<Array<Maybe<StorageTargetAction>>>;
   config?: Maybe<Array<Maybe<KeyValuePair>>>;
   description?: Maybe<Scalars['String']['output']>;
@@ -1414,72 +1344,72 @@ export type StorageTarget = {
   syncIntervalDefault?: Maybe<Scalars['String']['output']>;
   title: Scalars['String']['output'];
   website?: Maybe<Scalars['String']['output']>;
-};
+}
 
-export type StorageTargetAction = {
+export interface StorageTargetAction {
   handler: Scalars['String']['output'];
   hint: Scalars['String']['output'];
   label: Scalars['String']['output'];
-};
+}
 
-export type StorageTargetInput = {
+export interface StorageTargetInput {
   config?: InputMaybe<Array<InputMaybe<KeyValuePairInput>>>;
   isEnabled: Scalars['Boolean']['input'];
   key: Scalars['String']['input'];
   mode: Scalars['String']['input'];
   syncInterval?: InputMaybe<Scalars['String']['input']>;
-};
+}
 
 /** Subscriptions (Push, Real-time) */
-export type Subscription = {
+export interface Subscription {
   loggingLiveTrail?: Maybe<LoggerTrailLine>;
-};
+}
 
-export type SystemExportStatus = {
+export interface SystemExportStatus {
   message?: Maybe<Scalars['String']['output']>;
   progress?: Maybe<Scalars['Int']['output']>;
   startedAt?: Maybe<Scalars['Date']['output']>;
   status?: Maybe<Scalars['String']['output']>;
-};
+}
 
-export type SystemExtension = {
+export interface SystemExtension {
   description: Scalars['String']['output'];
   isCompatible: Scalars['Boolean']['output'];
   isInstalled: Scalars['Boolean']['output'];
   key: Scalars['String']['output'];
   title: Scalars['String']['output'];
-};
+}
 
-export type SystemFlag = {
+export interface SystemFlag {
   key: Scalars['String']['output'];
   value: Scalars['Boolean']['output'];
-};
+}
 
-export type SystemFlagInput = {
+export interface SystemFlagInput {
   key: Scalars['String']['input'];
   value: Scalars['Boolean']['input'];
-};
+}
 
 export enum SystemImportUsersGroupMode {
   Multi = 'MULTI',
   None = 'NONE',
-  Single = 'SINGLE'
+  Single = 'SINGLE',
 }
 
-export type SystemImportUsersResponse = {
+export interface SystemImportUsersResponse {
   failed?: Maybe<Array<Maybe<SystemImportUsersResponseFailed>>>;
   groupsCount?: Maybe<Scalars['Int']['output']>;
   responseResult?: Maybe<ResponseStatus>;
   usersCount?: Maybe<Scalars['Int']['output']>;
-};
+}
 
-export type SystemImportUsersResponseFailed = {
+export interface SystemImportUsersResponseFailed {
   email?: Maybe<Scalars['String']['output']>;
   error?: Maybe<Scalars['String']['output']>;
   provider?: Maybe<Scalars['String']['output']>;
-};
+}
 
-export type SystemInfo = {
+export interface SystemInfo {
   configFile?: Maybe<Scalars['String']['output']>;
   cpuCores?: Maybe<Scalars['Int']['output']>;
   currentVersion?: Maybe<Scalars['String']['output']>;
@@ -1509,9 +1439,9 @@ export type SystemInfo = {
   upgradeCapable?: Maybe<Scalars['Boolean']['output']>;
   usersTotal?: Maybe<Scalars['Int']['output']>;
   workingDirectory?: Maybe<Scalars['String']['output']>;
-};
+}
 
-export type SystemMutation = {
+export interface SystemMutation {
   export?: Maybe<DefaultResponse>;
   importUsersFromV1?: Maybe<SystemImportUsersResponse>;
   performUpgrade?: Maybe<DefaultResponse>;
@@ -1520,43 +1450,38 @@ export type SystemMutation = {
   setHTTPSRedirection?: Maybe<DefaultResponse>;
   setTelemetry?: Maybe<DefaultResponse>;
   updateFlags?: Maybe<DefaultResponse>;
-};
+}
 
-
-export type SystemMutationExportArgs = {
+export interface SystemMutationExportArgs {
   entities: Array<InputMaybe<Scalars['String']['input']>>;
   path: Scalars['String']['input'];
-};
+}
 
-
-export type SystemMutationImportUsersFromV1Args = {
+export interface SystemMutationImportUsersFromV1Args {
   groupMode: SystemImportUsersGroupMode;
   mongoDbConnString: Scalars['String']['input'];
-};
+}
 
-
-export type SystemMutationSetHttpsRedirectionArgs = {
+export interface SystemMutationSetHttpsRedirectionArgs {
   enabled: Scalars['Boolean']['input'];
-};
+}
 
-
-export type SystemMutationSetTelemetryArgs = {
+export interface SystemMutationSetTelemetryArgs {
   enabled: Scalars['Boolean']['input'];
-};
+}
 
-
-export type SystemMutationUpdateFlagsArgs = {
+export interface SystemMutationUpdateFlagsArgs {
   flags: Array<InputMaybe<SystemFlagInput>>;
-};
+}
 
-export type SystemQuery = {
+export interface SystemQuery {
   exportStatus?: Maybe<SystemExportStatus>;
   extensions?: Maybe<Array<Maybe<SystemExtension>>>;
   flags?: Maybe<Array<Maybe<SystemFlag>>>;
   info?: Maybe<SystemInfo>;
-};
+}
 
-export type ThemingConfig = {
+export interface ThemingConfig {
   darkMode: Scalars['Boolean']['output'];
   iconset: Scalars['String']['output'];
   injectBody?: Maybe<Scalars['String']['output']>;
@@ -1564,14 +1489,13 @@ export type ThemingConfig = {
   injectHead?: Maybe<Scalars['String']['output']>;
   theme: Scalars['String']['output'];
   tocPosition?: Maybe<Scalars['String']['output']>;
-};
+}
 
-export type ThemingMutation = {
+export interface ThemingMutation {
   setConfig?: Maybe<DefaultResponse>;
-};
+}
 
-
-export type ThemingMutationSetConfigArgs = {
+export interface ThemingMutationSetConfigArgs {
   darkMode: Scalars['Boolean']['input'];
   iconset: Scalars['String']['input'];
   injectBody?: InputMaybe<Scalars['String']['input']>;
@@ -1579,25 +1503,25 @@ export type ThemingMutationSetConfigArgs = {
   injectHead?: InputMaybe<Scalars['String']['input']>;
   theme: Scalars['String']['input'];
   tocPosition?: InputMaybe<Scalars['String']['input']>;
-};
+}
 
-export type ThemingQuery = {
+export interface ThemingQuery {
   config?: Maybe<ThemingConfig>;
   themes?: Maybe<Array<Maybe<ThemingTheme>>>;
-};
+}
 
-export type ThemingTheme = {
+export interface ThemingTheme {
   author?: Maybe<Scalars['String']['output']>;
   key?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
-};
+}
 
-export type Translation = {
+export interface Translation {
   key: Scalars['String']['output'];
   value: Scalars['String']['output'];
-};
+}
 
-export type User = {
+export interface User {
   appearance: Scalars['String']['output'];
   createdAt: Scalars['Date']['output'];
   dateFormat: Scalars['String']['output'];
@@ -1618,15 +1542,15 @@ export type User = {
   tfaIsActive: Scalars['Boolean']['output'];
   timezone: Scalars['String']['output'];
   updatedAt: Scalars['Date']['output'];
-};
+}
 
-export type UserLastLogin = {
+export interface UserLastLogin {
   id: Scalars['Int']['output'];
   lastLoginAt: Scalars['Date']['output'];
   name: Scalars['String']['output'];
-};
+}
 
-export type UserMinimal = {
+export interface UserMinimal {
   createdAt: Scalars['Date']['output'];
   email: Scalars['String']['output'];
   id: Scalars['Int']['output'];
@@ -1635,9 +1559,9 @@ export type UserMinimal = {
   lastLoginAt?: Maybe<Scalars['Date']['output']>;
   name: Scalars['String']['output'];
   providerKey: Scalars['String']['output'];
-};
+}
 
-export type UserMutation = {
+export interface UserMutation {
   activate?: Maybe<DefaultResponse>;
   changePassword?: Maybe<UserTokenResponse>;
   create?: Maybe<UserResponse>;
@@ -1649,21 +1573,18 @@ export type UserMutation = {
   update?: Maybe<DefaultResponse>;
   updateProfile?: Maybe<UserTokenResponse>;
   verify?: Maybe<DefaultResponse>;
-};
+}
 
-
-export type UserMutationActivateArgs = {
+export interface UserMutationActivateArgs {
   id: Scalars['Int']['input'];
-};
+}
 
-
-export type UserMutationChangePasswordArgs = {
+export interface UserMutationChangePasswordArgs {
   current: Scalars['String']['input'];
   new: Scalars['String']['input'];
-};
+}
 
-
-export type UserMutationCreateArgs = {
+export interface UserMutationCreateArgs {
   email: Scalars['String']['input'];
   groups: Array<InputMaybe<Scalars['Int']['input']>>;
   mustChangePassword?: InputMaybe<Scalars['Boolean']['input']>;
@@ -1671,36 +1592,30 @@ export type UserMutationCreateArgs = {
   passwordRaw?: InputMaybe<Scalars['String']['input']>;
   providerKey: Scalars['String']['input'];
   sendWelcomeEmail?: InputMaybe<Scalars['Boolean']['input']>;
-};
+}
 
-
-export type UserMutationDeactivateArgs = {
+export interface UserMutationDeactivateArgs {
   id: Scalars['Int']['input'];
-};
+}
 
-
-export type UserMutationDeleteArgs = {
+export interface UserMutationDeleteArgs {
   id: Scalars['Int']['input'];
   replaceId: Scalars['Int']['input'];
-};
+}
 
-
-export type UserMutationDisableTfaArgs = {
+export interface UserMutationDisableTfaArgs {
   id: Scalars['Int']['input'];
-};
+}
 
-
-export type UserMutationEnableTfaArgs = {
+export interface UserMutationEnableTfaArgs {
   id: Scalars['Int']['input'];
-};
+}
 
-
-export type UserMutationResetPasswordArgs = {
+export interface UserMutationResetPasswordArgs {
   id: Scalars['Int']['input'];
-};
+}
 
-
-export type UserMutationUpdateArgs = {
+export interface UserMutationUpdateArgs {
   appearance?: InputMaybe<Scalars['String']['input']>;
   dateFormat?: InputMaybe<Scalars['String']['input']>;
   email?: InputMaybe<Scalars['String']['input']>;
@@ -1711,24 +1626,22 @@ export type UserMutationUpdateArgs = {
   name?: InputMaybe<Scalars['String']['input']>;
   newPassword?: InputMaybe<Scalars['String']['input']>;
   timezone?: InputMaybe<Scalars['String']['input']>;
-};
+}
 
-
-export type UserMutationUpdateProfileArgs = {
+export interface UserMutationUpdateProfileArgs {
   appearance: Scalars['String']['input'];
   dateFormat: Scalars['String']['input'];
   jobTitle: Scalars['String']['input'];
   location: Scalars['String']['input'];
   name: Scalars['String']['input'];
   timezone: Scalars['String']['input'];
-};
+}
 
-
-export type UserMutationVerifyArgs = {
+export interface UserMutationVerifyArgs {
   id: Scalars['Int']['input'];
-};
+}
 
-export type UserProfile = {
+export interface UserProfile {
   appearance: Scalars['String']['output'];
   createdAt: Scalars['Date']['output'];
   dateFormat: Scalars['String']['output'];
@@ -1746,63 +1659,57 @@ export type UserProfile = {
   providerName?: Maybe<Scalars['String']['output']>;
   timezone: Scalars['String']['output'];
   updatedAt: Scalars['Date']['output'];
-};
+}
 
-export type UserQuery = {
+export interface UserQuery {
   lastLogins?: Maybe<Array<Maybe<UserLastLogin>>>;
   list?: Maybe<Array<Maybe<UserMinimal>>>;
   profile?: Maybe<UserProfile>;
   search?: Maybe<Array<Maybe<UserMinimal>>>;
   single?: Maybe<User>;
-};
+}
 
-
-export type UserQueryListArgs = {
+export interface UserQueryListArgs {
   filter?: InputMaybe<Scalars['String']['input']>;
   orderBy?: InputMaybe<Scalars['String']['input']>;
-};
+}
 
-
-export type UserQuerySearchArgs = {
+export interface UserQuerySearchArgs {
   query: Scalars['String']['input'];
-};
+}
 
-
-export type UserQuerySingleArgs = {
+export interface UserQuerySingleArgs {
   id: Scalars['Int']['input'];
-};
+}
 
-export type UserResponse = {
+export interface UserResponse {
   responseResult: ResponseStatus;
   user?: Maybe<User>;
-};
+}
 
-export type UserTokenResponse = {
+export interface UserTokenResponse {
   jwt?: Maybe<Scalars['String']['output']>;
   responseResult: ResponseStatus;
-};
+}
 
-export type GetPageByPathQuery_pages_PageQuery_singleByPath_Page = { id: number, title: string, content: string, updatedAt: any, description: string };
+export interface GetPageByPathQuery_pages_PageQuery_singleByPath_Page { id: number; title: string; content: string; updatedAt: any; description: string }
 
-export type GetPageByPathQuery_pages_PageQuery = { singleByPath?: GetPageByPathQuery_pages_PageQuery_singleByPath_Page | null };
+export interface GetPageByPathQuery_pages_PageQuery { singleByPath?: GetPageByPathQuery_pages_PageQuery_singleByPath_Page | null }
 
-export type GetPageByPathQuery_Query = { pages?: GetPageByPathQuery_pages_PageQuery | null };
-
+export interface GetPageByPathQuery_Query { pages?: GetPageByPathQuery_pages_PageQuery | null }
 
 export type GetPageByPathQueryVariables = Exact<{
   path: Scalars['String']['input'];
   locale: Scalars['String']['input'];
 }>;
 
-
 export type GetPageByPathQuery = GetPageByPathQuery_Query;
 
-export type LeftNavigationBarTreeQuery_pages_PageQuery_tree_PageTreeItem = { id: number, path: string, depth: number, title: string, isPrivate: boolean, isFolder: boolean, privateNS?: string | null, parent?: number | null, pageId?: number | null, locale: string };
+export interface LeftNavigationBarTreeQuery_pages_PageQuery_tree_PageTreeItem { id: number; path: string; depth: number; title: string; isPrivate: boolean; isFolder: boolean; privateNS?: string | null; parent?: number | null; pageId?: number | null; locale: string }
 
-export type LeftNavigationBarTreeQuery_pages_PageQuery = { tree?: Array<LeftNavigationBarTreeQuery_pages_PageQuery_tree_PageTreeItem | null> | null };
+export interface LeftNavigationBarTreeQuery_pages_PageQuery { tree?: Array<LeftNavigationBarTreeQuery_pages_PageQuery_tree_PageTreeItem | null> | null }
 
-export type LeftNavigationBarTreeQuery_Query = { pages?: LeftNavigationBarTreeQuery_pages_PageQuery | null };
-
+export interface LeftNavigationBarTreeQuery_Query { pages?: LeftNavigationBarTreeQuery_pages_PageQuery | null }
 
 export type LeftNavigationBarTreeQueryVariables = Exact<{
   path?: InputMaybe<Scalars['String']['input']>;
@@ -1810,29 +1717,25 @@ export type LeftNavigationBarTreeQueryVariables = Exact<{
   locale: Scalars['String']['input'];
 }>;
 
-
 export type LeftNavigationBarTreeQuery = LeftNavigationBarTreeQuery_Query;
 
-export type SearchByTagsQuery_pages_PageQuery_menu_PageMenuItem = { id: number, path: string, title?: string | null, category?: string | null };
+export interface SearchByTagsQuery_pages_PageQuery_menu_PageMenuItem { id: number; path: string; title?: string | null; category?: string | null }
 
-export type SearchByTagsQuery_pages_PageQuery = { menu: Array<SearchByTagsQuery_pages_PageQuery_menu_PageMenuItem> };
+export interface SearchByTagsQuery_pages_PageQuery { menu: Array<SearchByTagsQuery_pages_PageQuery_menu_PageMenuItem> }
 
-export type SearchByTagsQuery_Query = { pages?: SearchByTagsQuery_pages_PageQuery | null };
-
+export interface SearchByTagsQuery_Query { pages?: SearchByTagsQuery_pages_PageQuery | null }
 
 export type SearchByTagsQueryVariables = Exact<{
   tags: Array<Scalars['String']['input']> | Scalars['String']['input'];
 }>;
 
-
 export type SearchByTagsQuery = SearchByTagsQuery_Query;
 
-export type SearchPagesByKeywordQuery_pages_PageQuery_search_PageSearchResponse = { totalHits: number, results: any, description: any };
+export interface SearchPagesByKeywordQuery_pages_PageQuery_search_PageSearchResponse { totalHits: number; results: any }
 
-export type SearchPagesByKeywordQuery_pages_PageQuery = { search: SearchPagesByKeywordQuery_pages_PageQuery_search_PageSearchResponse };
+export interface SearchPagesByKeywordQuery_pages_PageQuery { search: SearchPagesByKeywordQuery_pages_PageQuery_search_PageSearchResponse }
 
-export type SearchPagesByKeywordQuery_Query = { pages?: SearchPagesByKeywordQuery_pages_PageQuery | null };
-
+export interface SearchPagesByKeywordQuery_Query { pages?: SearchPagesByKeywordQuery_pages_PageQuery | null }
 
 export type SearchPagesByKeywordQueryVariables = Exact<{
   query: Scalars['String']['input'];
@@ -1843,9 +1746,7 @@ export type SearchPagesByKeywordQueryVariables = Exact<{
   inCategory?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>>;
 }>;
 
-
 export type SearchPagesByKeywordQuery = SearchPagesByKeywordQuery_Query;
-
 
 export const GetPageByPathDocument = gql`
     query GetPageByPath($path: String!, $locale: String!) {
@@ -1903,12 +1804,11 @@ export const SearchPagesByKeywordDocument = gql`
     ) {
       totalHits
       results
-      description
     }
   }
 }
     `;
-export type Requester<C = {}> = <R, V>(doc: DocumentNode, vars?: V, options?: C) => Promise<R> | AsyncIterable<R>
+export type Requester<C = {}> = <R, V>(doc: DocumentNode, vars?: V, options?: C) => Promise<R> | AsyncIterable<R>;
 export function getSdk<C>(requester: Requester<C>) {
   return {
     GetPageByPath(variables: GetPageByPathQueryVariables, options?: C): Promise<GetPageByPathQuery> {
@@ -1922,7 +1822,7 @@ export function getSdk<C>(requester: Requester<C>) {
     },
     SearchPagesByKeyword(variables: SearchPagesByKeywordQueryVariables, options?: C): Promise<SearchPagesByKeywordQuery> {
       return requester<SearchPagesByKeywordQuery, SearchPagesByKeywordQueryVariables>(SearchPagesByKeywordDocument, variables, options) as Promise<SearchPagesByKeywordQuery>;
-    }
+    },
   };
 }
 export type Sdk = ReturnType<typeof getSdk>;

@@ -4,30 +4,35 @@ definePageMeta({
 });
 
 const { locale } = useI18n();
-const route = useRoute();
-const inputKeyword = ref<string>(route.query?.keyword?.toString() ?? '');
-const ipRef = useTemplateRef('ipRef');
-const size = 10;
-const page = ref(1);
-watch(() => route.query.keyword, (v) => {
-  inputKeyword.value = v?.toString() || '';
-  onSearch(inputKeyword.value);
-});
-
 const { SearchPagesByKeyword } = useGraphqlRequest();
+
+const route = useRoute();
+const searchKeyword = ref<string>(route.query?.keyword?.toString() ?? '');
+const ipRef = useTemplateRef('ipRef');
+const pageSize = 10;
+const currentPage = ref(Number(route.query?.page) ?? 1);
 
 const { data, execute } = await useAsyncData('search', () =>
   SearchPagesByKeyword({
     locale: locale.value,
-    query: inputKeyword.value || '',
-    page: 0,
-    size: 10,
+    query: searchKeyword.value || '',
+    page: (currentPage.value - 1) || 0,
+    size: pageSize,
     category: '',
-    inCategory: ['web'],
+    inCategory: ['', 'mobile', 'web', 'common', 'security', 'partners', 'PC_new', 'multi', 'mobile', 'mobile', 'web', 'Store', 'bubblyz', 'readme'],
+
   }));
 
+const totalPage = computed(() => Math.floor((data.value?.pages?.search?.totalHits ?? 0) / 10));
+
+watch(() => route.query, (v) => {
+  searchKeyword.value = v?.keyword?.toString() || '';
+  currentPage.value = Number(v?.page ?? 1) || 1;
+  execute();
+});
+
 function highlightMatchKeyword(fullText: string) {
-  const trimmedSearchInput = inputKeyword.value?.trim();
+  const trimmedSearchInput = searchKeyword.value?.trim();
 
   // If search input is empty, return the original string
   if (!trimmedSearchInput) {
@@ -48,7 +53,7 @@ function highlightMatchKeyword(fullText: string) {
 }
 
 const searchContentV2 = computed(() => {
-  const rs: any[] = data.value?.pages?.search?.results?.web ?? [];
+  const rs: any[] = Object.values(data.value?.pages?.search?.results)?.flat() ?? [];
   return rs.map(i => ({
     title: i.title,
     matched: highlightMatchKeyword(i.content),
@@ -58,7 +63,6 @@ const searchContentV2 = computed(() => {
 
 async function onSearch(keyword: string) {
   await navigateTo({ query: { keyword } });
-  execute();
   ipRef.value?.blur(); // TODO: add debounce improve UX
 }
 </script>
@@ -71,11 +75,11 @@ async function onSearch(keyword: string) {
       </h1>
       <input
         ref="ipRef"
-        v-model="inputKeyword"
+        v-model="searchKeyword"
         type="text"
         class="border-abd-base bg-abg-base mt-24 w-full md:w-600 rounded-full border py-16 pr-72 pl-20"
         placeholder="검색어를 입력하세요."
-        @keyup.enter="onSearch(inputKeyword)"
+        @keyup.enter="onSearch(searchKeyword)"
       >
     </div>
 
@@ -94,7 +98,13 @@ async function onSearch(keyword: string) {
     </div>
 
     <div class="mb-66 flex py-8">
-      <AppPagination class="mx-auto block" />
+      {{ totalPage }}
+      <AppPagination
+        :currentPage="currentPage"
+        :totalPages="totalPage"
+        class="mx-auto block"
+        @pageChange="navigateTo({ query: { ...$route.query, page: $event } })"
+      />
     </div>
   </main>
 </template>

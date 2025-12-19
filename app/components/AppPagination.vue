@@ -10,7 +10,7 @@ const props = withDefaults(defineProps<Props>(), {
   currentPage: 1,
   totalPages: 10,
   showFirstLast: true,
-  maxVisible: 5,
+  maxVisible: 10,
 });
 
 const emit = defineEmits<{
