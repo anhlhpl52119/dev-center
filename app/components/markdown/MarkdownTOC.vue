@@ -45,15 +45,15 @@ const tocItems = computed(() => {
   return items;
 });
 
-function scrollToHeading(anchor: string) {
-  nextTick(() => {
-    const element = document.getElementById(anchor);
-    if (element) {
-      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
-      window.scrollTo({ top: elementPosition - 100, behavior: 'smooth' });
-    }
-  });
-}
+// function scrollToHeading(anchor: string) {
+//   nextTick(() => {
+//     const element = document.getElementById(anchor);
+//     if (element) {
+//       const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+//       window.scrollTo({ top: elementPosition, behavior: 'smooth' });
+//     }
+//   });
+// }
 
 function updateActiveAnchors() {
   const headings = tocItems.value.map(item => document.getElementById(item.anchor)).filter(Boolean);
@@ -109,7 +109,7 @@ onUnmounted(() => {
             :to="`#${item.anchor}`"
             class="hover:text-primary font-medium cursor-pointer block transition-all duration-300"
             :class="{ 'text-primary': activeAnchors.includes(item.anchor) }"
-            @click="scrollToHeading(item.anchor)"
+            replace
           >
             {{ item.title }}
           </NuxtLink>
@@ -121,7 +121,7 @@ onUnmounted(() => {
               :to="`#${item.anchor}`"
               class="hover:text-primary font-normal cursor-pointer pl-16 block transition-all duration-300"
               :class="{ 'text-primary': activeAnchors.includes(item.anchor) }"
-              @click="scrollToHeading(item.anchor)"
+              replace
             >
               {{ item.title }}
             </NuxtLink>
