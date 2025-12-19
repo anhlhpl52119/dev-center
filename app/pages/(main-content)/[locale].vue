@@ -78,6 +78,15 @@ const lnb = computed<LNBModel[]>(() => {
     || [];
   return convertToTree(tree.filter(item => item.depth > 1));
 });
+
+onMounted(() => {
+  setTimeout(() => {
+    const element = document.querySelector(route.hash);
+    if (element) {
+      element.scrollIntoView();
+    }
+  }, 300); // TODO: improve later
+});
 </script>
 
 <template>

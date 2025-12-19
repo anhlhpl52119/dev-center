@@ -113,4 +113,17 @@
       }
     }
   }
+
+  blockquote {
+    @apply relative;
+    @apply py-12 pl-46 pr-16 my-16 bd-radius-16;
+    @apply bg-primary/8;
+    p {
+      @apply font-medium leading-30 text-primary;
+      @apply m-0;
+    }
+    strong {
+      @apply mx-2 font-bold text-inherit;
+    }
+  }
 }

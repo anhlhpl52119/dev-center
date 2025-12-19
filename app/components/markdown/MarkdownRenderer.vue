@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="js">
 import { alert } from '@mdit/plugin-alert';
 import { demo } from '@mdit/plugin-demo';
 import { tasklist } from '@mdit/plugin-tasklist';
@@ -6,17 +6,31 @@ import dayjs from 'dayjs';
 import DOMPurify from 'dompurify';
 import MarkdownIt from 'markdown-it';
 import Anchor from 'markdown-it-anchor';
-import replaceLink from 'markdown-it-replace-link';
+import MarkdownItAttrs from 'markdown-it-attrs';
+import MarkdownItContainer from 'markdown-it-container';
+import { full as emoji } from 'markdown-it-emoji';
+import Footnote from 'markdown-it-footnote';
+import ImageFiguresPlugin from 'markdown-it-image-figures';
+import MarkdownLinkAttributes from 'markdown-it-link-attributes';
+import MarkdownItMark from 'markdown-it-mark';
+
+// import MarkdownItMermaid from 'markdown-it-mermaid';
+import ReplaceLink from 'markdown-it-replace-link';
+import MarkdownItSub from 'markdown-it-sub';
+import MarkdownItSup from 'markdown-it-sup';
+import MarkdownItTextualUml from 'markdown-it-textual-uml';
+import MarkdownItTOC from 'markdown-it-toc-done-right';
+
 import AdmonitionPlugin from '@/lib/markdown-it-plugins/admonition';
 import ShikiCodeHighlightPlugin from '@/lib/markdown-it-plugins/shiki-code-highlight';
 import tableWrapperPlugin from '@/lib/markdown-it-plugins/table';
 
-const props = defineProps<{
-  content?: string;
-  description?: string;
-  heading?: string;
-  updatedAt: string;
-}>();
+const props = defineProps({
+  content: String,
+  description: String,
+  heading: String,
+  updatedAt: String,
+});
 
 const updateTime = computed(() => dayjs(props.updatedAt).format('YYYY.MM.DD 오후 hh:mm'));
 const { locale } = useI18n();
@@ -31,14 +45,17 @@ const md = new MarkdownIt({
   quotes: '“”‘’',
   xhtmlOut: true,
 })
+  .use(MarkdownItAttrs, {
+    allowedAttributes: ['id', 'class', 'target'],
+  })
   .use(AdmonitionPlugin)
   .use(tableWrapperPlugin)
   .use(Anchor, {
     // permalink: Anchor.permalink.headerLink(),
-    slugify: (s: string) => encodeURIComponent(s.trim().toLowerCase().replace(/\s+/g, '-')),
+    slugify: s => encodeURIComponent(s.trim().toLowerCase().replace(/\s+/g, '-')),
   })
-  .use(replaceLink, {
-    replaceLink: (link: string) => {
+  .use(ReplaceLink, {
+    replaceLink: (link) => {
       if (link.startsWith('http://') || link.startsWith('https://')) {
         return link;
       }
@@ -46,7 +63,7 @@ const md = new MarkdownIt({
       const articlePath = routes.fullPath.replace(/^\/(ko|en)\/docs\//, '/$1/');
 
       const allowedExtensions = ['.jpg', '.jpeg', '.png', '.webp', '.gif'];
-      const hasImgExtension = allowedExtensions.some((ext: string) =>
+      const hasImgExtension = allowedExtensions.some(ext =>
         link.toLowerCase().endsWith(ext),
       );
       if (hasImgExtension) {
@@ -70,6 +87,28 @@ const md = new MarkdownIt({
   .use(tasklist)
   .use(demo)
   .use(alert)
+  .use(MarkdownItMark)
+  .use(ImageFiguresPlugin, {
+    figcaption: true,
+    classes: 'md-zoom',
+  })
+  .use(emoji)
+  .use(MarkdownItSup)
+  .use(MarkdownItSub)
+  .use(Footnote)
+  .use(MarkdownItTextualUml)
+  .use(MarkdownItContainer)
+  .use(MarkdownItTOC)
+  .use(MarkdownLinkAttributes, {
+    matcher(href) {
+      return href.match(/^https?:\/\//);
+    },
+    attrs: {
+      class: 'is-external-link',
+      target: '_blank',
+      rel: 'noopener noreferrer',
+    },
+  })
   .use(ShikiCodeHighlightPlugin);
 
 const renderedContent = computed(() => {
