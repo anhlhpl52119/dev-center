@@ -2,6 +2,7 @@
 import { alert } from '@mdit/plugin-alert';
 import { demo } from '@mdit/plugin-demo';
 import { tasklist } from '@mdit/plugin-tasklist';
+import dayjs from 'dayjs';
 import DOMPurify from 'dompurify';
 import MarkdownIt from 'markdown-it';
 import Anchor from 'markdown-it-anchor';
@@ -17,6 +18,7 @@ const props = defineProps<{
   updatedAt: string;
 }>();
 
+const updateTime = computed(() => dayjs(props.updatedAt).format('YYYY.MM.DD 오후 hh:mm'));
 const { locale } = useI18n();
 const { highlightCodeBlocks } = useShikiHighlight();
 const routes = useRoute();
@@ -131,7 +133,7 @@ watch(() => props.content, () => {
       itemprop="lastUpdatedAt"
       class="text-quiet text-13 mt-20 text-right"
     >
-      {{ $t('common.last_update_at', { at: updatedAt }) }}
+      {{ $t('common.last_update_at', { at: updateTime }) }}
     </p>
   </article>
 </template>

@@ -81,11 +81,12 @@ onUnmounted(() => {
   <nav>
     <div class="flex items-center justify-between leading-24">
       <span class="text-15 font-bold">{{ title }}</span>
+
       <button
         aria-label="title of content"
         aria-describedby="Content Heading list"
         aria-pressed="false"
-        class="hover:bg-abd-active relative size-32 rounded-full bg-[#eff0f6] p-8"
+        class="hover:bg-abd-active relative size-32 rounded-full bg-abg-dimmed p-8"
       >
         <Icon
           name="svg:close-arrow-right"
@@ -94,7 +95,7 @@ onUnmounted(() => {
       </button>
     </div>
 
-    <ul class="text-quiet text-13 mt-6 leading-22">
+    <ul class="text-quiet text-13 mt-6 leading-22 tracking-[-0.025em]">
       <li
         v-for="item in tocItems"
         :key="item.anchor"
@@ -106,7 +107,7 @@ onUnmounted(() => {
         <template v-if="item.level <= 2">
           <NuxtLink
             :to="`#${item.anchor}`"
-            class="hover:text-primary cursor-pointer block py-2 pl-4 transition-all duration-300"
+            class="hover:text-primary cursor-pointer block transition-all duration-300"
             :class="{ 'text-primary': activeAnchors.includes(item.anchor) }"
             @click="scrollToHeading(item.anchor)"
           >
@@ -118,7 +119,7 @@ onUnmounted(() => {
           <div class="border-l-abd-base hover:border-l-primary border-l-1 py-4 transition-all duration-300">
             <NuxtLink
               :to="`#${item.anchor}`"
-              class="hover:text-primary cursor-pointer pl-16 block py-1 ml-4 transition-all duration-300"
+              class="hover:text-primary cursor-pointer pl-16 block transition-all duration-300"
               :class="{ 'text-primary': activeAnchors.includes(item.anchor) }"
               @click="scrollToHeading(item.anchor)"
             >
