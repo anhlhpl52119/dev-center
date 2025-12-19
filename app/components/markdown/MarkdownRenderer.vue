@@ -14,7 +14,6 @@ import ImageFiguresPlugin from 'markdown-it-image-figures';
 import MarkdownLinkAttributes from 'markdown-it-link-attributes';
 import MarkdownItMark from 'markdown-it-mark';
 
-// import MarkdownItMermaid from 'markdown-it-mermaid';
 import ReplaceLink from 'markdown-it-replace-link';
 import MarkdownItSub from 'markdown-it-sub';
 import MarkdownItSup from 'markdown-it-sup';
@@ -124,16 +123,75 @@ const renderedContent = computed(() => {
   return html;
 });
 
-// TODO: improve later
-onMounted(() => {
-  nextTick(() => {
-    highlightCodeBlocks();
+let globalObserver = null;
+
+function initTableShadows() {
+  // 1. Khởi tạo Observer
+  globalObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      const sentinel = entry.target;
+      // Tìm shadow tương ứng trong cùng một wrapper
+      const wrapper = sentinel.closest('[data-table-wrapper]');
+      if (!wrapper)
+        return;
+
+      const isLeft = sentinel.classList.contains('sentinel-l');
+      const shadow = isLeft
+        ? wrapper.querySelector('.shadow-l')
+        : wrapper.querySelector('.shadow-r');
+
+      if (shadow) {
+        // isIntersecting = true nghĩa là sentinel đang hiển thị (sát mép) -> ẩn shadow
+        // isIntersecting = false nghĩa là sentinel bị khuất (có thể cuộn) -> hiện shadow
+        shadow.style.opacity = entry.isIntersecting ? '0' : '1';
+      }
+    });
+  }, {
+    // Quan trọng: root là null sẽ quan sát dựa trên viewport,
+    // nhưng vì ta để sentinel bên trong overflow-x-auto,
+    // ta cần chỉ định root là container cha của nó.
   });
+
+  // 2. Đăng ký tất cả các bảng hiện có
+  const wrappers = document.querySelectorAll('[data-table-wrapper]');
+  wrappers.forEach((wrapper) => {
+    const container = wrapper.querySelector('.scroll-container');
+    const sentinels = wrapper.querySelectorAll('.sentinel-l, .sentinel-r');
+
+    // Tạo observer riêng cho từng container để check sự giao thoa nội bộ
+    const containerObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const isLeft = entry.target.classList.contains('sentinel-l');
+        const shadow = isLeft ? wrapper.querySelector('.shadow-l') : wrapper.querySelector('.shadow-r');
+        if (shadow)
+          shadow.style.opacity = entry.isIntersecting ? '0' : '1';
+      });
+    }, {
+      root: container, // Cực kỳ quan trọng để xử lý lỗi nhiều table
+      threshold: 0.9,
+    });
+
+    sentinels.forEach(s => containerObserver.observe(s));
+  });
+}
+
+onUnmounted(() => {
+  if (globalObserver) {
+    globalObserver.disconnect();
+  }
+});
+
+// TODO: improve later
+onMounted(async () => {
+  await nextTick();
+  highlightCodeBlocks();
+  initTableShadows();
 });
 
 watch(() => props.content, () => {
   nextTick(() => {
     highlightCodeBlocks();
+    initTableShadows();
   });
 });
 </script>

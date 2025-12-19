@@ -4,3 +4,11 @@
   @apply cursor-pointer transition-colors duration-200;
 }
 
+/* TODO: improve utility */
+.sentinel-shadow-right {
+  box-shadow: inset -15px 0 8px -8px --alpha(var(--color-black) / 10%);
+}
+
+.sentinel-shadow-left {
+  box-shadow: inset 15px 0 8px -8px --alpha(var(--color-black) / 10%);
+}
