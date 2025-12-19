@@ -98,7 +98,6 @@ async function onSearch(keyword: string) {
     </div>
 
     <div class="mb-66 flex py-8">
-      {{ totalPage }}
       <AppPagination
         :currentPage="currentPage"
         :totalPages="totalPage"
