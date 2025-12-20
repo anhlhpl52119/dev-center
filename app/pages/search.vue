@@ -86,7 +86,7 @@ async function onSearch(keyword: string) {
     <div class="mx-auto px-8 mt-40 grid max-w-1320 gap-16">
       <template v-for="(item, index) in searchContentV2" :key="index">
         <div
-          class="bg-abg-base outline-abd-base bd-radius-32 p-30 transition hover:shadow-sm hover:outline"
+          class="bg-abg-base outline-abd-base bd-radius-32 p-30 transition hover:base-shadow hover:outline"
           @click="navigateTo({ path: $localePath(`/${item.path}`) })"
         >
           <h2 class="text-20 mb-8 font-bold">

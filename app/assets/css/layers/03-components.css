@@ -6,9 +6,13 @@
 
 /* TODO: improve utility */
 .sentinel-shadow-right {
-  box-shadow: inset -15px 0 8px -8px --alpha(var(--color-black) / 10%);
+  box-shadow: inset -15px 0 8px -8px --alpha(var(--color-black) / 7%);
 }
 
 .sentinel-shadow-left {
-  box-shadow: inset 15px 0 8px -8px --alpha(var(--color-black) / 10%);
+  box-shadow: inset 15px 0 8px -8px --alpha(var(--color-black) / 7%);
+}
+
+.base-shadow {
+  box-shadow: 0px 4px 16px 0px hsla(228, 23%, 25%, 0.1);
 }

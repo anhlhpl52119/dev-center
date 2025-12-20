@@ -7,6 +7,9 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   typescript,
   runtimeConfig,
+  build: {
+    transpile: ['vaul-vue'],
+  },
   css: ['~/assets/css/main.css'],
   modules: ['@nuxt/icon', '@nuxtjs/i18n', 'floating-vue/nuxt'],
   vite: { plugins: [tailwindcss()] },

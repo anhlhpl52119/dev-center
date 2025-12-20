@@ -22,4 +22,5 @@ useSeoMeta({
   <NuxtLayout>
     <NuxtPage />
   </NuxtLayout>
+  <GlobalDrawer />
 </template>

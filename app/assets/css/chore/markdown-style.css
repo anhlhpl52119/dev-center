@@ -2,31 +2,43 @@
   /* Base korean typography text */
   /* TODO: Add others languages typography base style (eg: leading,....) */
   @apply text-14 text-quiet -tracking-[0.03em];
+  & > :first-child {
+    @apply mt-0!;
+  }
+
+  & > :last-child {
+    @apply mb-0!;
+  }
   
   /* Heading */
   h1 {
     @apply text-raised text-32 leading-44 font-bold;
-    @apply mb-8;
+    @apply mb-8 mt-40;
   }
   h2 {
     @apply text-raised text-20 leading-30 font-bold;
-    @apply mb-8;
+    @apply mb-8 mt-40;
   }
   h3 {
     @apply text-raised text-18 font-bold;
-    @apply mb-8;
+    @apply mb-8 mt-40;
   }
   h4 {
     @apply text-raised text-16 font-semibold;
-    @apply mb-8;
+    @apply mb-8 mt-40;
   }
   h5 {
-    @apply text-raised text-15 font-semibold;
-    @apply mb-8;
+    @apply text-raised text-16 font-semibold;
+    @apply mb-8 mt-40;
   }
   h6 {
-    @apply text-raised text-15 font-medium;
-    @apply mb-8;
+    @apply text-raised text-16 font-medium;
+    @apply mb-8 mt-20;
+  }
+
+  h7 {
+    @apply text-raised text-16 font-medium;
+    @apply mb-8 mt-8;
   }
 
   /* Paragraph */

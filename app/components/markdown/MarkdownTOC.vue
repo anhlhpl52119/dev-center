@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import { slugifyWithCounter } from '@sindresorhus/slugify';
 import MarkdownIt from 'markdown-it';
-import Anchor from 'markdown-it-anchor';
 
 const props = defineProps<{
   content?: string;
@@ -12,10 +12,8 @@ interface TocItem {
   title: string;
   anchor: string;
 }
-
-const md = new MarkdownIt().use(Anchor, {
-  slugify: (s: string) => encodeURIComponent(s.trim().toLowerCase().replace(/\s+/g, '-')),
-});
+const slug = slugifyWithCounter();
+const md = new MarkdownIt();
 
 const activeAnchors = ref<string[]>([]);
 
@@ -31,12 +29,10 @@ const tocItems = computed(() => {
       const level = Number.parseInt(token.tag.substring(1));
       const titleToken = tokens[tokens.indexOf(token) + 1];
       if (titleToken && titleToken.type === 'inline') {
-        const title = titleToken.content.replace(
-          /\[([^\]]+)\]\([^)]+\)/g,
-          '$1',
-        );
+        const childs = md.parseInline(titleToken.content, {})[0]?.children || [];
+        const title = childs.find(i => i.type === 'text')?.content ?? '';
 
-        const anchor = encodeURIComponent(title.trim().toLowerCase().replace(/\s+/g, '-'));
+        const anchor = slug(encodeURIComponent(title), { separator: '' });
         items.push({ level, title, anchor });
       }
     }
@@ -45,30 +41,51 @@ const tocItems = computed(() => {
   return items;
 });
 
-// function scrollToHeading(anchor: string) {
-//   nextTick(() => {
-//     const element = document.getElementById(anchor);
-//     if (element) {
-//       const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
-//       window.scrollTo({ top: elementPosition, behavior: 'smooth' });
-//     }
-//   });
-// }
-
 function updateActiveAnchors() {
   const headings = tocItems.value.map(item => document.getElementById(item.anchor)).filter(Boolean);
+  const scrollTop = window.scrollY;
   const viewportHeight = window.innerHeight;
 
-  activeAnchors.value = headings
+  // Viewport-based highlighting
+  const viewportActive = headings
     .filter((heading) => {
       const rect = heading!.getBoundingClientRect();
       return rect.top <= viewportHeight && rect.bottom >= 0;
     })
     .map(heading => heading!.id);
+
+  // Content area-based highlighting
+  let contentActive = '';
+  for (let i = 0; i < headings.length; i++) {
+    const current = headings[i]!;
+    const next = headings[i + 1];
+    const currentTop = current.offsetTop;
+
+    if (scrollTop >= currentTop - 100) {
+      if (next) {
+        const nextTop = next.offsetTop;
+        if (scrollTop < nextTop - 100) {
+          contentActive = current.id;
+        }
+      }
+      else {
+        const documentHeight = document.documentElement.scrollHeight;
+        const scrollBottom = scrollTop + viewportHeight;
+        if (scrollBottom < documentHeight) {
+          contentActive = current.id;
+        }
+      }
+    }
+  }
+
+  // Combine both mechanisms
+  const combined = new Set([...viewportActive, ...(contentActive ? [contentActive] : [])]);
+  activeAnchors.value = Array.from(combined);
 }
 
-onMounted(() => {
+onMounted(async () => {
   window.addEventListener('scroll', updateActiveAnchors);
+  await nextTick();
   updateActiveAnchors();
 });
 

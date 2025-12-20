@@ -2,8 +2,11 @@
 import type { LeftNavigationBarTreeQuery_pages_PageQuery_tree_PageTreeItem } from '~~/graphql';
 import type { LNBModel } from '~/components/left-navigation-bar/AppLeftNavigationBar.vue';
 import { PageTreeMode } from '~~/graphql';
+import AppLeftNavigationBar from '~/components/left-navigation-bar/AppLeftNavigationBar.vue';
 
 const { LeftNavigationBarTree } = useGraphqlRequest();
+const { open } = useDrawer();
+
 const { locale } = useI18n();
 const route = useRoute();
 
@@ -79,6 +82,12 @@ const lnb = computed<LNBModel[]>(() => {
   return convertToTree(tree.filter(item => item.depth > 1));
 });
 
+function openExampleDrawer() {
+  open(AppLeftNavigationBar, {
+    items: lnb.value,
+  });
+}
+
 onMounted(() => {
   setTimeout(() => {
     const element = document.querySelector(route.hash);
@@ -91,6 +100,30 @@ onMounted(() => {
 
 <template>
   <main class="max-w-1320 mx-auto">
+    <div class="bg-abg-base z-3 border-y border-y-abd-base md:hidden h-45 inset-x-0 fixed">
+      <div class="flex items-center justify-between">
+        <button
+          class="mb-24"
+          aria-label="Navigation bar"
+          aria-describedby="List of navigation page tree"
+          aria-pressed="false"
+          @click="openExampleDrawer"
+        >
+          <Icon name="svg:menu" class="size-40" />
+        </button>
+
+        <button
+          class="mb-24"
+          aria-label="Navigation bar"
+          aria-describedby="List of navigation page tree"
+          aria-pressed="false"
+          @click="openExampleDrawer"
+        >
+          <Icon name="svg:menu" class="size-40" />
+        </button>
+      </div>
+    </div>
+
     <div class="flex">
       <!-- LNB -->
       <AppLeftNavigationBar

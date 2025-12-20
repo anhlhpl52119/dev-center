@@ -2,9 +2,11 @@
 import { alert } from '@mdit/plugin-alert';
 import { demo } from '@mdit/plugin-demo';
 import { tasklist } from '@mdit/plugin-tasklist';
+import { slugifyWithCounter } from '@sindresorhus/slugify';
 import dayjs from 'dayjs';
 import DOMPurify from 'dompurify';
 import MarkdownIt from 'markdown-it';
+
 import Anchor from 'markdown-it-anchor';
 import MarkdownItAttrs from 'markdown-it-attrs';
 import MarkdownItContainer from 'markdown-it-container';
@@ -21,6 +23,7 @@ import MarkdownItTextualUml from 'markdown-it-textual-uml';
 import MarkdownItTOC from 'markdown-it-toc-done-right';
 
 import AdmonitionPlugin from '@/lib/markdown-it-plugins/admonition';
+import copyButtonPlugin from '@/lib/markdown-it-plugins/copy-button';
 import ShikiCodeHighlightPlugin from '@/lib/markdown-it-plugins/shiki-code-highlight';
 import tableWrapperPlugin from '@/lib/markdown-it-plugins/table';
 
@@ -36,6 +39,8 @@ const { locale } = useI18n();
 const { highlightCodeBlocks } = useShikiHighlight();
 const routes = useRoute();
 const { apiBaseUrl, siteUrl } = useRuntimeConfig().public;
+let slug = slugifyWithCounter();
+
 const md = new MarkdownIt({
   html: true,
   linkify: true,
@@ -50,8 +55,7 @@ const md = new MarkdownIt({
   .use(AdmonitionPlugin)
   .use(tableWrapperPlugin)
   .use(Anchor, {
-    // permalink: Anchor.permalink.headerLink(),
-    slugify: s => encodeURIComponent(s.trim().toLowerCase().replace(/\s+/g, '-')),
+    slugify: s => slug(encodeURIComponent(s), { separator: '' }),
   })
   .use(ReplaceLink, {
     replaceLink: (link) => {
@@ -108,12 +112,14 @@ const md = new MarkdownIt({
       rel: 'noopener noreferrer',
     },
   })
-  .use(ShikiCodeHighlightPlugin);
+  .use(ShikiCodeHighlightPlugin)
+  .use(copyButtonPlugin);
 
 const renderedContent = computed(() => {
   if (!props.content) {
     return '';
   }
+  slug = slugifyWithCounter();
   const html = md.render(props.content);
 
   if (import.meta.client) {
@@ -177,17 +183,42 @@ onUnmounted(() => {
   }
 });
 
+function addCopyButtons() {
+  const copyButtons = document.querySelectorAll('[data-copy-btn]');
+
+  copyButtons.forEach((btn) => {
+    btn.onclick = async () => {
+      const pre = btn.parentElement?.querySelector('pre code');
+      const code = pre?.textContent || '';
+
+      try {
+        await navigator.clipboard.writeText(code);
+        btn.innerHTML = '<span class="icon-[solar--unread-outline] size-20 text-primary"></span>';
+        setTimeout(() => {
+          btn.innerHTML = '<span class="icon-[solar--copy-linear] size-20 text-gray-600"></span>';
+        }, 1000);
+      }
+      catch (err) {
+        console.error('Failed to copy code:', err);
+      }
+    };
+  });
+}
+
 // TODO: improve later
 onMounted(async () => {
   await nextTick();
   highlightCodeBlocks();
   initTableShadows();
+  addCopyButtons();
 });
 
 watch(() => props.content, () => {
   nextTick(() => {
     highlightCodeBlocks();
     initTableShadows();
+    addCopyButtons();
+    slug = slugifyWithCounter();
   });
 });
 </script>
@@ -198,20 +229,19 @@ watch(() => props.content, () => {
     itemtype="http://schema.org/Article"
   >
     <header class="min-h-72">
-      <h1 itemprop="headline" class="text-32 mb-4 leading-44 font-bold">
+      <h1 itemprop="headline" class="text-32 mb-4 break-all leading-44 font-bold">
         {{ heading }}
       </h1>
       <p
-        v-if="description"
         itemprop="description"
-        class="text-13 text-quiet leading-22 tracking-[-0.0025rem]"
+        class="text-13 text-quiet break-all leading-22 tracking-[-0.0025rem]"
       >
         {{ description }}
       </p>
     </header>
 
     <div
-      class="grid bg-abg-base bd-radius-32 mt-40 p-30 shadow-lg"
+      class="grid bg-abg-base bd-radius-32 mt-40 p-30 base-shadow"
       itemprop="articleBody"
     >
       <div

@@ -2,3 +2,9 @@
 
 Long horizon content page
 <https://local.onstove.com:3000/ko/web/character/api_character_read_web>
+
+ignore i18n route strategy for specific page
+
+```ts
+defineI18nRoute(false);
+```
