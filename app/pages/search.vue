@@ -99,6 +99,7 @@ async function onSearch(keyword: string) {
 
     <div class="mb-66 flex py-8">
       <AppPagination
+        v-if="totalPage >= 1"
         :currentPage="currentPage"
         :totalPages="totalPage"
         class="mx-auto block"
