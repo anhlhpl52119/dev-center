@@ -1,5 +1,23 @@
 <script setup lang="ts">
 const { screenSmallerOrEq } = useBreakpoints();
+const config = useRuntimeConfig();
+const localePath = useLocalePath();
+const { locale } = useI18n();
+const runType = config.public?.runType || 'live';
+const creatorCenterLink: Record<string, string> = {
+  dev: 'https://dev-prob-bb.onstove.com',
+  dev2: 'https://dev2-prob-bb.onstove.com',
+  qa: 'https://qa-prob-bb.onstove.com',
+  qa2: 'https://qa2-prob-bb.onstove.com',
+  sandbox: 'https://prob-bb.gate8.com',
+  live: 'https://prob-bb.gate8.com',
+};
+const logoLink = computed(() => {
+  if (['live', 'sandbox'].includes(runType) && locale.value === 'en') {
+    return localePath('/bubblyz/Int');
+  }
+  return localePath('/');
+});
 </script>
 
 <template>
@@ -7,7 +25,7 @@ const { screenSmallerOrEq } = useBreakpoints();
     <nav class="mx-auto h-full max-w-1600 px-16 lg:px-40">
       <div class="relative flex size-full items-center justify-end-safe">
         <!-- Logo -->
-        <NuxtLink to="/" class="mr-auto leading-30 whitespace-nowrap">
+        <NuxtLink :to="logoLink" class="mr-auto leading-30 whitespace-nowrap">
           <Icon
             name="svg:stove-text-logo"
             class="hidden h-16 w-71 align-[-0.1em] md:inline-block"
@@ -24,7 +42,7 @@ const { screenSmallerOrEq } = useBreakpoints();
         >
           <!-- external link -->
           <NuxtLink
-            to="#"
+            :to="creatorCenterLink[runType]"
             external
             target="_blank"
             rel="noopener noreferrer"

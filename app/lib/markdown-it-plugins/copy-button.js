@@ -1,8 +1,10 @@
 // Show copy button in block code
 export default function copyButtonPlugin(md) {
-  const fence = md.renderer.rules.fence || ((tokens, idx, options, env, renderer) => {
-    return renderer.renderToken(tokens, idx, options);
-  });
+  const fence
+    = md.renderer.rules.fence
+      || ((tokens, idx, options, env, renderer) => {
+        return renderer.renderToken(tokens, idx, options);
+      });
 
   md.renderer.rules.fence = (tokens, idx, options, env, renderer) => {
     const content = fence(tokens, idx, options, env, renderer);

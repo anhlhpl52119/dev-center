@@ -8,3 +8,6 @@ ignore i18n route strategy for specific page
 ```ts
 defineI18nRoute(false);
 ```
+
+Icon solar
+<https://icon-sets.iconify.design/solar/page-2.html>

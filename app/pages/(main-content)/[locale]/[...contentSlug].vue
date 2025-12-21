@@ -9,14 +9,11 @@ const { content, title, description, updatedAt } = useRoutesContent();
       :description="description"
       :heading="title"
       :updatedAt="updatedAt"
-      class="flex-1 mx-8 mt-40 lg:mx-20 xl:ml-104 xl:mr-40"
+      class="mx-8 mt-40 flex-1 lg:mx-20 xl:mr-40 xl:ml-104"
     />
 
-    <div class="sticky hidden mt-40 self-start lg:block top-64 w-204">
-      <MarkdownTOC
-        :content="content"
-        :title="title"
-      />
+    <div class="sticky top-64 mt-40 hidden w-204 self-start lg:block">
+      <MarkdownTOC :content="content" :title="title" />
     </div>
   </div>
 </template>

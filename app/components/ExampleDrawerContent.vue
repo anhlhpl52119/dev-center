@@ -16,7 +16,7 @@ const emit = defineEmits<{
 
 <template>
   <div>
-    <div class="flex justify-between items-center mb-4">
+    <div class="mb-4 flex items-center justify-between">
       <h2 class="text-xl font-bold">
         {{ title }}
       </h2>
@@ -28,9 +28,9 @@ const emit = defineEmits<{
       {{ message }}
     </p>
     <p class="text-sm text-gray-600">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-      Quidem ut quo doloremque deleniti praesentium voluptate
-      adipisci sit eius facere rem facilis esse tenetur.
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem ut quo
+      doloremque deleniti praesentium voluptate adipisci sit eius facere rem
+      facilis esse tenetur.
     </p>
   </div>
 </template>

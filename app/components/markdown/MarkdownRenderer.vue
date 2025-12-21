@@ -34,7 +34,9 @@ const props = defineProps({
   updatedAt: String,
 });
 
-const updateTime = computed(() => dayjs(props.updatedAt).format('YYYY.MM.DD 오후 hh:mm'));
+const updateTime = computed(() =>
+  dayjs(props.updatedAt).format('YYYY.MM.DD 오후 hh:mm'),
+);
 const { locale } = useI18n();
 const { highlightCodeBlocks } = useShikiHighlight();
 const routes = useRoute();
@@ -70,7 +72,10 @@ const md = new MarkdownIt({
         link.toLowerCase().endsWith(ext),
       );
       if (hasImgExtension) {
-        const relativePath = new URL(link, singleSlash(`${apiBaseUrl}/${articlePath}`)).pathname;
+        const relativePath = new URL(
+          link,
+          singleSlash(`${apiBaseUrl}/${articlePath}`),
+        ).pathname;
         return singleSlash(`${apiBaseUrl}/resources/${relativePath}`);
       }
 
@@ -161,17 +166,22 @@ function initTableShadows() {
     const sentinels = wrapper.querySelectorAll('.sentinel-l, .sentinel-r');
 
     // ass sentinel observer for specific container
-    const containerObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        const isLeft = entry.target.classList.contains('sentinel-l');
-        const shadow = isLeft ? wrapper.querySelector('.shadow-l') : wrapper.querySelector('.shadow-r');
-        if (shadow)
-          shadow.style.opacity = entry.isIntersecting ? '0' : '1';
-      });
-    }, {
-      root: container,
-      threshold: 0.9,
-    });
+    const containerObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const isLeft = entry.target.classList.contains('sentinel-l');
+          const shadow = isLeft
+            ? wrapper.querySelector('.shadow-l')
+            : wrapper.querySelector('.shadow-r');
+          if (shadow)
+            shadow.style.opacity = entry.isIntersecting ? '0' : '1';
+        });
+      },
+      {
+        root: container,
+        threshold: 0.9,
+      },
+    );
 
     sentinels.forEach(s => containerObserver.observe(s));
   });
@@ -193,9 +203,11 @@ function addCopyButtons() {
 
       try {
         await navigator.clipboard.writeText(code);
-        btn.innerHTML = '<span class="icon-[solar--unread-outline] size-20 text-primary"></span>';
+        btn.innerHTML
+          = '<span class="icon-[solar--unread-outline] size-20 text-primary"></span>';
         setTimeout(() => {
-          btn.innerHTML = '<span class="icon-[solar--copy-linear] size-20 text-gray-600"></span>';
+          btn.innerHTML
+            = '<span class="icon-[solar--copy-linear] size-20 text-gray-600"></span>';
         }, 1000);
       }
       catch (err) {
@@ -213,35 +225,38 @@ onMounted(async () => {
   addCopyButtons();
 });
 
-watch(() => props.content, () => {
-  nextTick(() => {
-    highlightCodeBlocks();
-    initTableShadows();
-    addCopyButtons();
-    slug = slugifyWithCounter();
-  });
-});
+watch(
+  () => props.content,
+  () => {
+    nextTick(() => {
+      highlightCodeBlocks();
+      initTableShadows();
+      addCopyButtons();
+      slug = slugifyWithCounter();
+    });
+  },
+);
 </script>
 
 <template>
-  <article
-    itemscope
-    itemtype="http://schema.org/Article"
-  >
+  <article itemscope itemtype="http://schema.org/Article">
     <header class="min-h-72">
-      <h1 itemprop="headline" class="text-32 mb-4 break-all leading-44 font-bold">
+      <h1
+        itemprop="headline"
+        class="text-32 mb-4 leading-44 font-bold break-all"
+      >
         {{ heading }}
       </h1>
       <p
         itemprop="description"
-        class="text-13 text-quiet break-all leading-22 tracking-[-0.0025rem]"
+        class="text-13 text-quiet leading-22 tracking-[-0.0025rem] break-all"
       >
         {{ description }}
       </p>
     </header>
 
     <div
-      class="grid bg-abg-base bd-radius-32 mt-40 p-30 base-shadow"
+      class="bg-abg-base bd-radius-32 base-shadow mt-40 grid p-30"
       itemprop="articleBody"
     >
       <div

@@ -49,7 +49,7 @@ async function handleSearch(keyword: string) {
     <!-- Results -->
     <div
       v-if="show"
-      class="abd-base-1 bg-abg-base bd-radius-20 absolute z-2 mt-4 h-400 w-full p-16 shadow-md"
+      class="abd-base-1 bg-abg-base bd-radius-20 base-shadow absolute z-2 mt-4 h-400 w-full p-16"
     />
   </div>
 </template>

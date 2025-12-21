@@ -1,13 +1,11 @@
 <script lang="ts" setup>
 const STOVE_MAIN_LINK = ref('https://www.smilegate.com/');
-const { t } = useI18n();
 </script>
 
 <template>
-  <footer class="layout-footer md:mx-0 md:mt-8">
+  <footer class="layout-footer">
     <div class="footer sm:pb-40 lg:justify-center">
-      <div class="footer-container md:mx-4 md:py-0 sm:px-20 lg:max-w-940">
-        <!-- <FooterContent /> -->
+      <div class="footer-container sm:px-20 md:mx-4 md:py-0 lg:max-w-940">
         <p class="copy lg:mt-20">
           © Smilegate. All Rights Reserved.
         </p>

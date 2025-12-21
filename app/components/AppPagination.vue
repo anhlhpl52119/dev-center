@@ -52,14 +52,14 @@ function goToPage(page: number) {
 
 <template>
   <nav role="navigation" aria-label="Pagination navigation">
-    <ul class="flex items-center gap-4">
+    <ul class="flex items-center">
       <!-- First page -->
       <li v-if="showFirstLast">
         <button
           type="button"
           :disabled="!canGoPrev"
           aria-label="Go to first page"
-          class="flex h-32 w-32 items-center justify-center rounded-full border border-abd-base bg-surface text-quiet transition-colors hover:bg-abg-dimmed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-surface"
+          class="text-quiet hover:bg-abg-dimmed focus-visible:ring-primary disabled:hover:bg-surface flex h-32 w-32 cursor-pointer items-center justify-center rounded-full transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
           @click="goToPage(1)"
         >
           <Icon name="svg:double-arrow-left" class="size-12" />
@@ -72,7 +72,7 @@ function goToPage(page: number) {
           type="button"
           :disabled="!canGoPrev"
           aria-label="Go to previous page"
-          class="flex h-32 w-32 items-center justify-center rounded-full border border-abd-base bg-surface text-quiet transition-colors hover:bg-abg-dimmed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-surface"
+          class="text-quiet hover:bg-abg-dimmed focus-visible:ring-primary disabled:hover:bg-surface flex h-32 w-32 cursor-pointer items-center justify-center rounded-full transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
           @click="goToPage(currentPage - 1)"
         >
           <Icon name="svg:single-arrow-left" class="size-12" />
@@ -85,10 +85,12 @@ function goToPage(page: number) {
           type="button"
           :aria-label="`Go to page ${page}`"
           :aria-current="page === currentPage ? 'page' : undefined"
-          class="flex h-32 w-32 items-center justify-center rounded-full border text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary focus-visible:ring-offset-2"
-          :class="page === currentPage
-            ? 'border-primary bg-primary text-surface'
-            : 'border-abd-base bg-surface text-base hover:bg-abg-dimmed'"
+          class="focus-visible:ring-primary flex h-32 w-32 cursor-pointer items-center justify-center rounded-full text-sm font-medium transition-colors focus-visible:ring-1 focus-visible:ring-offset-2 focus-visible:outline-none"
+          :class="
+            page === currentPage
+              ? 'border-primary bg-primary text-surface'
+              : 'border-abd-base bg-surface hover:bg-abg-dimmed text-base'
+          "
           @click="goToPage(page)"
         >
           <span class="text-14 leading-24 font-medium">{{ page }}</span>
@@ -101,7 +103,7 @@ function goToPage(page: number) {
           type="button"
           :disabled="!canGoNext"
           aria-label="Go to next page"
-          class="flex h-32 w-32 items-center justify-center rounded-full border border-abd-base bg-surface text-quiet transition-colors hover:bg-abg-dimmed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-surface"
+          class="text-quiet hover:bg-abg-dimmed focus-visible:ring-primary disabled:hover:bg-surface flex h-32 w-32 cursor-pointer items-center justify-center rounded-full transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
           @click="goToPage(currentPage + 1)"
         >
           <Icon name="svg:single-arrow-right" class="size-12" />
@@ -114,7 +116,7 @@ function goToPage(page: number) {
           type="button"
           :disabled="!canGoNext"
           aria-label="Go to last page"
-          class="flex h-32 w-32 items-center justify-center rounded-full border border-abd-base bg-surface text-quiet transition-colors hover:bg-abg-dimmed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-surface"
+          class="text-quiet hover:bg-abg-dimmed focus-visible:ring-primary disabled:hover:bg-surface flex h-32 w-32 cursor-pointer items-center justify-center rounded-full transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
           @click="goToPage(totalPages)"
         >
           <Icon name="svg:double-arrow-right" class="size-12" />

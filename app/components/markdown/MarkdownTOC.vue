@@ -29,7 +29,8 @@ const tocItems = computed(() => {
       const level = Number.parseInt(token.tag.substring(1));
       const titleToken = tokens[tokens.indexOf(token) + 1];
       if (titleToken && titleToken.type === 'inline') {
-        const childs = md.parseInline(titleToken.content, {})[0]?.children || [];
+        const childs
+          = md.parseInline(titleToken.content, {})[0]?.children || [];
         const title = childs.find(i => i.type === 'text')?.content ?? '';
 
         const anchor = slug(encodeURIComponent(title), { separator: '' });
@@ -42,7 +43,9 @@ const tocItems = computed(() => {
 });
 
 function updateActiveAnchors() {
-  const headings = tocItems.value.map(item => document.getElementById(item.anchor)).filter(Boolean);
+  const headings = tocItems.value
+    .map(item => document.getElementById(item.anchor))
+    .filter(Boolean);
   const scrollTop = window.scrollY;
   const viewportHeight = window.innerHeight;
 
@@ -79,7 +82,10 @@ function updateActiveAnchors() {
   }
 
   // Combine both mechanisms
-  const combined = new Set([...viewportActive, ...(contentActive ? [contentActive] : [])]);
+  const combined = new Set([
+    ...viewportActive,
+    ...(contentActive ? [contentActive] : []),
+  ]);
   activeAnchors.value = Array.from(combined);
 }
 
@@ -103,7 +109,7 @@ onUnmounted(() => {
         aria-label="title of content"
         aria-describedby="Content Heading list"
         aria-pressed="false"
-        class="hover:bg-abd-active relative size-32 rounded-full bg-abg-dimmed p-8"
+        class="hover:bg-abd-active bg-abg-dimmed relative size-32 rounded-full p-8"
       >
         <Icon
           name="svg:close-arrow-right"
@@ -124,7 +130,7 @@ onUnmounted(() => {
         <template v-if="item.level <= 2">
           <NuxtLink
             :to="`#${item.anchor}`"
-            class="hover:text-primary font-medium cursor-pointer block transition-all duration-300"
+            class="hover:text-primary block cursor-pointer font-medium transition-all duration-300"
             :class="{ 'text-primary': activeAnchors.includes(item.anchor) }"
             replace
           >
@@ -133,10 +139,12 @@ onUnmounted(() => {
         </template>
 
         <template v-else>
-          <div class="border-l-abd-base hover:border-l-primary border-l-1 py-4 transition-all duration-300">
+          <div
+            class="border-l-abd-base hover:border-l-primary border-l-1 py-4 transition-all duration-300"
+          >
             <NuxtLink
               :to="`#${item.anchor}`"
-              class="hover:text-primary font-normal cursor-pointer pl-16 block transition-all duration-300"
+              class="hover:text-primary block cursor-pointer pl-16 font-normal transition-all duration-300"
               :class="{ 'text-primary': activeAnchors.includes(item.anchor) }"
               replace
             >

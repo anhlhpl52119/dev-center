@@ -9,36 +9,36 @@
   & > :last-child {
     @apply mb-0!;
   }
-  
+
   /* Heading */
   h1 {
     @apply text-raised text-32 leading-44 font-bold;
-    @apply mb-8 mt-40;
+    @apply mt-40 mb-8;
   }
   h2 {
     @apply text-raised text-20 leading-30 font-bold;
-    @apply mb-8 mt-40;
+    @apply mt-40 mb-8;
   }
   h3 {
     @apply text-raised text-18 font-bold;
-    @apply mb-8 mt-40;
+    @apply mt-40 mb-8;
   }
   h4 {
     @apply text-raised text-16 font-semibold;
-    @apply mb-8 mt-40;
+    @apply mt-40 mb-8;
   }
   h5 {
     @apply text-raised text-16 font-semibold;
-    @apply mb-8 mt-40;
+    @apply mt-40 mb-8;
   }
   h6 {
     @apply text-raised text-16 font-medium;
-    @apply mb-8 mt-20;
+    @apply mt-20 mb-8;
   }
 
   h7 {
     @apply text-raised text-16 font-medium;
-    @apply mb-8 mt-8;
+    @apply mt-8 mb-8;
   }
 
   /* Paragraph */
@@ -84,34 +84,34 @@
   code {
     @apply text-13 font-mono leading-20;
     &:not(pre code) {
-      @apply text-red-500 py-2 px-4 bg-abg-dimmed rounded-lg;
-      @apply border abd-base-1;
+      @apply bg-abg-dimmed rounded-lg px-4 py-2 text-red-500;
+      @apply abd-base-1 border;
     }
   }
 
   /* Block code */
   pre {
     @apply m-0 mt-8 mb-40 overflow-x-auto rounded-lg p-16;
-    @apply border border-abd-base;
+    @apply border-abd-base border;
   }
 
   /* Table */
   table {
     @apply w-full border-separate border-spacing-0;
-    @apply border text-left border-abd-base rounded-xl overflow-hidden;
+    @apply border-abd-base overflow-hidden rounded-xl border text-left;
 
     thead {
       tr {
         th {
           @apply bg-primary/5 text-raised font-medium;
-          @apply px-12 py-8 border-b border-abd-base;
+          @apply border-abd-base border-b px-12 py-8;
         }
       }
     }
 
     tr {
       td {
-        @apply px-12 py-8 border-b border-abd-base;
+        @apply border-abd-base border-b px-12 py-8;
       }
 
       &:hover {
@@ -128,10 +128,10 @@
 
   blockquote {
     @apply relative;
-    @apply py-12 pl-46 pr-16 my-16 bd-radius-16;
+    @apply bd-radius-16 my-16 py-12 pr-16 pl-46;
     @apply bg-primary/8;
     p {
-      @apply font-medium leading-30 text-primary;
+      @apply text-primary leading-30 font-medium;
       @apply m-0;
     }
     strong {

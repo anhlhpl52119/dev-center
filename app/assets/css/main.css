@@ -7,7 +7,7 @@
 @import 'tailwindcss/utilities.css' layer(utilities);
 
 @import './layers/04-utilities.css';
-@plugin "@iconify/tailwind4";
+@plugin '@iconify/tailwind4';
 
 @layer base {
   html {
@@ -18,7 +18,7 @@
   }
 
   body {
-    @apply text-14 min-h-screen bg-fixed text-base scrollbar-gutter-stable;
+    @apply text-14 min-h-screen bg-fixed text-base;
     background-repeat: no-repeat;
     background-color: var(--clr-background-underlay);
     background-image: var(--clr-background-gradient);

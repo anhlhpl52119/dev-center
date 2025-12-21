@@ -6,9 +6,7 @@ let highlighterPromise: Promise<any> | null = null;
 export function getHighlighter() {
   if (!highlighterPromise) {
     highlighterPromise = createHighlighterCore({
-      themes: [
-        import('@shikijs/themes/vitesse-light'),
-      ],
+      themes: [import('@shikijs/themes/vitesse-light')],
       langs: [
         import('@shikijs/langs/javascript'),
         import('@shikijs/langs/typescript'),

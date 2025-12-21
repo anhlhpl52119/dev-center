@@ -99,8 +99,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <main class="max-w-1320 mx-auto">
-    <div class="bg-abg-base z-3 border-y border-y-abd-base md:hidden h-45 inset-x-0 fixed">
+  <main class="mx-auto max-w-1320">
+    <div
+      class="bg-abg-base/80 backdrop-blur-xs border-y-abd-base sticky top-64 inset-y-0 w-full z-3 h-45 border-y md:hidden"
+    >
       <div class="flex items-center justify-between">
         <button
           class="mb-24"
@@ -128,7 +130,7 @@ onMounted(() => {
       <!-- LNB -->
       <AppLeftNavigationBar
         :items="lnb"
-        class="sticky max-h-[calc(100vh-6.4rem)] top-64 self-start hidden w-272 overflow-auto p-24 pt-32 md:block scrollbar-gutter-stable"
+        class="scrollbar-gutter-stable sticky top-64 hidden max-h-[calc(100vh-6.4rem)] w-272 self-start overflow-auto p-24 pt-32 md:block"
       >
         <template #trigger>
           <button
