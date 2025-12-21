@@ -5,8 +5,8 @@ import { PageTreeMode } from '~~/graphql';
 import AppLeftNavigationBar from '~/components/left-navigation-bar/AppLeftNavigationBar.vue';
 
 const { LeftNavigationBarTree } = useGraphqlRequest();
-const { open } = useDrawer();
-
+const { open, close } = useDrawer();
+const templateRef = useTemplateRef<any>('pageContent'); // TODO: refactor
 const { locale } = useI18n();
 const route = useRoute();
 
@@ -82,46 +82,53 @@ const lnb = computed<LNBModel[]>(() => {
   return convertToTree(tree.filter(item => item.depth > 1));
 });
 
-function openExampleDrawer() {
-  open(AppLeftNavigationBar, {
+function openLnbDrawer() {
+  open(shallowRef(AppLeftNavigationBar), {
     items: lnb.value,
   });
 }
 
 onMounted(() => {
-  setTimeout(() => {
-    const element = document.querySelector(route.hash);
-    if (element) {
-      element.scrollIntoView();
-    }
-  }, 300); // TODO: improve later
+  if (route.hash) {
+    setTimeout(() => {
+      const element = document.querySelector(route.hash);
+      if (element) {
+        element.scrollIntoView();
+      }
+    }, 300); // TODO: improve later
+  }
+});
+watch(() => route, () => {
+  close();
+}, {
+  deep: true,
 });
 </script>
 
 <template>
   <main class="mx-auto max-w-1320">
     <div
-      class="bg-abg-base/80 backdrop-blur-xs border-y-abd-base sticky top-64 inset-y-0 w-full z-3 h-45 border-y md:hidden"
+      class="bg-abg-base/80 backdrop-blur-sm border-y-abd-base sticky top-64 inset-y-0 w-full z-3 h-45 border-y md:hidden"
     >
-      <div class="flex items-center justify-between">
+      <div class="px-16 h-full flex items-center justify-between">
         <button
-          class="mb-24"
+          class="p-8"
           aria-label="Navigation bar"
           aria-describedby="List of navigation page tree"
           aria-pressed="false"
-          @click="openExampleDrawer"
+          @click="openLnbDrawer"
         >
-          <Icon name="svg:menu" class="size-40" />
+          <Icon name="svg:menu-mobile" class="size-20 text-quiet align-middle" />
         </button>
 
         <button
-          class="mb-24"
+          class="p-8"
           aria-label="Navigation bar"
           aria-describedby="List of navigation page tree"
           aria-pressed="false"
-          @click="openExampleDrawer"
+          @click="templateRef?.pageRef?.openTocDrawer()"
         >
-          <Icon name="svg:menu" class="size-40" />
+          <Icon name="svg:document-outline" class="size-20 text-quiet align-middle" />
         </button>
       </div>
     </div>
@@ -146,7 +153,7 @@ onMounted(() => {
       </AppLeftNavigationBar>
 
       <!-- Content -->
-      <NuxtPage class="flex-1" />
+      <NuxtPage ref="pageContent" class="flex-1" />
     </div>
   </main>
 </template>

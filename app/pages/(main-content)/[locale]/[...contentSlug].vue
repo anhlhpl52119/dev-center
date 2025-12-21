@@ -1,5 +1,16 @@
 <script lang="ts" setup>
+import MarkdownTOC from '~/components/markdown/MarkdownTOC.vue';
+
 const { content, title, description, updatedAt } = useRoutesContent();
+const { open } = useDrawer();
+
+function openTocDrawer() {
+  open(shallowRef(MarkdownTOC), {
+    content: content.value,
+    title: title.value,
+  }, 'right');
+}
+defineExpose({ openTocDrawer });
 </script>
 
 <template>

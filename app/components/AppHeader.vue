@@ -28,10 +28,10 @@ const logoLink = computed(() => {
         <NuxtLink :to="logoLink" class="mr-auto leading-30 whitespace-nowrap">
           <Icon
             name="svg:stove-text-logo"
-            class="hidden h-16 w-71 align-[-0.1em] md:inline-block"
+            class="hidden h-16 w-71 mr-16 align-[-0.1em] md:inline-block"
           />
 
-          <span class="text-20 ml-16 font-bold">
+          <span class="text-20 font-bold">
             {{ $t('common.bubbliz_guide') }}
           </span>
         </NuxtLink>

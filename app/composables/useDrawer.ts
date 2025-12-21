@@ -1,23 +1,26 @@
-import type { Component } from 'vue';
+import type { Component, ShallowRef } from 'vue';
 
 interface DrawerState {
   isOpen: boolean;
-  component: Component | null;
+  component: ShallowRef<Component> | null;
   props: Record<string, any>;
+  position: 'left' | 'right';
 }
 
 const drawerState = ref<DrawerState>({
   isOpen: false,
   component: null,
   props: {},
+  position: 'left',
 });
 
 export function useDrawer() {
-  const open = (component: Component, props: Record<string, any> = {}) => {
+  const open = (component: ShallowRef<Component>, props: Record<string, any> = {}, position: 'left' | 'right' = 'left') => {
     drawerState.value = {
       isOpen: true,
-      component,
+      component: shallowRef(component),
       props,
+      position,
     };
   };
 
