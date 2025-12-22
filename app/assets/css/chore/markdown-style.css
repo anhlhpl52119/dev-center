@@ -1,3 +1,5 @@
+@import './alert.css';
+@import './tab-content.css';
 .markdown-body {
   /* Base korean typography text */
   /* TODO: Add others languages typography base style (eg: leading,....) */

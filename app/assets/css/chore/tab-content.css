@@ -1,0 +1,113 @@
+.markdown-body {
+  .tabbed-content {
+    margin: 2rem 0;
+    background: transparent;
+    border-radius: 15px;
+    overflow: auto;
+    border: 1px solid var(--color-abd-base);
+  }
+
+  .tabbed-labels {
+    display: flex;
+    position: relative;
+    background: transparent;
+    border-bottom: 1px solid var(--color-abd-base);
+    overflow-x: auto;
+    scroll-behavior: smooth; /* Smooth scrolling */
+    white-space: nowrap;
+    cursor: grab;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+    user-select: none; /* Prevent text selection while dragging */
+
+    &.grabbing {
+      cursor: grabbing;
+    }
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 10px;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    button {
+      position: relative;
+      padding: 1.3rem 2.2rem;
+      border: none;
+      background: transparent;
+      color: var(--clr-text-base);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+      flex-shrink: 0; /* Prevent tab buttons from shrinking */
+
+      &.tabbed-active {
+        color: var(--clr-primary);
+
+        &::after {
+          transform: scaleX(1);
+        }
+      }
+
+      &:hover {
+        color: var(--clr-primary);
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: var(--clr-primary);
+        border-radius: 2px;
+        transform: scaleX(0);
+        transition: transform 0.3s ease;
+      }
+
+      &:not(:last-child)::before {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 13px;
+        background: var(--color-abd-base);
+        border-radius: 2px;
+        width: 1.3px;
+        height: 50%;
+      }
+    }
+  }
+
+  .tabbed-panel {
+    display: none;
+    padding: 1.6rem;
+    line-height: 1.7;
+
+    &.tabbed-active {
+      display: block;
+      animation: fadeIn 0.4s ease;
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  [data-show='false'] {
+    display: none;
+  }
+}
