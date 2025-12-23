@@ -50,5 +50,6 @@
     "**/.git": true,
     "**/.cursor": true,
     "app/assets/fonts": true
-  }
+  },
+  "typescript.tsdk": "node_modules/typescript/lib"
 }
