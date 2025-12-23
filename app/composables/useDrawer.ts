@@ -15,7 +15,11 @@ const drawerState = ref<DrawerState>({
 });
 
 export function useDrawer() {
-  const open = (component: ShallowRef<Component>, props: Record<string, any> = {}, position: 'left' | 'right' = 'left') => {
+  const open = (
+    component: ShallowRef<Component>,
+    props: Record<string, any> = {},
+    position: 'left' | 'right' = 'left',
+  ) => {
     drawerState.value = {
       isOpen: true,
       component: shallowRef(component),

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { slugifyWithCounter } from '@sindresorhus/slugify';
+import { tryOnMounted, useEventListener } from '@vueuse/core';
 import MarkdownIt from 'markdown-it';
 
 const props = defineProps<{
@@ -12,9 +13,8 @@ interface TocItem {
   title: string;
   anchor: string;
 }
-const slug = slugifyWithCounter();
-const md = new MarkdownIt();
 
+const md = new MarkdownIt();
 const activeAnchors = ref<string[]>([]);
 
 const tocItems = computed(() => {
@@ -31,9 +31,19 @@ const tocItems = computed(() => {
       if (titleToken && titleToken.type === 'inline') {
         const childs
           = md.parseInline(titleToken.content, {})[0]?.children || [];
-        const title = childs.find(i => i.type === 'text')?.content ?? '';
+        const title
+          = childs
+            .map((i) => {
+              if (i.type === 'text') {
+                return i.content;
+              }
+              return '';
+            })
+            ?.join('') ?? '';
 
-        const anchor = slug(encodeURIComponent(title), { separator: '' });
+        const anchor = slugifyWithCounter()(encodeURIComponent(title), {
+          separator: '',
+        });
         items.push({ level, title, anchor });
       }
     }
@@ -64,10 +74,11 @@ function updateActiveAnchors() {
     const next = headings[i + 1];
     const currentTop = current.offsetTop;
 
-    if (scrollTop >= currentTop - 100) {
+    // TODO: replace with number of scroll-padding-top set in root
+    if (scrollTop >= currentTop - 90) {
       if (next) {
         const nextTop = next.offsetTop;
-        if (scrollTop < nextTop - 100) {
+        if (scrollTop < nextTop - 90) {
           contentActive = current.id;
         }
       }
@@ -88,15 +99,9 @@ function updateActiveAnchors() {
   ]);
   activeAnchors.value = Array.from(combined);
 }
-
-onMounted(async () => {
-  window.addEventListener('scroll', updateActiveAnchors);
-  await nextTick();
+tryOnMounted(() => {
+  useEventListener(document, 'scroll', updateActiveAnchors);
   updateActiveAnchors();
-});
-
-onUnmounted(() => {
-  window.removeEventListener('scroll', updateActiveAnchors);
 });
 </script>
 

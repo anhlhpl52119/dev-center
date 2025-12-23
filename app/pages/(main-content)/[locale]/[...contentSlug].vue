@@ -5,10 +5,14 @@ const { content, title, description, updatedAt } = useRoutesContent();
 const { open } = useDrawer();
 
 function openTocDrawer() {
-  open(shallowRef(MarkdownTOC), {
-    content: content.value,
-    title: title.value,
-  }, 'right');
+  open(
+    shallowRef(MarkdownTOC),
+    {
+      content: content.value,
+      title: title.value,
+    },
+    'right',
+  );
 }
 defineExpose({ openTocDrawer });
 </script>

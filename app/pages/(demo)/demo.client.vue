@@ -14,7 +14,9 @@ import MarkdownItSub from 'markdown-it-sub';
 import MarkdownItSup from 'markdown-it-sup';
 import MarkdownItTextualUml from 'markdown-it-textual-uml';
 import MarkdownItTOC from 'markdown-it-toc-done-right';
-import tabContentPlugin, { tabEventHydration } from '@/lib/markdown-it-plugins/tab-content';
+import tabContentPlugin, {
+  tabEventHydration,
+} from '@/lib/markdown-it-plugins/tab-content';
 
 defineI18nRoute(false);
 
@@ -231,25 +233,25 @@ onMounted(async () => {
       <div
         v-for="example in examples"
         :key="example.name"
-        class="border border-abd-base rounded-lg overflow-hidden"
+        class="border-abd-base overflow-hidden rounded-lg border"
       >
-        <div class="bg-abg-active px-16 py-8 border-b border-abd-base">
-          <h2 class="text-20 font-semibold text-primary">
+        <div class="bg-abg-active border-abd-base border-b px-16 py-8">
+          <h2 class="text-20 text-primary font-semibold">
             {{ example.name }}
           </h2>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-0">
+        <div class="grid grid-cols-1 gap-0 lg:grid-cols-2">
           <!-- Raw Markdown Column -->
-          <div class="border-r border-abd-base">
+          <div class="border-abd-base border-r">
             <div class="bg-white px-16 py-8 font-medium">
               Raw Markdown
             </div>
 
-            <div class="p-16 overflow-hidden">
+            <div class="overflow-hidden p-16">
               <pre
                 data-lang="markdown"
-                class="shiki vitesse-light bg-gray-200 p-12 overflow-x-scroll rounded-lg border border-abd-base"
+                class="shiki vitesse-light border-abd-base overflow-x-scroll rounded-lg border bg-gray-200 p-12"
               >
               <code>{{ example.markdown }}</code>
             </pre>
@@ -263,10 +265,7 @@ onMounted(async () => {
             </div>
             <div class="p-16">
               <br>
-              <div
-                class="markdown-body"
-                v-html="md.render(example.markdown)"
-              />
+              <div class="markdown-body" v-html="md.render(example.markdown)" />
             </div>
           </div>
         </div>

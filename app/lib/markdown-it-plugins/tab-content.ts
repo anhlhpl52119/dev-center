@@ -1,5 +1,6 @@
 import type MarkdownIt from 'markdown-it';
 import type { StateBlock, Token } from 'markdown-it/index.js';
+import { useEventListener } from '@vueuse/core';
 
 interface TabData {
   title: string;
@@ -15,7 +16,10 @@ interface TabPluginOptions {
 }
 
 // Plugin function
-export default function tabContentPlugin(md: MarkdownIt, wrapperCls: Partial<TabPluginOptions> = {}): void {
+export default function tabContentPlugin(
+  md: MarkdownIt,
+  wrapperCls: Partial<TabPluginOptions> = {},
+): void {
   // Default classes
   const {
     containerClass = 'tabbed-content',
@@ -28,7 +32,12 @@ export default function tabContentPlugin(md: MarkdownIt, wrapperCls: Partial<Tab
   const CONTENT_INDENT = 4;
   let tabSetCounter: number = 0;
 
-  function tabsRule(state: StateBlock, startLine: number, endLine: number, silent: boolean): boolean {
+  function tabsRule(
+    state: StateBlock,
+    startLine: number,
+    endLine: number,
+    silent: boolean,
+  ): boolean {
     let startPos: number = state.bMarks[startLine]! + state.tShift[startLine]!;
     let endPos: number = state.eMarks[startLine]!;
 
@@ -56,9 +65,19 @@ export default function tabContentPlugin(md: MarkdownIt, wrapperCls: Partial<Tab
 
       // next line not enter next line not start with ===
       // Check if we've hit a non-tab block element
-      if (state.tShift[nextLine]! < CONTENT_INDENT && !line.match(/===\s*"([^"]+)"/)) {
-        const nextLineContent = state.src.slice(state.bMarks[nextLine + 1]! + state.tShift[nextLine]!, state.eMarks[nextLine + 1]);
-        if ((line.length === 0 && nextLineContent.length === 0) || (state.tShift[nextLine + 1]! < CONTENT_INDENT && !nextLineContent.match(/===\s*"([^"]+)"/))) {
+      if (
+        state.tShift[nextLine]! < CONTENT_INDENT
+        && !line.match(/===\s*"([^"]+)"/)
+      ) {
+        const nextLineContent = state.src.slice(
+          state.bMarks[nextLine + 1]! + state.tShift[nextLine]!,
+          state.eMarks[nextLine + 1],
+        );
+        if (
+          (line.length === 0 && nextLineContent.length === 0)
+          || (state.tShift[nextLine + 1]! < CONTENT_INDENT
+            && !nextLineContent.match(/===\s*"([^"]+)"/))
+        ) {
           break;
         }
       }
@@ -177,8 +196,14 @@ export default function tabContentPlugin(md: MarkdownIt, wrapperCls: Partial<Tab
   md.block.ruler.before('paragraph', 'tabs', tabsRule);
 
   // Add rendering rules
-  md.renderer.rules.tabs_container_open = (tokens: Token[], idx: number): string => {
-    const attrs = tokens[idx]!.attrs?.map(([key, value]: [string, string]) => `${key}="${value}"`).join(' ') || '';
+  md.renderer.rules.tabs_container_open = (
+    tokens: Token[],
+    idx: number,
+  ): string => {
+    const attrs
+      = tokens[idx]!.attrs?.map(
+        ([key, value]: [string, string]) => `${key}="${value}"`,
+      ).join(' ') || '';
     return `<div ${attrs}>\n`;
   };
 
@@ -186,13 +211,22 @@ export default function tabContentPlugin(md: MarkdownIt, wrapperCls: Partial<Tab
     return `<div class="${tabListClass}">\n`;
   };
 
-  md.renderer.rules.tab_button_open = (tokens: Token[], idx: number): string => {
-    const attrs = tokens[idx]!.attrs?.map(([key, value]: [string, string]) => `${key}="${value}"`).join(' ') || '';
+  md.renderer.rules.tab_button_open = (
+    tokens: Token[],
+    idx: number,
+  ): string => {
+    const attrs
+      = tokens[idx]!.attrs?.map(
+        ([key, value]: [string, string]) => `${key}="${value}"`,
+      ).join(' ') || '';
     return `<button ${attrs}>`;
   };
 
   md.renderer.rules.tab_panel_open = (tokens: Token[], idx: number): string => {
-    const attrs = tokens[idx]!.attrs?.map(([key, value]: [string, string]) => `${key}="${value}"`).join(' ') || '';
+    const attrs
+      = tokens[idx]!.attrs?.map(
+        ([key, value]: [string, string]) => `${key}="${value}"`,
+      ).join(' ') || '';
     return `<div ${attrs}>\n`;
   };
 
@@ -204,74 +238,76 @@ export default function tabContentPlugin(md: MarkdownIt, wrapperCls: Partial<Tab
 }
 
 export function tabEventHydration() {
-  document.querySelectorAll('.tabbed-content').forEach((tabContainer: Element) => {
-    const tabList = tabContainer.querySelector('.tabbed-labels');
-    const buttons = tabContainer.querySelectorAll('button[role="tab"]');
-    const panels = tabContainer.querySelectorAll('[role="tabpanel"]');
+  document
+    .querySelectorAll('.tabbed-content')
+    .forEach((tabContainer: Element) => {
+      const tabList = tabContainer.querySelector('.tabbed-labels');
+      const buttons = tabContainer.querySelectorAll('button[role="tab"]');
+      const panels = tabContainer.querySelectorAll('[role="tabpanel"]');
 
-    // Variables for drag scrolling
-    let isDown = false;
-    let startX: number;
-    let scrollLeft: number;
+      // Variables for drag scrolling
+      let isDown = false;
+      let startX: number;
+      let scrollLeft: number;
 
-    if (!tabList) {
-      return;
-    }
-
-    // Add drag scroll events
-    tabList?.addEventListener('mousedown', (e: Event) => {
-      isDown = true;
-      tabList.classList.add('grabbing');
-      startX = (e as MouseEvent).pageX - (tabList as HTMLElement).offsetLeft;
-      scrollLeft = tabList.scrollLeft;
-    });
-
-    tabList.addEventListener('mouseleave', () => {
-      isDown = false;
-      tabList.classList.remove('grabbing');
-    });
-
-    tabList.addEventListener('mouseup', () => {
-      isDown = false;
-      tabList.classList.remove('grabbing');
-    });
-
-    tabList.addEventListener('mousemove', (e: Event) => {
-      if (!isDown) {
+      if (!tabList) {
         return;
       }
-      e.preventDefault();
-      const x = (e as MouseEvent).pageX - (tabList as HTMLElement).offsetLeft;
-      const walk = (x - startX) * 2; // Scroll speed multiplier
-      tabList.scrollLeft = scrollLeft - walk;
-    });
 
-    // Handle tab switching
-    buttons.forEach((button: Element) => {
-      button.addEventListener('click', () => {
-        const tabId = button.getAttribute('data-tab');
+      // Add drag scroll events
+      useEventListener(tabList, 'mousedown', (e: Event) => {
+        isDown = true;
+        tabList.classList.add('grabbing');
+        startX = (e as MouseEvent).pageX - (tabList as HTMLElement).offsetLeft;
+        scrollLeft = tabList.scrollLeft;
+      });
 
-        // Update button states
-        buttons.forEach((btn: Element) => {
-          const isSelected = btn === button;
-          btn.setAttribute('aria-selected', isSelected.toString());
-          btn.classList.toggle('tabbed-active', isSelected);
-        });
+      useEventListener(tabList, 'mouseleave', () => {
+        isDown = false;
+        tabList.classList.remove('grabbing');
+      });
 
-        // Update panel visibility
-        panels.forEach((panel: Element) => {
-          const isVisible = panel.getAttribute('data-tab') === tabId;
-          panel.setAttribute('aria-hidden', (!isVisible)?.toString());
-          panel.classList.toggle('tabbed-active', isVisible);
-        });
+      useEventListener(tabList, 'mouseup', () => {
+        isDown = false;
+        tabList.classList.remove('grabbing');
+      });
 
-        // Scroll selected tab into view if needed
-        button.scrollIntoView({
-          behavior: 'smooth',
-          block: 'nearest',
-          inline: 'center',
+      useEventListener(tabList, 'mousemove', (e: Event) => {
+        if (!isDown) {
+          return;
+        }
+        e.preventDefault();
+        const x = (e as MouseEvent).pageX - (tabList as HTMLElement).offsetLeft;
+        const walk = (x - startX) * 2; // Scroll speed multiplier
+        tabList.scrollLeft = scrollLeft - walk;
+      });
+
+      // Handle tab switching
+      buttons.forEach((button: Element) => {
+        useEventListener(button, 'click', () => {
+          const tabId = button.getAttribute('data-tab');
+
+          // Update button states
+          buttons.forEach((btn: Element) => {
+            const isSelected = btn === button;
+            btn.setAttribute('aria-selected', isSelected.toString());
+            btn.classList.toggle('tabbed-active', isSelected);
+          });
+
+          // Update panel visibility
+          panels.forEach((panel: Element) => {
+            const isVisible = panel.getAttribute('data-tab') === tabId;
+            panel.setAttribute('aria-hidden', (!isVisible)?.toString());
+            panel.classList.toggle('tabbed-active', isVisible);
+          });
+
+          // Scroll selected tab into view if needed
+          button.scrollIntoView({
+            behavior: 'smooth',
+            block: 'nearest',
+            inline: 'center',
+          });
         });
       });
     });
-  });
 }

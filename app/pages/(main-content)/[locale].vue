@@ -98,19 +98,24 @@ onMounted(() => {
     }, 300); // TODO: improve later
   }
 });
-watch(() => route, () => {
-  close();
-}, {
-  deep: true,
-});
+
+watch(
+  () => route,
+  () => {
+    close();
+  },
+  {
+    deep: true,
+  },
+);
 </script>
 
 <template>
   <main class="mx-auto max-w-1320">
     <div
-      class="bg-abg-base/80 backdrop-blur-sm border-y-abd-base sticky top-64 inset-y-0 w-full z-3 h-45 border-y md:hidden"
+      class="bg-abg-base/80 border-y-abd-base sticky inset-y-0 top-64 z-3 h-45 w-full border-y backdrop-blur-sm md:hidden"
     >
-      <div class="px-16 h-full flex items-center justify-between">
+      <div class="flex h-full items-center justify-between px-16">
         <button
           class="p-8"
           aria-label="Navigation bar"
@@ -118,7 +123,10 @@ watch(() => route, () => {
           aria-pressed="false"
           @click="openLnbDrawer"
         >
-          <Icon name="svg:menu-mobile" class="size-20 text-quiet align-middle" />
+          <Icon
+            name="svg:menu-mobile"
+            class="text-quiet size-20 align-middle"
+          />
         </button>
 
         <button
@@ -128,7 +136,10 @@ watch(() => route, () => {
           aria-pressed="false"
           @click="templateRef?.pageRef?.openTocDrawer()"
         >
-          <Icon name="svg:document-outline" class="size-20 text-quiet align-middle" />
+          <Icon
+            name="svg:document-outline"
+            class="text-quiet size-20 align-middle"
+          />
         </button>
       </div>
     </div>

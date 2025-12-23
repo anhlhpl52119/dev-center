@@ -14,7 +14,7 @@
     font-size: 62.5%;
     font-family: var(--ff-han-sans-neo);
     scroll-behavior: smooth;
-    @apply scroll-pt-150 md:scroll-pt-70 ;
+    @apply scroll-pt-90;
   }
 
   body {

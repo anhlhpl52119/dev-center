@@ -27,7 +27,7 @@ function toggleExpand(id: number) {
 
 <template>
   <NuxtLinkLocale
-    :to="`/${item.path}`"
+    :to="{ path: `/${item.path}` }"
     exactActiveClass="!bg-abg-active text-primary"
     class="focus-visible:ring-primary text-15 relative flex w-full items-center gap-8 rounded-full py-8 pr-36 pl-16 font-medium capitalize transition-all duration-200 hover:bg-gray-500/5 focus-visible:ring-1 focus-visible:outline-none"
   >

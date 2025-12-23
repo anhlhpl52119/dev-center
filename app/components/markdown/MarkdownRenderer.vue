@@ -3,10 +3,11 @@ import { alert } from '@mdit/plugin-alert';
 import { demo } from '@mdit/plugin-demo';
 import { tasklist } from '@mdit/plugin-tasklist';
 import { slugifyWithCounter } from '@sindresorhus/slugify';
+import { tryOnMounted } from '@vueuse/core';
 import dayjs from 'dayjs';
 import DOMPurify from 'dompurify';
-import MarkdownIt from 'markdown-it';
 
+import MarkdownIt from 'markdown-it';
 import Anchor from 'markdown-it-anchor';
 import MarkdownItAttrs from 'markdown-it-attrs';
 import MarkdownItContainer from 'markdown-it-container';
@@ -14,17 +15,20 @@ import { full as emoji } from 'markdown-it-emoji';
 import Footnote from 'markdown-it-footnote';
 import ImageFiguresPlugin from 'markdown-it-image-figures';
 import MarkdownLinkAttributes from 'markdown-it-link-attributes';
-import MarkdownItMark from 'markdown-it-mark';
 
+import MarkdownItMark from 'markdown-it-mark';
 import ReplaceLink from 'markdown-it-replace-link';
 import MarkdownItSub from 'markdown-it-sub';
 import MarkdownItSup from 'markdown-it-sup';
 import MarkdownItTextualUml from 'markdown-it-textual-uml';
-import MarkdownItTOC from 'markdown-it-toc-done-right';
 
+import MarkdownItTOC from 'markdown-it-toc-done-right';
 import AdmonitionPlugin from '@/lib/markdown-it-plugins/admonition';
 import copyButtonPlugin from '@/lib/markdown-it-plugins/copy-button';
 import ShikiCodeHighlightPlugin from '@/lib/markdown-it-plugins/shiki-code-highlight';
+import tabContentPlugin, {
+  tabEventHydration,
+} from '@/lib/markdown-it-plugins/tab-content';
 import tableWrapperPlugin from '@/lib/markdown-it-plugins/table';
 
 const props = defineProps({
@@ -41,7 +45,6 @@ const { locale } = useI18n();
 const { highlightCodeBlocks } = useShikiHighlight();
 const routes = useRoute();
 const { apiBaseUrl, siteUrl } = useRuntimeConfig().public;
-let slug = slugifyWithCounter();
 
 const md = new MarkdownIt({
   html: true,
@@ -57,7 +60,9 @@ const md = new MarkdownIt({
   .use(AdmonitionPlugin)
   .use(tableWrapperPlugin)
   .use(Anchor, {
-    slugify: s => slug(encodeURIComponent(s), { separator: '' }),
+    slugify: s =>
+      slugifyWithCounter()(encodeURIComponent(s), { separator: '' }),
+    tabIndex: false,
   })
   .use(ReplaceLink, {
     replaceLink: (link) => {
@@ -106,7 +111,10 @@ const md = new MarkdownIt({
   .use(Footnote)
   .use(MarkdownItTextualUml)
   .use(MarkdownItContainer)
-  .use(MarkdownItTOC)
+  .use(MarkdownItTOC, {
+    slugify: s =>
+      slugifyWithCounter()(encodeURIComponent(s), { separator: '' }),
+  })
   .use(MarkdownLinkAttributes, {
     matcher(href) {
       return href.match(/^https?:\/\//);
@@ -118,13 +126,14 @@ const md = new MarkdownIt({
     },
   })
   .use(ShikiCodeHighlightPlugin)
+  .use(tabContentPlugin)
   .use(copyButtonPlugin);
 
 const renderedContent = computed(() => {
   if (!props.content) {
     return '';
   }
-  slug = slugifyWithCounter();
+
   const html = md.render(props.content);
 
   if (import.meta.client) {
@@ -136,6 +145,7 @@ const renderedContent = computed(() => {
 
 let globalObserver = null;
 
+// TODO: refactor with vueuse https://vueuse.org/core/useIntersectionObserver/#useintersectionobserver
 function initTableShadows() {
   // init sentinel dom observer
   globalObserver = new IntersectionObserver((entries) => {
@@ -217,23 +227,26 @@ function addCopyButtons() {
   });
 }
 
-// TODO: improve later
-onMounted(async () => {
-  await nextTick();
+tryOnMounted(() => {
   highlightCodeBlocks();
   initTableShadows();
   addCopyButtons();
+  tabEventHydration();
 });
 
 watch(
   () => props.content,
-  () => {
-    nextTick(() => {
-      highlightCodeBlocks();
-      initTableShadows();
-      addCopyButtons();
-      slug = slugifyWithCounter();
-    });
+  async (c) => {
+    if (isNullish(c) || isEmptyString(c)) {
+      return;
+    }
+
+    await nextTick();
+
+    highlightCodeBlocks();
+    initTableShadows();
+    addCopyButtons();
+    tabEventHydration();
   },
 );
 </script>

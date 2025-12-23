@@ -12,6 +12,10 @@ export function isNullish(value: any): value is null | undefined {
   return isNull(value) || isUndefined(value);
 }
 
+export function isEmptyString(value: string): value is string {
+  return value.trim() === '';
+}
+
 export function singleSlash(url: string) {
   const protocolMatch = url.match(/^(https?:\/\/)/);
 
