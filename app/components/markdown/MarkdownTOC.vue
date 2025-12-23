@@ -18,12 +18,13 @@ const md = new MarkdownIt();
 const activeAnchors = ref<string[]>([]);
 
 const tocItems = computed(() => {
-  if (!props.content)
+  if (!props.content) {
     return [];
+  }
 
+  const slugify = slugifyWithCounter();
   const tokens = md.parse(props.content, {});
   const items: TocItem[] = [];
-
   tokens.forEach((token) => {
     if (token.type === 'heading_open') {
       const level = Number.parseInt(token.tag.substring(1));
@@ -41,7 +42,7 @@ const tocItems = computed(() => {
             })
             ?.join('') ?? '';
 
-        const anchor = slugifyWithCounter()(encodeURIComponent(title), {
+        const anchor = slugify(encodeURIComponent(title), {
           separator: '',
         });
         items.push({ level, title, anchor });
@@ -56,49 +57,39 @@ function updateActiveAnchors() {
   const headings = tocItems.value
     .map(item => document.getElementById(item.anchor))
     .filter(Boolean);
+
+  if (headings.length === 0) {
+    activeAnchors.value = [];
+    return;
+  }
+
   const scrollTop = window.scrollY;
   const viewportHeight = window.innerHeight;
+  const documentHeight = document.documentElement.scrollHeight;
+  const scrollBottom = scrollTop + viewportHeight;
 
-  // Viewport-based highlighting
-  const viewportActive = headings
-    .filter((heading) => {
-      const rect = heading!.getBoundingClientRect();
-      return rect.top <= viewportHeight && rect.bottom >= 0;
-    })
-    .map(heading => heading!.id);
+  const activeIds: string[] = [];
+  const OFFSET = 100;
 
-  // Content area-based highlighting
-  let contentActive = '';
   for (let i = 0; i < headings.length; i++) {
-    const current = headings[i]!;
-    const next = headings[i + 1];
-    const currentTop = current.offsetTop;
+    const heading = headings[i];
+    if (!heading)
+      continue;
 
-    // TODO: replace with number of scroll-padding-top set in root
-    if (scrollTop >= currentTop - 90) {
-      if (next) {
-        const nextTop = next.offsetTop;
-        if (scrollTop < nextTop - 90) {
-          contentActive = current.id;
-        }
-      }
-      else {
-        const documentHeight = document.documentElement.scrollHeight;
-        const scrollBottom = scrollTop + viewportHeight;
-        if (scrollBottom < documentHeight) {
-          contentActive = current.id;
-        }
-      }
+    const nextHeading = headings[i + 1];
+    const start = heading.offsetTop;
+    const end = nextHeading ? nextHeading.offsetTop : documentHeight;
+
+    // Check if the section [start, end) overlaps with the viewport [scrollTop + OFFSET, scrollBottom)
+    // Overlap condition: start < scrollBottom && end > scrollTop + OFFSET
+    if (start < scrollBottom && end > scrollTop + OFFSET) {
+      activeIds.push(heading.id);
     }
   }
 
-  // Combine both mechanisms
-  const combined = new Set([
-    ...viewportActive,
-    ...(contentActive ? [contentActive] : []),
-  ]);
-  activeAnchors.value = Array.from(combined);
+  activeAnchors.value = activeIds;
 }
+
 tryOnMounted(() => {
   useEventListener(document, 'scroll', updateActiveAnchors);
   updateActiveAnchors();
@@ -116,10 +107,7 @@ tryOnMounted(() => {
         aria-pressed="false"
         class="hover:bg-abd-active bg-abg-dimmed relative size-32 rounded-full p-8"
       >
-        <Icon
-          name="svg:close-arrow-right"
-          class="absolute w-12 -translate-1/2"
-        />
+        <Icon name="svg:close-arrow-right" class="absolute w-12 -translate-1/2" />
       </button>
     </div>
 
@@ -144,9 +132,7 @@ tryOnMounted(() => {
         </template>
 
         <template v-else>
-          <div
-            class="border-l-abd-base hover:border-l-primary border-l-1 py-4 transition-all duration-300"
-          >
+          <div class="border-l-abd-base hover:border-l-primary border-l-1 py-4 transition-all duration-300">
             <NuxtLink
               :to="`#${item.anchor}`"
               class="hover:text-primary block cursor-pointer pl-16 font-normal transition-all duration-300"

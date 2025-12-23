@@ -63,6 +63,7 @@ const md = new MarkdownIt({
     slugify: s =>
       slugifyWithCounter()(encodeURIComponent(s), { separator: '' }),
     tabIndex: false,
+    level: [1, 2, 3, 4, 5, 6],
   })
   .use(ReplaceLink, {
     replaceLink: (link) => {
