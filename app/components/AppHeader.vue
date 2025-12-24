@@ -60,6 +60,7 @@ const logoLink = computed(() => {
 
           <!-- search -->
           <SearchControl>
+            <!-- TODO: mobile hydration miss match -->
             <template
               v-if="screenSmallerOrEq.md"
               #trigger="{ toggle, isShowed }"
