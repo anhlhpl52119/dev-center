@@ -9,7 +9,7 @@ const execAsync = promisify(exec);
 export default defineNuxtModule({
   async setup(_, nuxt) {
     const options = {
-      codegenCommand: 'npx graphql-codegen',
+      codegenCommand: 'npm run gql:codegen',
     };
 
     let isGenerating = false;

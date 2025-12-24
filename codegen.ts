@@ -1,3 +1,6 @@
+/**
+ * Ref: https://the-guild.dev/graphql/codegen/plugins/typescript/typescript
+ */
 import type { CodegenConfig } from '@graphql-codegen/cli';
 
 const config: CodegenConfig = {
@@ -13,6 +16,7 @@ const config: CodegenConfig = {
       config: {
         skipTypename: true, // https://the-guild.dev/graphql/codegen/plugins/typescript/typescript#skiptypename
         extractAllFieldsToTypes: true,
+        maybeValue: 'T',
       },
     },
   },

@@ -20,7 +20,7 @@ const { data: lnbData } = await useAsyncData('lnb', () =>
 
   <div class="min-h-[calc(100vh-6.4rem)]">
     <AppLnb2
-      :items="lnbData?.pages?.tree || [] as any"
+      :items="lnbData?.pages?.tree || []"
       class="scrollbar-gutter-stable sticky top-64 hidden max-h-[calc(100vh-6.4rem)] w-272 self-start overflow-auto p-24 pt-32 md:block"
     >
       <template #trigger>

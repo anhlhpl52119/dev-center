@@ -1,15 +1,13 @@
 import type { LNBItem, LNBTree } from './type.d';
 
 export type * from './type.d';
+
 const localePath = useLocalePath();
-export function convertToTree(
-  models: LNBItem[],
-): LNBTree[] {
-  // Create a map for quick lookup by id
+
+export function convertToTree(models: LNBItem[]): LNBTree[] {
   const map = new Map<number, LNBTree>();
   const result: LNBTree[] = [];
 
-  // First pass: Create Tree nodes from Model objects
   models.forEach((model) => {
     const node: LNBTree = {
       ...model,
