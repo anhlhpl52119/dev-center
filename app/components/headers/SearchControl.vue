@@ -12,7 +12,7 @@ function toggle() {
 }
 
 function addToHistory(keyword: string) {
-  if (!keyword?.trim()) {
+  if (isEmptyString(keyword)) {
     return;
   }
   const index = searchHistory.value.indexOf(keyword);
