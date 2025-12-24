@@ -1,18 +1,39 @@
 <script lang="ts" setup>
+import { useLocalStorage } from '@vueuse/core';
+
 const show = ref(false);
 const inputKeyword = ref('');
 const ipRef = useTemplateRef('ipRef');
+const localePath = useLocalePath();
+const searchHistory = useLocalStorage<string[]>('searhistory', []);
 
 function toggle() {
   show.value = !show.value;
 }
 
-const localePath = useLocalePath();
+function addToHistory(keyword: string) {
+  if (!keyword?.trim()) {
+    return;
+  }
+  const index = searchHistory.value.indexOf(keyword);
+  if (index > -1) {
+    searchHistory.value.splice(index, 1);
+  }
+  searchHistory.value.unshift(keyword);
+  if (searchHistory.value.length > 20) {
+    searchHistory.value.pop();
+  }
+}
+
+function removeHistory(index: number) {
+  searchHistory.value.splice(index, 1);
+}
 
 async function handleSearch(keyword: string) {
   if (!keyword) {
     return;
   }
+  addToHistory(keyword);
   await navigateTo(localePath({ name: 'search', query: { keyword } }));
   inputKeyword.value = '';
   show.value = false;
@@ -43,13 +64,38 @@ async function handleSearch(keyword: string) {
       class="bg-abg-base abd-base-1 h-44 w-full rounded-full px-16 py-12 leading-20 outline-none"
       @keyup.enter="handleSearch(inputKeyword)"
       @click="show = true"
-      @blur="show = false"
+      @blur="show = true"
     >
 
     <!-- Results -->
     <div
       v-if="show"
-      class="abd-base-1 bg-abg-base bd-radius-20 base-shadow absolute z-2 mt-4 h-400 w-full p-16"
-    />
+      class="abd-base-1 bg-abg-base rounded-4xl base-shadow absolute z-2 mt-4 h-400 w-full overflow-hidden p-16 flex flex-col"
+    >
+      <div class="mb-8 px-8 font-bold text-muted flex-none">
+        최신
+      </div>
+      <ul class="text-quiet overflow-y-auto flex-1">
+        <li
+          v-for="(history, index) in searchHistory"
+          :key="history"
+          class="hover:bg-abg-dimmed flex items-center justify-between cursor-pointer rounded-lg px-8 py-8"
+          @mousedown.prevent
+          @click="handleSearch(history)"
+        >
+          <button
+            class="mr-8 text-quiet hover:text-base"
+            title="삭제"
+            @click.stop="removeHistory(index)"
+          >
+            <span class="truncate block text-base">{{ history }}</span>
+          </button>
+          <Icon
+            name="svg:close"
+            class="size-20"
+          />
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
