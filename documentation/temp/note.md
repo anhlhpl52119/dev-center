@@ -11,3 +11,5 @@ defineI18nRoute(false);
 
 Icon solar
 <https://icon-sets.iconify.design/solar/page-2.html>
+
+TODO: use <https://es-toolkit.dev/reference/function/partialRight.html> to resolve related link
