@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { useLocalStorage } from '@vueuse/core';
+import { isEmpty } from 'es-toolkit/compat';
 
 const show = ref(false);
 const inputKeyword = ref('');
@@ -12,7 +13,7 @@ function toggle() {
 }
 
 function addToHistory(keyword: string) {
-  if (isEmptyString(keyword)) {
+  if (isEmpty(keyword)) {
     return;
   }
   const index = searchHistory.value.indexOf(keyword);

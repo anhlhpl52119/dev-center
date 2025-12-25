@@ -1,21 +1,21 @@
 <script setup lang="ts">
 import type { LNBItem } from './index';
-import { findParent, getIdByPath } from './index';
+import { useLnb } from './index';
 
 const props = defineProps<{
   items: LNBItem[];
-  level?: number;
 }>();
 
+const { convertToTree, findRelatedById, getItemByPath } = useLnb();
 const expandedItems = ref<Set<number>>(new Set());
-const route = useRoute();
+const tree = computed(() => convertToTree(props.items));
 
-(function init() {
-  const id = getIdByPath(props.items, route.path);
-  if (isNullish(id)) {
+(() => {
+  const lnbItem = getItemByPath();
+  if (isNullish(lnbItem)) {
     return;
   }
-  const parentIds = findParent(props.items, id);
+  const parentIds = findRelatedById(lnbItem.id);
   if (parentIds) {
     parentIds.forEach(id => expandedItems.value.add(id));
   }
@@ -26,9 +26,9 @@ const route = useRoute();
   <aside>
     <slot name="trigger" />
 
-    <nav :aria-label="level ? undefined : 'Main navigation'">
+    <nav aria-label="'Main navigation'">
       <ul class="space-y-2">
-        <li v-for="item in items" :key="item.id">
+        <li v-for="item in tree" :key="item.id">
           <FolderLink2
             isRoot
             :item="item"

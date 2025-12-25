@@ -9,12 +9,12 @@ const { open, close } = useDrawer();
 const templateRef = useTemplateRef<any>('pageContent'); // TODO: refactor
 const { locale } = useI18n();
 const route = useRoute();
-
 const { data: lnbData, execute } = await useAsyncData('lnb', () =>
   LeftNavigationBarTree({
     locale: locale.value,
     mode: PageTreeMode.Like,
-    path: singleSlash(route.path.replace(locale.value, '')),
+    // path: singleSlash(route.path.replace(locale.value, '')),
+    path: '',
   }));
 
 function convertToTree(

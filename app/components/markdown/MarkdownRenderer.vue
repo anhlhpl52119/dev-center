@@ -7,6 +7,7 @@ import { tryOnMounted } from '@vueuse/core';
 import dayjs from 'dayjs';
 import DOMPurify from 'dompurify';
 
+import { isEmpty } from 'es-toolkit/compat';
 import MarkdownIt from 'markdown-it';
 import Anchor from 'markdown-it-anchor';
 import MarkdownItAttrs from 'markdown-it-attrs';
@@ -238,7 +239,7 @@ tryOnMounted(() => {
 watch(
   () => props.content,
   async (c) => {
-    if (isNullish(c) || isEmptyString(c)) {
+    if (isEmpty(c)) {
       return;
     }
 

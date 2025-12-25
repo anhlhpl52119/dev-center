@@ -17,7 +17,7 @@ export default defineNuxtConfig({
     dirs: ['constants'],
   },
   devServer: {
-    // host: 'local.onstove.com',
+    host: 'local.onstove.com',
     https: true,
   },
   components: [

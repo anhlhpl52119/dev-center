@@ -1,8 +1,6 @@
 <script lang="ts" setup>
 import MarkdownTOC from '~/components/markdown/MarkdownTOC.vue';
 
-defineI18nRoute(false);
-
 definePageMeta({
   layout: 'docs',
 });
@@ -25,7 +23,7 @@ defineExpose({ openTocDrawer });
 </script>
 
 <template>
-  <div class="flex">
+  <div class="flex flex-1">
     <MarkdownRenderer
       :content="content"
       :description="description"
