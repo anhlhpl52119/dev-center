@@ -13,6 +13,9 @@ export function getHighlighter() {
         import('@shikijs/langs/bash'),
         import('@shikijs/langs/vue'),
         import('@shikijs/langs/json'),
+        import('@shikijs/langs/csharp'),
+        import('@shikijs/langs/cpp'),
+        import('@shikijs/langs/mermaid'),
       ],
       engine: createJavaScriptRegexEngine(),
     });

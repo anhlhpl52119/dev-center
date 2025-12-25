@@ -271,7 +271,7 @@ watch(
     </header>
 
     <div
-      class="bg-abg-base bd-radius-32 base-shadow mt-40 grid p-30"
+      class="bg-abg-base bd-radius-32 base-shadow mt-40 grid min-h-400 p-30"
       itemprop="articleBody"
     >
       <div
@@ -279,6 +279,7 @@ watch(
         class="markdown-body overflow-hidden"
         v-html="renderedContent"
       />
+      <div v-else />
     </div>
 
     <p

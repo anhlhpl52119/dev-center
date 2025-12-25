@@ -5,6 +5,7 @@ definePageMeta({
 
 const { locale } = useI18n();
 const { SearchPagesByKeyword } = useGraphqlRequest();
+defineI18nRoute(false);
 
 const route = useRoute();
 const searchKeyword = ref<string>(route.query?.keyword?.toString() ?? '');

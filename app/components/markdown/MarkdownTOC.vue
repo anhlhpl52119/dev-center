@@ -132,7 +132,7 @@ tryOnMounted(() => {
         </template>
 
         <template v-else>
-          <div class="border-l-abd-base hover:border-l-primary border-l-1 py-4 transition-all duration-300">
+          <div class="border-l-abd-base hover:border-l-primary border-l py-4 transition-all duration-300">
             <NuxtLink
               :to="`#${item.anchor}`"
               class="hover:text-primary block cursor-pointer pl-16 font-normal transition-all duration-300"

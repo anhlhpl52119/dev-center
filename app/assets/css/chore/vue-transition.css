@@ -13,3 +13,79 @@
 .fold-leave-from {
   @apply max-h-1000 origin-top scale-y-100 opacity-100;
 }
+
+/* Side left and side right */
+.slide-left-enter-active,
+.slide-left-leave-active,
+.slide-right-enter-active,
+.slide-right-leave-active {
+  transition: all 0.2s;
+}
+.slide-left-enter-from {
+  opacity: 0;
+  transform: translate(50px, 0);
+}
+.slide-left-leave-to {
+  opacity: 0;
+  transform: translate(-50px, 0);
+}
+.slide-right-enter-from {
+  opacity: 0;
+  transform: translate(-50px, 0);
+}
+.slide-right-leave-to {
+  opacity: 0;
+  transform: translate(50px, 0);
+}
+
+/* Page */
+.page-enter-active,
+.page-leave-active {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.page-enter-from {
+  opacity: 0;
+  transform: translateY(-16px);
+}
+
+.page-enter-to {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.page-leave-from {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.page-leave-to {
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+
+/* layout */
+.layout-enter-active,
+.layout-leave-active {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.layout-enter-from {
+  opacity: 0;
+  transform: translateY(-16px);
+}
+
+.layout-enter-to {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.layout-leave-from {
+  opacity: 1;
+}
+
+.layout-leave-to {
+  opacity: 0;
+  transform: translateY(16px);
+}

@@ -25,6 +25,7 @@ const availableLocales: { code: 'en' | 'ko'; name: string }[] = [
     :distance="5"
     placement="bottom-end"
     strategy="fixed"
+    aria-id="language-select-dropdown"
     :triggers="['click']"
   >
     <button

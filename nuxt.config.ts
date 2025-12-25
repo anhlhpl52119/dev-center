@@ -3,6 +3,16 @@ import { runtimeConfig } from './config/runtime';
 import { typescript } from './config/typescript';
 
 export default defineNuxtConfig({
+  app: {
+    pageTransition: {
+      name: 'page',
+      mode: 'out-in',
+    },
+    layoutTransition: {
+      name: 'slide-right',
+      mode: 'out-in',
+    },
+  },
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
   typescript,

@@ -1,3 +1,5 @@
+import { deburr } from 'es-toolkit';
+
 export function singleSlash(url: string) {
   const protocolMatch = url.match(/^(https?:\/\/)/);
 
@@ -13,3 +15,5 @@ export function singleSlash(url: string) {
     return url.replace(/\/+/g, '/');
   }
 }
+
+export const slugify = (s: string) => deburr(s).toLowerCase().replace(/\s+/g, '-');

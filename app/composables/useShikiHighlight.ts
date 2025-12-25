@@ -13,7 +13,7 @@ export function useShikiHighlight() {
       const highlighter = await getHighlighter();
 
       codeBlocks.forEach((block) => {
-        const lang = block.getAttribute('data-lang') || 'text';
+        const lang = block.getAttribute('data-lang') || 'text'; // ref: https://shiki.style/languages
         const code = block.querySelector('code')?.textContent || '';
 
         try {
