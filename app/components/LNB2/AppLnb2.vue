@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { LNBItem } from './index';
+import { isNil } from 'es-toolkit';
 import { useLnb } from './index';
 
 const props = defineProps<{
@@ -12,7 +13,7 @@ const tree = computed(() => convertToTree(props.items));
 
 (() => {
   const lnbItem = getItemByPath();
-  if (isNullish(lnbItem)) {
+  if (isNil(lnbItem)) {
     return;
   }
   const parentIds = findRelatedById(lnbItem.id);

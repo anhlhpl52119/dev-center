@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { LeftNavigationBarTreeQuery_pages_PageQuery_tree_PageTreeItem } from '@@/graphql';
+import { isNil } from 'es-toolkit';
 
 export interface LNBModel
   extends LeftNavigationBarTreeQuery_pages_PageQuery_tree_PageTreeItem {
@@ -63,7 +64,7 @@ function findParent(nodes: LNBModel[], id: number): number[] {
   };
 
   const id = getIdByPath(props.items);
-  if (isNullish(id)) {
+  if (isNil(id)) {
     return;
   }
   const parentIds = findParent(props.items, id);
