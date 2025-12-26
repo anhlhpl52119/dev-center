@@ -25,3 +25,6 @@ logs
 
 # codegen
 generated/
+
+# local ci
+.preflight-ci-local-*

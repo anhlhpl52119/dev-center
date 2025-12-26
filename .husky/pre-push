@@ -10,17 +10,10 @@ fi
 branch="$(git rev-parse --abbrev-ref HEAD)"
 
 if [ "$branch" = "main" ] || [ "$branch" = "development" ]; then
-  echo "Pushing to protected branch '$branch'. Running additional checks..."
+  echo "Pushing to protected branch '$branch'."
 
-  echo "Running npm ci..."
-  npm ci
-  if [ $? -ne 0 ]; then
-    echo "npm ci failed. Push aborted."
-    exit 1
-  fi
-
-  echo "Running npm run build:dev..."
-  npm run build:dev
+  echo "Running preflight-ci-local.sh..."
+  bash scripts/preflight-ci-local.sh
   if [ $? -ne 0 ]; then
     echo "Build failed. Push aborted."
     exit 1
