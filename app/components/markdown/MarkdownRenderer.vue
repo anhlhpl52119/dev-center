@@ -1,7 +1,12 @@
 <script setup lang="js">
 import { alert } from '@mdit/plugin-alert';
 import { demo } from '@mdit/plugin-demo';
+import { imgLazyload } from '@mdit/plugin-img-lazyload';
+import { ins } from '@mdit/plugin-ins';
+import { plantuml } from '@mdit/plugin-plantuml';
+
 import { tasklist } from '@mdit/plugin-tasklist';
+
 import { slugifyWithCounter } from '@sindresorhus/slugify';
 import { tryOnMounted } from '@vueuse/core';
 import dayjs from 'dayjs';
@@ -60,6 +65,9 @@ const md = new MarkdownIt({
   })
   .use(AdmonitionPlugin)
   .use(tableWrapperPlugin)
+  .use(imgLazyload)
+  .use(ins)
+  .use(plantuml)
   .use(Anchor, {
     slugify: s =>
       slugifyWithCounter()(encodeURIComponent(s), { separator: '' }),
