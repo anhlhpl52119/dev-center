@@ -20,7 +20,7 @@ const { content, title, description, updatedAt } = useRoutesContent();
     />
 
     <div
-      class="sticky top-64 hidden max-h-[calc(100vh-10rem)] w-204 self-start overflow-y-auto lg:block"
+      class="scrollbar-gutter-stable sticky top-64 hidden max-h-[calc(100vh-6.4rem)] w-204 self-start overflow-y-auto lg:block"
     >
       <MarkdownTOC
         :content="content"
