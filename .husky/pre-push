@@ -1,7 +1,28 @@
 #!/bin/sh
+
 echo "Running npx nuxt typecheck..."
 npx nuxt typecheck
 if [ $? -ne 0 ]; then
   echo "Typecheck failed. Push aborted."
   exit 1
+fi
+
+branch="$(git rev-parse --abbrev-ref HEAD)"
+
+if [ "$branch" = "main" ] || [ "$branch" = "development" ]; then
+  echo "Pushing to protected branch '$branch'. Running additional checks..."
+
+  echo "Running npm ci..."
+  npm ci
+  if [ $? -ne 0 ]; then
+    echo "npm ci failed. Push aborted."
+    exit 1
+  fi
+
+  echo "Running npm run build:dev..."
+  npm run build:dev
+  if [ $? -ne 0 ]; then
+    echo "Build failed. Push aborted."
+    exit 1
+  fi
 fi
