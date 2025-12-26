@@ -1,5 +1,5 @@
 #!/bin/sh
-
+export FORCE_COLOR=1
 echo "Running npx nuxt typecheck..."
 npx nuxt typecheck
 if [ $? -ne 0 ]; then
