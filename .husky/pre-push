@@ -1,0 +1,7 @@
+#!/bin/sh
+echo "Running npx nuxt typecheck..."
+npx nuxt typecheck
+if [ $? -ne 0 ]; then
+  echo "Typecheck failed. Push aborted."
+  exit 1
+fi

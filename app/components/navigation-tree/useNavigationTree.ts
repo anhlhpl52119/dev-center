@@ -10,7 +10,9 @@ export function useNavigationTree() {
   const { locale } = useI18n();
 
   const flattenedList = ref<FlattenedNavigationNode[]>([]);
-  const navTree = computed<NavigationTreeNodes[]>(() => convertToTree(flattenedList.value));
+  const navTree = computed<NavigationTreeNodes[]>(() =>
+    convertToTree(flattenedList.value),
+  );
   const nodeIdMap = new Map<number, NavigationTreeNodes>();
 
   async function fetchLnbTreeByPath(path: string) {
@@ -24,7 +26,9 @@ export function useNavigationTree() {
     return flat;
   }
 
-  function convertToTree(flatArr: FlattenedNavigationNode[]): NavigationTreeNodes[] {
+  function convertToTree(
+    flatArr: FlattenedNavigationNode[],
+  ): NavigationTreeNodes[] {
     const result: NavigationTreeNodes[] = [];
 
     // Init id map
@@ -48,11 +52,11 @@ export function useNavigationTree() {
       // child
       const parentNode = nodeIdMap.get(parentId);
       if (isNil(parentNode)) {
-      // treat as root
+        // treat as root
         result.push(node);
       }
       else {
-      // push to `children` of parent node
+        // push to `children` of parent node
         parentNode.children?.push(node);
       }
     });
@@ -76,10 +80,12 @@ export function useNavigationTree() {
 
     find(id);
     return result;
-  };
+  }
 
   function getItemByPath() {
-    return flattenedList.value.find(i => localePath(`/${i.path}`) === route.path);
+    return flattenedList.value.find(
+      i => localePath(`/${i.path}`) === route.path,
+    );
   }
 
   return {

@@ -32,18 +32,22 @@ const availableLocales: { code: 'en' | 'ko'; name: string }[] = [
       aria-label="Switch locale"
       aria-describedby="Change locale"
       aria-pressed="false"
-      class="clickable hover:bg-abg-dimmed items-center justify-center rounded-full p-10 flex"
+      class="clickable hover:bg-abg-dimmed flex items-center justify-center rounded-full p-10"
     >
       <Icon name="svg:locale" class="size-20" />
     </button>
 
     <template #popper="{ hide }">
-      <div class="flex flex-col min-w-3xs py-8">
+      <div class="flex min-w-3xs flex-col py-8">
         <button
           v-for="l in availableLocales"
           :key="l.code"
-          class="flex items-center w-full px-16 py-10 hover:bg-gray-50 dark:hover:bg-gray-700 text-14 font-medium transition-colors"
-          :class="[locale === l.code ? 'text-primary' : 'text-gray-900 dark:text-gray-100']"
+          class="text-14 flex w-full items-center px-16 py-10 font-medium transition-colors hover:bg-gray-50 dark:hover:bg-gray-700"
+          :class="[
+            locale === l.code
+              ? 'text-primary'
+              : 'text-gray-900 dark:text-gray-100',
+          ]"
           @click="
             setLocale(l.code);
             hide();
@@ -52,7 +56,7 @@ const availableLocales: { code: 'en' | 'ko'; name: string }[] = [
           <Icon
             v-if="locale === l.code"
             name="solar:check-read-linear"
-            class="size-20 mr-8 text-primary"
+            class="text-primary mr-8 size-20"
           />
           <span :class="{ 'ml-24': locale !== l.code }">{{ l.name }}</span>
         </button>

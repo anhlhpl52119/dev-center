@@ -12,10 +12,7 @@ function openLnbDrawer() {}
         aria-pressed="false"
         @click="openLnbDrawer"
       >
-        <Icon
-          name="svg:menu-mobile"
-          class="text-quiet size-20 align-middle"
-        />
+        <Icon name="svg:menu-mobile" class="text-quiet size-20 align-middle" />
       </button>
 
       <button

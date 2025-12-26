@@ -62,7 +62,7 @@ async function handleSearch(keyword: string) {
       type="text"
       name="search"
       placeholder="검색어를 입력하세요."
-      class="bg-abg-base abd-base-1 h-44 w-full rounded-full px-16 py-12 leading-20 outline-none"
+      class="bg-abg-base border-abd-base h-44 w-full rounded-full border px-16 py-12 leading-20 outline-none"
       @keyup.enter="handleSearch(inputKeyword)"
       @click="show = true"
       @blur="show = true"
@@ -71,30 +71,27 @@ async function handleSearch(keyword: string) {
     <!-- Results -->
     <div
       v-if="show"
-      class="abd-base-1 bg-abg-base rounded-4xl base-shadow absolute z-2 mt-4 h-400 w-full overflow-hidden p-16 flex flex-col"
+      class="border-abd-base bg-abg-base base-shadow absolute z-2 mt-4 flex h-400 w-full flex-col overflow-hidden rounded-4xl border p-16"
     >
-      <div class="mb-8 px-8 font-bold text-muted flex-none">
+      <div class="text-muted mb-8 flex-none px-8 font-bold">
         최신
       </div>
-      <ul class="text-quiet overflow-y-auto flex-1">
+      <ul class="text-quiet flex-1 overflow-y-auto">
         <li
           v-for="(history, index) in searchHistory"
           :key="history"
-          class="hover:bg-abg-dimmed flex items-center justify-between cursor-pointer rounded-lg px-8 py-8"
+          class="hover:bg-abg-dimmed flex cursor-pointer items-center justify-between rounded-lg px-8 py-8"
           @mousedown.prevent
           @click="handleSearch(history)"
         >
           <button
-            class="mr-8 text-quiet hover:text-base"
+            class="text-quiet mr-8 hover:text-base"
             title="삭제"
             @click.stop="removeHistory(index)"
           >
-            <span class="truncate block text-base">{{ history }}</span>
+            <span class="block truncate text-base">{{ history }}</span>
           </button>
-          <Icon
-            name="svg:close"
-            class="size-20"
-          />
+          <Icon name="svg:close" class="size-20" />
         </li>
       </ul>
     </div>

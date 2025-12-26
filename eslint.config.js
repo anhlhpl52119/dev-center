@@ -6,6 +6,7 @@ export default antfu({
     css: true,
     markdown: false,
   },
+  ignores: ['documentation/**/*'],
   vue: {
     overrides: {
       'vue/attribute-hyphenation': ['error', 'never'],

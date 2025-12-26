@@ -28,7 +28,7 @@ const tree = computed(() => convertToTree(props.flatNodes));
   <aside>
     <slot name="trigger" />
 
-    <nav aria-label="'Main navigation'">
+    <nav aria-label="Main navigation">
       <ul class="space-y-2">
         <li v-for="item in tree" :key="item.id">
           <TreeNode

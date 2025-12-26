@@ -16,4 +16,6 @@ export function singleSlash(url: string) {
   }
 }
 
-export const slugify = (s: string) => deburr(s).toLowerCase().replace(/\s+/g, '-');
+export function slugify(s: string) {
+  return deburr(s).toLowerCase().replace(/\s+/g, '-');
+}

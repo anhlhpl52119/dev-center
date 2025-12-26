@@ -28,11 +28,14 @@ export function useRoutesContent() {
     normalizeRoutePath(route.path, locale.value),
   );
 
-  const { data, pending, error } = useAsyncData(slugify(route.path).replace('/', '-'), () =>
-    GetPageByPath({
-      locale: locale.value,
-      path: normalizedPath.value,
-    }));
+  const { data, pending, error } = useAsyncData(
+    slugify(route.path).replace('/', '-'),
+    () =>
+      GetPageByPath({
+        locale: locale.value,
+        path: normalizedPath.value,
+      }),
+  );
 
   const content = computed(
     () => data.value?.pages?.singleByPath?.content ?? '',
