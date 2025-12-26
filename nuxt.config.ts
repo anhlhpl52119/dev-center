@@ -34,6 +34,7 @@ export default defineNuxtConfig({
     {
       path: '~/components',
       pathPrefix: false,
+      pattern: ['**/*/index.ts', '*.vue'],
     },
   ],
   i18n: {
@@ -53,10 +54,7 @@ export default defineNuxtConfig({
     ],
     strategy: 'prefix',
     defaultLocale: 'ko',
-    detectBrowserLanguage: {
-      useCookie: true,
-      cookieKey: 'LOCALE',
-    },
+    detectBrowserLanguage: false,
   },
   icon: {
     mode: 'css',

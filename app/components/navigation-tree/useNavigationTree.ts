@@ -1,17 +1,17 @@
-import type { LNBItem, LNBTree } from './index';
+import type { FlattenedNavigationNode, NavigationTreeNodes } from './index';
 import { isNil, isNotNil } from 'es-toolkit';
 import { PageTreeMode } from '~~/graphql';
 
-export function useLnb() {
+export function useNavigationTree() {
   const { LeftNavigationBarTree } = useGraphqlRequest();
 
   const localePath = useLocalePath();
   const route = useRoute();
   const { locale } = useI18n();
 
-  const rawLnbList = ref<LNBItem[]>([]);
-  const lnbTree = computed<LNBTree[]>(() => convertToTree(rawLnbList.value));
-  const itemIdMap = new Map<number, LNBTree>();
+  const flattenedList = ref<FlattenedNavigationNode[]>([]);
+  const navTree = computed<NavigationTreeNodes[]>(() => convertToTree(flattenedList.value));
+  const nodeIdMap = new Map<number, NavigationTreeNodes>();
 
   async function fetchLnbTreeByPath(path: string) {
     const res = await LeftNavigationBarTree({
@@ -19,39 +19,40 @@ export function useLnb() {
       mode: PageTreeMode.Like,
       path: path ?? '',
     });
-    const raw = res.pages?.tree || [];
 
-    return raw;
+    const flat = res.pages?.tree || [];
+    return flat;
   }
 
-  function convertToTree(flatArr: LNBItem[]): LNBTree[] {
-    const result: LNBTree[] = [];
+  function convertToTree(flatArr: FlattenedNavigationNode[]): NavigationTreeNodes[] {
+    const result: NavigationTreeNodes[] = [];
 
     // Init id map
     flatArr.forEach((i) => {
-      itemIdMap.set(i.id, {
+      nodeIdMap.set(i.id, {
         ...i,
         children: [],
       });
     });
 
     // Build tree
-    Array.from(itemIdMap.values()).forEach((node) => {
+    Array.from(nodeIdMap.values()).forEach((node) => {
       const parentId = node.parent;
       // Root
-      if (isNil(parentId)) {
+      const isRootNode = isNil(parentId);
+      if (isRootNode) {
         result.push(node);
         return;
       }
 
       // child
-      const parentNode = itemIdMap.get(parentId);
-      if (!parentNode) {
+      const parentNode = nodeIdMap.get(parentId);
+      if (isNil(parentNode)) {
       // treat as root
         result.push(node);
       }
       else {
-      // push to parent `children`
+      // push to `children` of parent node
         parentNode.children?.push(node);
       }
     });
@@ -62,7 +63,7 @@ export function useLnb() {
   function findRelatedById(id: number) {
     const result: number[] = [];
     const find = (itemId: number) => {
-      const item = itemIdMap.get(itemId);
+      const item = nodeIdMap.get(itemId);
       if (!item) {
         return;
       }
@@ -78,12 +79,12 @@ export function useLnb() {
   };
 
   function getItemByPath() {
-    return rawLnbList.value.find(i => localePath(`/${i.path}`) === route.path);
+    return flattenedList.value.find(i => localePath(`/${i.path}`) === route.path);
   }
 
   return {
-    lnbTree,
-    rawLnbList,
+    lnbTree: navTree,
+    rawLnbList: flattenedList,
 
     fetchLnbTreeByPath,
     getItemByPath,

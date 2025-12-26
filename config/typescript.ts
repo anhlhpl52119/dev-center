@@ -5,6 +5,6 @@ export const typescript: NuxtConfig['typescript'] = {
     include: [
       '../config/**/*.ts', // relative path base on `.nuxt/tsconfig.app.json`
     ],
-    exclude: ['**/generated/**/*'],
+    exclude: ['../graphql/generated/**'],
   },
 };

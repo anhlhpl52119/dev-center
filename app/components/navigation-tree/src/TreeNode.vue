@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { LNBTree } from './index';
+import type { NavigationTreeNodes } from '../index';
 
 const props = defineProps<{
-  item: LNBTree;
+  item: NavigationTreeNodes;
   isRoot: boolean;
   expandIds: Set<number>;
 }>();
@@ -59,7 +59,7 @@ function toggleExpand(id: number) {
     <template v-if="item.children?.length && isExpanded">
       <ul class="mt-2 space-y-2 pl-16">
         <li v-for="navItem in item.children" :key="navItem.id">
-          <FolderLink2
+          <TreeNode
             :expandIds="expandIds"
             :item="navItem"
             :isRoot="false"

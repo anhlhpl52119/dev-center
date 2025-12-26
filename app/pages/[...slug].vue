@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import MarkdownRenderer from '~/components/markdown/MarkdownRenderer.vue';
 import MarkdownTOC from '~/components/markdown/MarkdownTOC.vue';
 
 definePageMeta({

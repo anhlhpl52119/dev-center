@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import SearchControl from '@/components/headers/SearchControl.vue';
+import UserMenuControl from '@/components/headers/UserMenuControl.vue';
+
 const { screenSmallerOrEq } = useBreakpoints();
 const config = useRuntimeConfig();
 const localePath = useLocalePath();

@@ -1,15 +1,16 @@
 <script setup lang="ts">
-import type { LNBItem } from './index';
+import type { FlattenedNavigationNode } from '../index';
 import { isNil } from 'es-toolkit';
-import { useLnb } from './index';
+import { useNavigationTree } from '../index';
+import TreeNode from './TreeNode.vue';
 
 const props = defineProps<{
-  items: LNBItem[];
+  flatNodes: FlattenedNavigationNode[];
 }>();
 
-const { convertToTree, findRelatedById, getItemByPath } = useLnb();
+const { convertToTree, findRelatedById, getItemByPath } = useNavigationTree();
 const expandedItems = ref<Set<number>>(new Set());
-const tree = computed(() => convertToTree(props.items));
+const tree = computed(() => convertToTree(props.flatNodes));
 
 (() => {
   const lnbItem = getItemByPath();
@@ -30,7 +31,7 @@ const tree = computed(() => convertToTree(props.items));
     <nav aria-label="'Main navigation'">
       <ul class="space-y-2">
         <li v-for="item in tree" :key="item.id">
-          <FolderLink2
+          <TreeNode
             isRoot
             :item="item"
             :expandIds="expandedItems"

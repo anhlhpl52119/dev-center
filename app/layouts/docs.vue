@@ -1,7 +1,8 @@
 <script lang="ts" setup>
-import { useLnb } from '~/components/LNB2';
+import { NavigationTree } from '@/components/navigation-tree';
+import { useNavigationTree } from '~/components/navigation-tree';
 
-const { fetchLnbTreeByPath } = useLnb();
+const { fetchLnbTreeByPath } = useNavigationTree();
 const route = useRoute();
 const { data: lnb } = await useAsyncData(route.path, () =>
   fetchLnbTreeByPath(''));
@@ -15,8 +16,8 @@ const { data: lnb } = await useAsyncData(route.path, () =>
 
     <div class="min-h-[calc(100vh-6.4rem)]">
       <main class="flex mx-auto max-w-1320">
-        <AppLnb2
-          :items="lnb || []"
+        <NavigationTree
+          :flatNodes="lnb || []"
           class="scrollbar-gutter-stable sticky top-64 hidden max-h-[calc(100vh-6.4rem)] w-272 self-start overflow-auto p-24 pt-32 md:block"
         >
           <template #trigger>
@@ -29,7 +30,7 @@ const { data: lnb } = await useAsyncData(route.path, () =>
               <Icon name="svg:menu" class="size-40" />
             </button>
           </template>
-        </AppLnb2>
+        </NavigationTree>
 
         <!-- content -->
         <slot />

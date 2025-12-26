@@ -17,6 +17,7 @@ const config: CodegenConfig = {
         skipTypename: true, // https://the-guild.dev/graphql/codegen/plugins/typescript/typescript#skiptypename
         extractAllFieldsToTypes: true,
         maybeValue: 'T',
+        useTypeImports: true,
       },
     },
   },
