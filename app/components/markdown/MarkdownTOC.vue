@@ -97,8 +97,8 @@ tryOnMounted(() => {
 </script>
 
 <template>
-  <nav>
-    <div class="flex items-center justify-between leading-24">
+  <nav class="flex flex-col">
+    <div class="flex shrink-0 items-center justify-between leading-24">
       <span class="text-15 font-bold">{{ title }}</span>
 
       <button
@@ -114,7 +114,9 @@ tryOnMounted(() => {
       </button>
     </div>
 
-    <ul class="text-quiet text-13 mt-6 leading-22 tracking-[-0.025em]">
+    <ul
+      class="text-quiet text-13 mt-6 grow overflow-y-auto leading-22 tracking-[-0.025em]"
+    >
       <li
         v-for="item in tocItems"
         :key="item.anchor"

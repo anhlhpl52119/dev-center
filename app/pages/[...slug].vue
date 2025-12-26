@@ -20,9 +20,13 @@ const { content, title, description, updatedAt } = useRoutesContent();
     />
 
     <div
-      class="sticky top-64 mt-40 hidden w-204 self-start overflow-hidden lg:block"
+      class="sticky top-64 hidden max-h-[calc(100vh-10rem)] w-204 self-start overflow-y-auto lg:block"
     >
-      <MarkdownTOC :content="content" :title="title" />
+      <MarkdownTOC
+        :content="content"
+        :title="title"
+        class="mt-40 mb-20"
+      />
     </div>
   </div>
 </template>
