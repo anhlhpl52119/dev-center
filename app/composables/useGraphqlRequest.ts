@@ -82,8 +82,7 @@ export function useGraphqlRequest() {
       }
 
       return response.data;
-    }
-    catch (error) {
+    } catch (error) {
       // Re-throw GraphQL errors as-is
       if (error instanceof GraphQLRequestError) {
         throw error;

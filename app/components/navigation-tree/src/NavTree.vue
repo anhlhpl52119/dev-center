@@ -8,18 +8,18 @@ const props = defineProps<{
   flatNodes: FlattenedNavigationNode[];
 }>();
 
-const { convertToTree, findRelatedById, getItemByPath } = useNavigationTree();
-const expandedItems = ref<Set<number>>(new Set());
+const { convertToTree, findRelatedById, getItemByPath, expandedIds }
+  = useNavigationTree();
 const tree = computed(() => convertToTree(props.flatNodes));
 
 (() => {
-  const lnbItem = getItemByPath();
+  const lnbItem = getItemByPath(props.flatNodes);
   if (isNil(lnbItem)) {
     return;
   }
-  const parentIds = findRelatedById(lnbItem.id);
+  const parentIds = findRelatedById(lnbItem.id, props.flatNodes);
   if (parentIds) {
-    parentIds.forEach(id => expandedItems.value.add(id));
+    parentIds.forEach(id => expandedIds.value.add(id));
   }
 })();
 </script>
@@ -31,11 +31,7 @@ const tree = computed(() => convertToTree(props.flatNodes));
     <nav aria-label="Main navigation">
       <ul class="space-y-2">
         <li v-for="item in tree" :key="item.id">
-          <TreeNode
-            isRoot
-            :item="item"
-            :expandIds="expandedItems"
-          />
+          <TreeNode :item="item" />
         </li>
       </ul>
     </nav>

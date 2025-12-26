@@ -22,13 +22,11 @@ export function useShikiHighlight() {
             theme: 'vitesse-light',
           });
           block.outerHTML = html;
-        }
-        catch (e) {
+        } catch (e) {
           console.warn(`Failed to highlight ${lang}:`, e);
         }
       });
-    }
-    catch (e) {
+    } catch (e) {
       console.warn('Shiki highlighter failed to load:', e);
     }
   };

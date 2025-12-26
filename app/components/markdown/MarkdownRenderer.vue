@@ -91,8 +91,7 @@ const md = new MarkdownIt({
 
       if (mdPathname.startsWith('/ko')) {
         return mdPathname.replace('/ko', '/ko/docs');
-      }
-      else if (mdPathname.startsWith('/en')) {
+      } else if (mdPathname.startsWith('/en')) {
         return mdPathname.replace('/en', '/en/docs');
       }
 
@@ -221,8 +220,7 @@ function addCopyButtons() {
           btn.innerHTML
             = '<span class="icon-[solar--copy-linear] size-20 text-gray-600"></span>';
         }, 1000);
-      }
-      catch (err) {
+      } catch (err) {
         console.error('Failed to copy code:', err);
       }
     };

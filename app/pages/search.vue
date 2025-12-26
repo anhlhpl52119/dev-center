@@ -13,30 +13,33 @@ const ipRef = useTemplateRef('ipRef');
 const pageSize = 10;
 const currentPage = ref(Number(route.query?.page) || 1);
 
-const { data, execute } = await useAsyncData('search', () =>
-  SearchPagesByKeyword({
-    locale: locale.value,
-    query: searchKeyword.value || '',
-    page: currentPage.value - 1 || 0,
-    size: pageSize,
-    category: '',
-    inCategory: [
-      '',
-      'mobile',
-      'web',
-      'common',
-      'security',
-      'partners',
-      'PC_new',
-      'multi',
-      'mobile',
-      'mobile',
-      'web',
-      'Store',
-      'bubblyz',
-      'readme',
-    ],
-  }));
+const { data, execute } = await useAsyncData(
+  `SearchPagesByKeyword-${route.query?.keyword}`,
+  () =>
+    SearchPagesByKeyword({
+      locale: locale.value,
+      query: searchKeyword.value || '',
+      page: currentPage.value - 1 || 0,
+      size: pageSize,
+      category: '',
+      inCategory: [
+        '',
+        'mobile',
+        'web',
+        'common',
+        'security',
+        'partners',
+        'PC_new',
+        'multi',
+        'mobile',
+        'mobile',
+        'web',
+        'Store',
+        'bubblyz',
+        'readme',
+      ],
+    }),
+);
 
 const totalPage = computed(() =>
   Math.floor((data.value?.pages?.search?.totalHits ?? 0) / 10),

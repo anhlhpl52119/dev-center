@@ -87,7 +87,7 @@
     @apply text-13 font-mono leading-20;
     &:not(pre code) {
       @apply bg-abg-dimmed rounded-lg px-4 py-2 text-red-500;
-      @apply abd-base-1 border;
+      @apply border-abd-base border;
     }
   }
 

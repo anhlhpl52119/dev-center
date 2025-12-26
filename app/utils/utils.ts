@@ -10,8 +10,7 @@ export function singleSlash(url: string) {
     const normalizedRest = restOfUrl.replace(/\/+/g, '/');
 
     return protocol + normalizedRest;
-  }
-  else {
+  } else {
     return url.replace(/\/+/g, '/');
   }
 }

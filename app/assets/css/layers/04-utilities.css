@@ -1,15 +1,3 @@
-@utility abd-base-* {
-  border-width: --value(integer) px;
-  border-style: solid;
-  border-color: var(--color-abd-base);
-}
-
-@utility abd-active-* {
-  border-width: --value(integer) px;
-  border-style: solid;
-  border-color: var(--color-abd-active);
-}
-
 @utility text-* {
   font-size: calc(var(--spacing) * --value(integer));
 }

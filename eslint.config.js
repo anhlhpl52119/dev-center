@@ -45,5 +45,6 @@ export default antfu({
     'unused-imports/no-unused-vars': 'warn',
     'node/prefer-global/process': 'off',
     'ts/ban-ts-comment': 'off',
+    'style/brace-style': ['error', '1tbs', { allowSingleLine: true }],
   },
 });

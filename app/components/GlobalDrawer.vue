@@ -22,10 +22,10 @@ const { drawerState, close } = useDrawer();
           'left-12': drawerState.position === 'left',
           'right-12': drawerState.position === 'right',
         }"
+        :data-vaul-drawer-direction="drawerState.position"
         data-dismissable-layer=""
         tabindex="-1"
         data-vaul-drawer=""
-        :data-vaul-drawer-direction="drawerState.position"
         data-vaul-delayed-snap-points="false"
         data-vaul-snap-points="false"
       >

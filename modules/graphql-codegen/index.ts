@@ -33,11 +33,9 @@ export default defineNuxtModule({
         console.log(
           `🚀 [graphql-codegen] Generated Completed in ${Date.now() - startTime}ms`,
         );
-      }
-      catch (error: any) {
+      } catch (error: any) {
         console.error('‼️ [graphql-codegen] Module error:', error.message);
-      }
-      finally {
+      } finally {
         isGenerating = false;
       }
     };

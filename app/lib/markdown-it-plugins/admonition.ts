@@ -37,8 +37,7 @@ function AdmonitionPlugin(md: MarkdownIt, options: AdmonitionPluginOps): void {
         `${prefix}-admonition ${prefix}-admonition-${token.info}`,
       ]);
       tokens[idx].attrSet('data-line', String(tokens[idx].map![0]));
-    }
-    else if (token.type === 'admonition_title_open' && tokens[idx]) {
+    } else if (token.type === 'admonition_title_open' && tokens[idx]) {
       tokens[idx].attrPush(['class', `${prefix}-admonition-title`]);
     }
 

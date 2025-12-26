@@ -4,8 +4,10 @@ import { useNavigationTree } from '~/components/navigation-tree';
 
 const { fetchLnbTreeByPath } = useNavigationTree();
 const route = useRoute();
-const { data: lnb } = await useAsyncData(route.path, () =>
-  fetchLnbTreeByPath(''));
+const { data: lnb } = await useAsyncData(
+  `LeftNavigationBarTree-${route.path}`,
+  () => fetchLnbTreeByPath(''),
+);
 </script>
 
 <template>

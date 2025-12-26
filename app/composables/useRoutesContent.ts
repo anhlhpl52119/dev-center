@@ -9,8 +9,7 @@ function normalizeRoutePath(rawPath: string, localeCode?: string) {
     const localizedPrefix = `/${localeCode}`;
     if (sanitized === localizedPrefix) {
       sanitized = '/';
-    }
-    else if (sanitized.startsWith(`${localizedPrefix}/`)) {
+    } else if (sanitized.startsWith(`${localizedPrefix}/`)) {
       sanitized = sanitized.slice(localizedPrefix.length + 1);
     }
   }
@@ -29,7 +28,7 @@ export function useRoutesContent() {
   );
 
   const { data, pending, error } = useAsyncData(
-    slugify(route.path).replace('/', '-'),
+    `GetPageByPath-${route.path}`,
     () =>
       GetPageByPath({
         locale: locale.value,

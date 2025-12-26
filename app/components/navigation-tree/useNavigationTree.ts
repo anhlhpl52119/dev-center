@@ -14,6 +14,15 @@ export function useNavigationTree() {
     convertToTree(flattenedList.value),
   );
   const nodeIdMap = new Map<number, NavigationTreeNodes>();
+  const expandedIds = useState<Set<number>>('nav-tree-expanded-ids', () => new Set());
+
+  function toggleExpand(id: number) {
+    if (expandedIds.value.has(id)) {
+      expandedIds.value.delete(id);
+    } else {
+      expandedIds.value.add(id);
+    }
+  }
 
   async function fetchLnbTreeByPath(path: string) {
     const res = await LeftNavigationBarTree({
@@ -54,8 +63,7 @@ export function useNavigationTree() {
       if (isNil(parentNode)) {
         // treat as root
         result.push(node);
-      }
-      else {
+      } else {
         // push to `children` of parent node
         parentNode.children?.push(node);
       }
@@ -64,10 +72,19 @@ export function useNavigationTree() {
     return result;
   }
 
-  function findRelatedById(id: number) {
+  function findRelatedById(id: number, source?: FlattenedNavigationNode[]) {
     const result: number[] = [];
+    let getItem: (id: number) => FlattenedNavigationNode | NavigationTreeNodes | undefined;
+
+    if (source) {
+      const map = new Map(source.map(i => [i.id, i]));
+      getItem = (itemId: number) => map.get(itemId);
+    } else {
+      getItem = (itemId: number) => nodeIdMap.get(itemId);
+    }
+
     const find = (itemId: number) => {
-      const item = nodeIdMap.get(itemId);
+      const item = getItem(itemId);
       if (!item) {
         return;
       }
@@ -82,8 +99,9 @@ export function useNavigationTree() {
     return result;
   }
 
-  function getItemByPath() {
-    return flattenedList.value.find(
+  function getItemByPath(source?: FlattenedNavigationNode[]) {
+    const list = source ?? flattenedList.value;
+    return list.find(
       i => localePath(`/${i.path}`) === route.path,
     );
   }
@@ -91,7 +109,9 @@ export function useNavigationTree() {
   return {
     lnbTree: navTree,
     rawLnbList: flattenedList,
+    expandedIds: reactive(expandedIds),
 
+    toggleExpand,
     fetchLnbTreeByPath,
     getItemByPath,
     findRelatedById,
